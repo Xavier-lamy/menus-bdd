@@ -33,14 +33,34 @@ h6 {
 * {
     box-sizing: border-box;
 }
+/*Colors*/
+.text {
+    &--light {
+        color: $light;
+    }
+    &--dark {
+        color: $dark;
+    }
+}
+
+/*Backgrounds*/
+.bg- {
+    &-primary {
+        background-color: $primary;
+    }
+    &-secondary {
+        background-color: $secondary;
+    }    
+}
+
 /*Animation: underline when hover*/
-a, .a {
+.link {
     display: inline-block;
     position: relative;
     text-decoration: none;
     color: $text;
     &:hover, :active, :focus {
-        color: $black;
+        color: $text-hover;
     }
     &:after {
         content: '';
@@ -50,7 +70,7 @@ a, .a {
         height: 0.1em;
         bottom: 0;
         left: 0;
-        background-color: $text;
+        background-color: $text-hover;
         transform-origin: bottom right;
         transition: transform 0.3s ease-out;
     }
@@ -58,10 +78,37 @@ a, .a {
         transform: scaleX(1);
         transform-origin: bottom left;
     }
+    &--dark {
+        color: $dark;
+        &:hover, :active, :focus {
+            color: $dark-hover;
+        }
+        &:after {
+            background-color: $dark-hover; 
+        }
+    }
+    &--light {
+        color: $light;
+        &:hover, :active, :focus {
+            color: $light-hover;
+        }
+        &:after {
+            background-color: $light-hover; 
+        }
+    }
 }
+
+header, footer {
+    a {
+        @extend .link, .link--light;
+    }
+}
+
+/*Elements*/
 .list--unstyled {
     list-style: none;
 }
+
 button, .button {
     background-color: $button;
     color: $text;        
@@ -96,15 +143,45 @@ input, textarea {
     opacity: 1;
     font-family: $p-font;
 }
-/*Backgrounds*/
-.bg- {
-    &-primary {
-        background-color: $primary;
+/*Padding and margin*/
+.p {
+    &--3 {
+        padding: 1rem;
     }
-    &-secondary {
-        background-color: $secondary;
-    }    
+    &x--3 {
+        padding: 0rem 1rem;
+    }
+    &r--3 {
+        padding-right: 1rem;
+    }
 }
+
+/*Display*/
+.dsp {
+    &--none {
+        display: none;
+    }
+    &--flex {
+        display: flex;
+    }
+}
+.flxdir {
+    &--col {
+        flex-direction: column;
+    }
+    &--row {
+        flex-direction: row;
+    }
+}
+.justify {
+    &--between {
+        justify-content: space-between;
+    }
+    &--around {
+        justify-content: space-around;
+    }
+}
+
 /*Icons and pictures*/
 .logo {
     margin: 0.5em;
@@ -115,6 +192,7 @@ input, textarea {
 /*Main*/
 .wrapper {
     margin: 5%;
+    min-height: 80vh;
 }
 
 .copyright {
@@ -123,5 +201,14 @@ input, textarea {
     width: 100%;
     small {
         padding: 2em 2em 1em 1em;
+    }
+}
+
+.navbar {
+    li {
+        @extend .px--3;
+    } 
+    i {
+        @extend .pr--3;
     }
 }

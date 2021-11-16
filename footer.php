@@ -1,4 +1,4 @@
-    <footer>
+    <footer class="bg--primary text--light">
         <div class="copyright">
             <small>&copy; Copyright 2021 A La Carte</small>
         </div>

@@ -79,19 +79,37 @@ h6 {
           box-sizing: border-box;
 }
 
+/*Colors*/
+.text--light {
+  color: #d6d6d6;
+}
+
+.text--dark {
+  color: #151515;
+}
+
+/*Backgrounds*/
+.bg--primary {
+  background-color: #294673;
+}
+
+.bg--secondary {
+  background-color: #2f6872;
+}
+
 /*Animation: underline when hover*/
-a, .a {
+.link, header a, footer a {
   display: inline-block;
   position: relative;
   text-decoration: none;
   color: #272525;
 }
 
-a:hover, a :active, a :focus, .a:hover, .a :active, .a :focus {
-  color: #000;
+.link:hover, header a:hover, footer a:hover, .link :active, header a :active, footer a :active, .link :focus, header a :focus, footer a :focus {
+  color: #272525a9;
 }
 
-a:after, .a:after {
+.link:after, header a:after, footer a:after {
   content: '';
   position: absolute;
   width: 100%;
@@ -100,7 +118,7 @@ a:after, .a:after {
   height: 0.1em;
   bottom: 0;
   left: 0;
-  background-color: #272525;
+  background-color: #272525a9;
   -webkit-transform-origin: bottom right;
           transform-origin: bottom right;
   -webkit-transition: -webkit-transform 0.3s ease-out;
@@ -109,13 +127,38 @@ a:after, .a:after {
   transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
 }
 
-a:hover:after, a[aria-current="page"]:after, .a:hover:after, .a[aria-current="page"]:after {
+.link:hover:after, header a:hover:after, footer a:hover:after, .link[aria-current="page"]:after, header a[aria-current="page"]:after, footer a[aria-current="page"]:after {
   -webkit-transform: scaleX(1);
           transform: scaleX(1);
   -webkit-transform-origin: bottom left;
           transform-origin: bottom left;
 }
 
+.link--dark {
+  color: #151515;
+}
+
+.link--dark:hover, .link--dark :active, .link--dark :focus {
+  color: #151515a9;
+}
+
+.link--dark:after {
+  background-color: #151515a9;
+}
+
+.link--light, header a, footer a {
+  color: #d6d6d6;
+}
+
+.link--light:hover, header a:hover, footer a:hover, .link--light :active, header a :active, footer a :active, .link--light :focus, header a :focus, footer a :focus {
+  color: #d6d6d6a9;
+}
+
+.link--light:after, header a:after, footer a:after {
+  background-color: #d6d6d6a9;
+}
+
+/*Elements*/
 .list--unstyled {
   list-style: none;
 }
@@ -183,13 +226,53 @@ input:active, input:focus, textarea:active, textarea:focus {
   font-family: "Montserrat";
 }
 
-/*Backgrounds*/
-.bg--primary {
-  background-color: #294673;
+/*Padding and margin*/
+.p--3 {
+  padding: 1rem;
 }
 
-.bg--secondary {
-  background-color: #2f6872;
+.px--3, .navbar li {
+  padding: 0rem 1rem;
+}
+
+.pr--3, .navbar i {
+  padding-right: 1rem;
+}
+
+/*Display*/
+.dsp--none {
+  display: none;
+}
+
+.dsp--flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.flxdir--col {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.flxdir--row {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.justify--between {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.justify--around {
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 
 /*Icons and pictures*/
@@ -206,6 +289,7 @@ input:active, input:focus, textarea:active, textarea:focus {
 /*Main*/
 .wrapper {
   margin: 5%;
+  min-height: 80vh;
 }
 
 .copyright {
