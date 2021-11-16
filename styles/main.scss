@@ -1,0 +1,127 @@
+@import 'partials/variables', 'partials/fonts';
+
+/*General*/
+body {
+    background-color: $background;
+    color: $text;
+    font-size: $p-medium;
+    font-family: $p-font, sans-serif;
+    margin: 0em;
+    line-height: 2em;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: $h-font, serif;
+}
+h1 {
+    font-size: $h1;
+}
+h2 {
+    font-size: $h2;
+}
+h3 {
+    font-size: $h3;
+}
+h4 {
+    font-size: $h4;
+}
+h5 {
+    font-size: $h5;
+}
+h6 {
+    font-size: $h6;
+}
+* {
+    box-sizing: border-box;
+}
+/*Animation: underline when hover*/
+a, .a {
+    display: inline-block;
+    position: relative;
+    text-decoration: none;
+    color: $text;
+    &:hover, :active, :focus {
+        color: $black;
+    }
+    &:after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        transform: scaleX(0);
+        height: 0.1em;
+        bottom: 0;
+        left: 0;
+        background-color: $text;
+        transform-origin: bottom right;
+        transition: transform 0.3s ease-out;
+    }
+    &:hover:after, &[aria-current="page"]:after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+    }
+}
+.list--unstyled {
+    list-style: none;
+}
+button, .button {
+    background-color: $button;
+    color: $text;        
+    border-style: none;
+    border-radius: 1.6em;
+    display: inline-block;
+    padding: 0.6em 2.1em;
+    transition: transform 0.2s ease-in, background-color 0.2s ease-in;
+    &:hover {
+        cursor: pointer;
+        background-color: $button-hover;
+        text-decoration: none;
+        transform: scale(1.09);
+    }
+    &--lg {
+        display: block;
+        text-align: center;
+    }
+}
+input, textarea {
+    background-color: $secondary;
+    border: none;
+    color: $text;
+    margin: 0em 1em ;
+    &:active, &:focus {
+        box-shadow: none;
+        outline: none;
+    }
+}
+::placeholder {
+    color: $text;
+    opacity: 1;
+    font-family: $p-font;
+}
+/*Backgrounds*/
+.bg- {
+    &-primary {
+        background-color: $primary;
+    }
+    &-secondary {
+        background-color: $secondary;
+    }    
+}
+/*Icons and pictures*/
+.logo {
+    margin: 0.5em;
+    width: fit-content;
+    height: fit-content;      
+}
+
+/*Main*/
+.wrapper {
+    margin: 5%;
+}
+
+.copyright {
+    display: flex;
+    justify-content: right;
+    width: 100%;
+    small {
+        padding: 2em 2em 1em 1em;
+    }
+}
