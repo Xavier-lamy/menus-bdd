@@ -10,3 +10,5 @@ $query->execute();
 
 //store results in array
 $results = $query->fetchAll();
+
+require_once "./inc/_disconnect.php";
