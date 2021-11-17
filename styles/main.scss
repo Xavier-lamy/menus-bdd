@@ -61,7 +61,10 @@ h6 {
     }
     &-secondary {
         background-color: $secondary;
-    }    
+    }   
+    &--none {
+        background: transparent;
+    } 
 }
 
 /*Padding and margin*/
@@ -165,10 +168,8 @@ button, .button {
     }
 }
 input, textarea {
-    background-color: $secondary;
+    background: transparent;
     border: none;
-    color: $text;
-    margin: 0em 1em ;
     &:active, &:focus {
         box-shadow: none;
         outline: none;
@@ -194,6 +195,9 @@ input, textarea {
     }
     &--flex {
         display: flex;
+    }
+    &--block {
+        display: block;
     }
 }
 .flxdir {
@@ -255,7 +259,9 @@ input, textarea {
         tr:nth-child(even){
             background-color: $light-fade;
         }
-        tr:hover {background-color: $secondary-fade;}
+        tr:hover, tr:active {
+            background-color: $secondary-fade;
+        }
     }
 }
 

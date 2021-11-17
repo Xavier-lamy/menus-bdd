@@ -107,6 +107,10 @@ h6 {
   background-color: #2f6872;
 }
 
+.bg---none {
+  background: transparent;
+}
+
 /*Padding and margin*/
 .p--1 {
   padding: .25rem;
@@ -226,10 +230,8 @@ button--sm, .button--sm {
 }
 
 input, textarea {
-  background-color: #2f6872;
+  background: transparent;
   border: none;
-  color: #272525;
-  margin: 0em 1em;
 }
 
 input:active, input:focus, textarea:active, textarea:focus {
@@ -276,6 +278,10 @@ input:active, input:focus, textarea:active, textarea:focus {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+
+.dsp--block {
+  display: block;
 }
 
 .flxdir--col {
@@ -356,7 +362,7 @@ input:active, input:focus, textarea:active, textarea:focus {
   background-color: #d6d6d6a9;
 }
 
-.table--striped tr:hover {
+.table--striped tr:hover, .table--striped tr:active {
   background-color: #2f6872a9;
 }
 
