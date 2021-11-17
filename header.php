@@ -13,7 +13,7 @@
                 <li><a href="index.php">Home</a></li>
                 <li><a href="#">Menus</a></li>
                 <li><a href="#">Recipes</a></li>
-                <li><a href="#">Stocks</a></li>
+                <li><a href="stocks.php">Stocks</a></li>
             </ul>
             <ul class="navbar__login list--unstyled dsp--flex justify--between">
                 <li><a href="#" aria-label="Register"><i class="fas fa-user-plus fa-lg"></i>Register</a></li>
