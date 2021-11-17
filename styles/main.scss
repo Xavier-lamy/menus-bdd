@@ -42,6 +42,17 @@ h6 {
         color: $dark;
     }
 }
+/*Alignment*/
+.text {
+    &--center {
+        text-align: center;
+    }
+}
+.element {
+    &--center {
+        margin: 0rem auto;
+    }
+}
 
 /*Backgrounds*/
 .bg- {
@@ -51,6 +62,19 @@ h6 {
     &-secondary {
         background-color: $secondary;
     }    
+}
+
+/*Padding and margin*/
+.p {
+    &--3 {
+        padding: 1rem;
+    }
+    &x--3 {
+        padding: 0rem 1rem;
+    }
+    &r--3 {
+        padding-right: 1rem;
+    }
 }
 
 /*Animation: underline when hover*/
@@ -143,16 +167,11 @@ input, textarea {
     opacity: 1;
     font-family: $p-font;
 }
-/*Padding and margin*/
-.p {
-    &--3 {
-        padding: 1rem;
-    }
-    &x--3 {
-        padding: 0rem 1rem;
-    }
-    &r--3 {
-        padding-right: 1rem;
+
+/*Border*/
+.border {
+    &--top {
+        border-top: .05rem $text--light solid;
     }
 }
 
@@ -181,12 +200,32 @@ input, textarea {
         justify-content: space-around;
     }
 }
+.w {
+    &--30 {
+        width: 30%;
+    }
+    &--40 {
+        width: 40%;
+    }
+    &--50 {
+        width: 50%;
+    }
+    &--100 {
+        width: 100%;
+    }
+}
 
 /*Icons and pictures*/
 .logo {
     margin: 0.5em;
     width: fit-content;
     height: fit-content;      
+}
+
+/*Tables*/
+.table {
+    table-layout: fixed;
+    border-collapse: collapse;
 }
 
 /*Main*/

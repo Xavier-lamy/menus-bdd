@@ -88,6 +88,15 @@ h6 {
   color: #151515;
 }
 
+/*Alignment*/
+.text--center {
+  text-align: center;
+}
+
+.element--center {
+  margin: 0rem auto;
+}
+
 /*Backgrounds*/
 .bg--primary {
   background-color: #294673;
@@ -95,6 +104,19 @@ h6 {
 
 .bg--secondary {
   background-color: #2f6872;
+}
+
+/*Padding and margin*/
+.p--3 {
+  padding: 1rem;
+}
+
+.px--3, .navbar li {
+  padding: 0rem 1rem;
+}
+
+.pr--3, .navbar i {
+  padding-right: 1rem;
 }
 
 /*Animation: underline when hover*/
@@ -226,17 +248,9 @@ input:active, input:focus, textarea:active, textarea:focus {
   font-family: "Montserrat";
 }
 
-/*Padding and margin*/
-.p--3 {
-  padding: 1rem;
-}
-
-.px--3, .navbar li {
-  padding: 0rem 1rem;
-}
-
-.pr--3, .navbar i {
-  padding-right: 1rem;
+/*Border*/
+.border--top {
+  border-top: 0.05rem #272525 solid;
 }
 
 /*Display*/
@@ -275,6 +289,22 @@ input:active, input:focus, textarea:active, textarea:focus {
       justify-content: space-around;
 }
 
+.w--30 {
+  width: 30%;
+}
+
+.w--40 {
+  width: 40%;
+}
+
+.w--50 {
+  width: 50%;
+}
+
+.w--100 {
+  width: 100%;
+}
+
 /*Icons and pictures*/
 .logo {
   margin: 0.5em;
@@ -284,6 +314,12 @@ input:active, input:focus, textarea:active, textarea:focus {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
+}
+
+/*Tables*/
+.table {
+  table-layout: fixed;
+  border-collapse: collapse;
 }
 
 /*Main*/
