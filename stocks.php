@@ -5,26 +5,23 @@
 
     if( isset($_GET) && !empty($_GET) ){
 
-        //Cleaning the id, to protect against sql injections
+        //Cleaning the id
         $id = strip_tags($_GET['id']);
 
-        //preparing query
-        $sql = 'SELECT * FROM `stocks` WHERE `id`= :id';
-        $query = $db->prepare($sql);
-
-        $query->bindParam(':id', $id, PDO::PARAM_INT);
-
-        //executing query
-        $query->execute();
-
-        //store results in array
-        $selected_product = $query->fetch();
-
-        require_once "./inc/_disconnect.php";
-
+        //Check if $id is in one of the result of the query results
+        $is_selected_product = function($results, $id) {
+            foreach ($results as $result) {
+                if ($result['id']==$id) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        };
+        
         //Define the product ID
-        if($selected_product) {
-            $selected_product_id = $selected_product['id'];
+        if($is_selected_product) {
+            $selected_product_id = $id;
         }else {
             $selected_product_id = "";
             //Redirect if no ID is set
