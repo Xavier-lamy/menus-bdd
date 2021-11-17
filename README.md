@@ -25,31 +25,31 @@
 + De la même façon il n'y a que des DLC et pas de différenciation avec les DLUO dans un premier temps
 + Modèle avec les types de données et des exemples:
 
-| Id | Ingredient | Quantity | QuantityName          | DLC |
+| id | ingredient | quantity | quantity_name          | useby_date |
 |----|------------|----------|-----------------------|-----|
 |INT | VARCHAR(40)| INT      |     VARCHAR(30)       | DATE|
-|UNSIGNED|NOT NULL| NOT NULL |     NOT NULL          |     |
+|UNSIGNED|NOT NULL| NOT NULL |     NOT NULL          | NOT NULL |
 |AUTO_INCREMENT|  | UNSIGNED |                       |     |
 |PRIMARY KEY|     |          |                       |     |
-|1   |  Farine    |     200  |       grammes         |  2023-02-04   |
-|2   |  Oeufs     |     15   |       unités          |  2021-11-26   |
-|3   |  Sucre     |     300  |       grammes         |  2022-06-24   |
-|4   |  Lait      |      30  |       centilitres     |  2021-12-12   |
-|5   |  Lait      |     100  |       centilitres     |  2021-12-12   |
+|1   |  farine    |     200  |       grammes         |  2023-02-04   |
+|2   |  oeufs     |     15   |       unités          |  2021-11-26   |
+|3   |  sucre     |     300  |       grammes         |  2022-06-24   |
+|4   |  lait      |      30  |       centilitres     |  2021-12-12   |
+|5   |  lait      |     100  |       centilitres     |  2021-12-25   |
 
 
 ### Table 'commands'
 + Elle reprend les même ingrédients mais avec cette fois leur quantité totale indépendamment de la date
 + Dans celle ci le nom des ingrédients doit être unique, exceptionnelement ce sera le nom des ingrédients qui servira de liens entre les 2 tables, liens à établir entre les deux tables : quand un ingrédient avec une date est ajouté ou retiré à 'stocks' on le modifie également dans la quantité totale de 'commands'
 
-| Id | Ingredient | Quantity | QuantityName          | alertStock     | MustBuy |
+| id | ingredient | quantity | quantity_name          | alert_stock     | must_buy |
 |----|------------|----------|-----------------------|----------------|---------|
 |INT | VARCHAR(40)| INT      |     VARCHAR(30)       |  INT           | BIT     |
 |UNSIGNED|NOT NULL| NOT NULL |     NOT NULL          |  NOT NULL      | NOT NULL|
 |AUTO_INCREMENT| UNIQUE | UNSIGNED |                 |  UNSIGNED      |         |
 |PRIMARY KEY|     |          |                       |                |         |
-|1   |  Farine    |     200  |       grammes         |       300      |    1    |
-|2   |  Oeufs     |     15   |       unités          |        10      |    0    |
-|3   |  Sucre     |     300  |       grammes         |        200     |    0    |
-|4   |  Lait      |     130  |       centilitres     |        50      |    0    |
+|1   |  farine    |     200  |       grammes         |       300      |    1    |
+|2   |  oeufs     |     15   |       unités          |        10      |    0    |
+|3   |  sucre     |     300  |       grammes         |        200     |    0    |
+|4   |  lait      |     130  |       centilitres     |        50      |    0    |
 
