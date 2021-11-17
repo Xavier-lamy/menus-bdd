@@ -2,6 +2,7 @@
 /*Fonts*/
 /*Colors*/
 /*Fonts size*/
+/*General design*/
 /**Fonts**/
 @font-face {
   font-family: "Domine";
@@ -38,7 +39,7 @@
 
 /*General*/
 body {
-  background-color: #e4d7d7;
+  background-color: #f0f0f0;
   color: #272525;
   font-size: 0.9em;
   font-family: "Montserrat", sans-serif;
@@ -107,6 +108,14 @@ h6 {
 }
 
 /*Padding and margin*/
+.p--1 {
+  padding: .25rem;
+}
+
+.p--2 {
+  padding: .5rem;
+}
+
 .p--3 {
   padding: 1rem;
 }
@@ -185,20 +194,21 @@ h6 {
   list-style: none;
 }
 
-button, .button {
+button, .button, button--lg, .button--lg, button--sm, .button--sm {
   background-color: #294673;
-  color: #272525;
+  color: #d6d6d6;
+  text-decoration: none;
   border-style: none;
-  border-radius: 1.6em;
+  border-radius: 0.8rem;
   display: inline-block;
-  padding: 0.6em 2.1em;
+  padding: .4rem .1rem;
   -webkit-transition: background-color 0.2s ease-in, -webkit-transform 0.2s ease-in;
   transition: background-color 0.2s ease-in, -webkit-transform 0.2s ease-in;
   transition: transform 0.2s ease-in, background-color 0.2s ease-in;
   transition: transform 0.2s ease-in, background-color 0.2s ease-in, -webkit-transform 0.2s ease-in;
 }
 
-button:hover, .button:hover {
+button:hover, .button:hover, button--lg:hover, .button--lg:hover, button--sm:hover, .button--sm:hover {
   cursor: pointer;
   background-color: #213e69;
   text-decoration: none;
@@ -209,6 +219,10 @@ button:hover, .button:hover {
 button--lg, .button--lg {
   display: block;
   text-align: center;
+}
+
+button--sm, .button--sm {
+  padding: .2rem .4rem;
 }
 
 input, textarea {
@@ -250,7 +264,7 @@ input:active, input:focus, textarea:active, textarea:focus {
 
 /*Border*/
 .border--top {
-  border-top: 0.05rem #272525 solid;
+  border-top: 0.5px solid #151515;
 }
 
 /*Display*/
@@ -289,8 +303,20 @@ input:active, input:focus, textarea:active, textarea:focus {
       justify-content: space-around;
 }
 
+.w--15 {
+  width: 15%;
+}
+
+.w--25 {
+  width: 25%;
+}
+
 .w--30 {
   width: 30%;
+}
+
+.w--35 {
+  width: 35%;
 }
 
 .w--40 {
@@ -317,9 +343,21 @@ input:active, input:focus, textarea:active, textarea:focus {
 }
 
 /*Tables*/
-.table {
+.table, .table--striped {
   table-layout: fixed;
   border-collapse: collapse;
+}
+
+.table--striped th {
+  padding: .25rem 0rem;
+}
+
+.table--striped tr:nth-child(even) {
+  background-color: #d6d6d6a9;
+}
+
+.table--striped tr:hover {
+  background-color: #2f6872a9;
 }
 
 /*Main*/

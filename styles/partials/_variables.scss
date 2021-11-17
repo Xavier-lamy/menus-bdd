@@ -7,15 +7,16 @@ $p-font: "Montserrat";
 /*Colors*/
 $primary: #294673;
 $secondary: #2f6872;
+$secondary-fade: #2f6872a9;
 $button: #294673;
-$button-hover: #213e69;
-$background: #e4d7d7;
+$button-fade: #213e69;
+$background: #f0f0f0;
 $text: #272525;
-$text-hover: #272525a9;
+$text-fade: #272525a9;
 $dark: #151515;
-$dark-hover: #151515a9;
+$dark-fade: #151515a9;
 $light: #d6d6d6;
-$light-hover: #d6d6d6a9;
+$light-fade: #d6d6d6a9;
 
 /*Fonts size*/
 $h1: 3em;
@@ -27,3 +28,6 @@ $h6: 1.2em;
 $p-large: 1.1em;
 $p-medium: 0.9em;
 $p-small: 0.8em;
+
+/*General design*/
+$border-radius: 0.8rem;

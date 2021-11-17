@@ -66,6 +66,12 @@ h6 {
 
 /*Padding and margin*/
 .p {
+    &--1 {
+        padding: .25rem;
+    }
+    &--2 {
+        padding: .5rem;
+    }
     &--3 {
         padding: 1rem;
     }
@@ -84,7 +90,7 @@ h6 {
     text-decoration: none;
     color: $text;
     &:hover, :active, :focus {
-        color: $text-hover;
+        color: $text-fade;
     }
     &:after {
         content: '';
@@ -94,7 +100,7 @@ h6 {
         height: 0.1em;
         bottom: 0;
         left: 0;
-        background-color: $text-hover;
+        background-color: $text-fade;
         transform-origin: bottom right;
         transition: transform 0.3s ease-out;
     }
@@ -105,19 +111,19 @@ h6 {
     &--dark {
         color: $dark;
         &:hover, :active, :focus {
-            color: $dark-hover;
+            color: $dark-fade;
         }
         &:after {
-            background-color: $dark-hover; 
+            background-color: $dark-fade; 
         }
     }
     &--light {
         color: $light;
         &:hover, :active, :focus {
-            color: $light-hover;
+            color: $light-fade;
         }
         &:after {
-            background-color: $light-hover; 
+            background-color: $light-fade; 
         }
     }
 }
@@ -135,21 +141,27 @@ header, footer {
 
 button, .button {
     background-color: $button;
-    color: $text;        
+    color: $light;
+    text-decoration: none;        
     border-style: none;
-    border-radius: 1.6em;
+    border-radius: $border-radius;
     display: inline-block;
-    padding: 0.6em 2.1em;
+    padding: .4rem .1rem;
     transition: transform 0.2s ease-in, background-color 0.2s ease-in;
     &:hover {
         cursor: pointer;
-        background-color: $button-hover;
+        background-color: $button-fade;
         text-decoration: none;
         transform: scale(1.09);
     }
     &--lg {
+        @extend .button;
         display: block;
         text-align: center;
+    }
+    &--sm {
+        @extend .button;
+        padding: .2rem .4rem;
     }
 }
 input, textarea {
@@ -171,7 +183,7 @@ input, textarea {
 /*Border*/
 .border {
     &--top {
-        border-top: .05rem $text--light solid;
+        border-top: 0.5px solid $dark;
     }
 }
 
@@ -201,8 +213,17 @@ input, textarea {
     }
 }
 .w {
+    &--15 {
+        width: 15%;
+    }
+    &--25 {
+        width: 25%;
+    }
     &--30 {
         width: 30%;
+    }
+    &--35 {
+        width: 35%;
     }
     &--40 {
         width: 40%;
@@ -226,6 +247,16 @@ input, textarea {
 .table {
     table-layout: fixed;
     border-collapse: collapse;
+    &--striped {
+        @extend .table;
+        th {
+            padding: .25rem 0rem;
+        }
+        tr:nth-child(even){
+            background-color: $light-fade;
+        }
+        tr:hover {background-color: $secondary-fade;}
+    }
 }
 
 /*Main*/
