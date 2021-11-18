@@ -1,8 +1,11 @@
 # Projet Menus
 
-+ L'objectif final est de réaliser un site pour gérer les menus d'un resto (ou personnels), avec en base de données la possibilité de gérer les stocks de marchandises, les menus prévus pour les semaines à venir, les recettes liées à ces menus, qu'on peut ensuite lier à notre gestion des stocks, et une interface d'administration pour avoir les pleins pouvoirs même sur la création et suppression des tables. Le projet dans sa version finale sera réalisé sous Laravel
+> note: Le dossier _databases est un dossier temporaire uniquement pour envoyer les tables pour le projet git, à l'avenir elles seront disponibles via des migrations.
 
-+ Dans un premier temps l'objectif est de faire une version simplifiée en PHP vanilla (pour des particuliers qui souhaitent faire leur course en fonction des stocks restant chez eux) avec 2 tables: la table des stocks et celle des produits à acheter:
+## Définition du projet de base
++ L'objectif final est de réaliser un site (avec laravel) pour gérer les menus d'un resto (ou personnels), avec en base de données la possibilité de gérer les stocks de marchandises, les menus prévus pour les semaines à venir, les recettes liées à ces menus, qu'on peut ensuite lier à notre gestion des stocks, et une interface d'administration pour avoir les pleins pouvoirs même sur la création et suppression des tables. Le projet dans sa version finale sera réalisé sous Laravel
+
++ Dans un premier temps l'objectif est de faire une version simplifiée en PHP vanilla (pour des particuliers qui souhaitent faire leur course en fonction des stocks restant chez eux) avec 2 tables: la table des stocks et celle des produits à acheter (liste de course créé automatiquement à partir des stocks d'alerte):
 
 + Quand le particulier souhaite savoir quelles produits il doit acheter cette semaine:
     - il doit pouvoir entrer la liste des ingrédients qu'il a besoin
