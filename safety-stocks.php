@@ -54,10 +54,17 @@
                         $_SESSION['error'] = '';
                     ?>
                 </div>
+            <?php elseif(isset($_SESSION['success']) && !empty($_SESSION['success'])): ?>
+                <div class="alert--success my--2 p--2">
+                    <?php 
+                        echo $_SESSION['success']; 
+                        $_SESSION['success'] = '';
+                    ?>
+                </div>
             <?php endif; ?>
-            
+
             <?php if(isset($selected_product_id) && !empty($selected_product_id)): ?>
-                <form method="POST" action="modify.php" id="modify_product_form"></form>
+                <form method="POST" action="./inc/_update.php" id="modify_product_form"></form>
             <?php endif; ?>
             <table class="element--center table--striped w--100">
                 <thead class="w--100 bg--secondary text--light">
