@@ -58,10 +58,17 @@
                         $_SESSION['error'] = '';
                     ?>
                 </div>
+            <?php elseif(isset($_SESSION['success']) && !empty($_SESSION['success'])): ?>
+                <div class="alert--success my--2 p--2">
+                    <?php 
+                        echo $_SESSION['success']; 
+                        $_SESSION['success'] = '';
+                    ?>
+                </div>
             <?php endif; ?>
-            
+
             <?php if(isset($selected_product_id) && !empty($selected_product_id)): ?>
-                <form method="POST" action="modify.php" id="modify_product_form"></form>
+                <form method="POST" action="./inc/_update.php" id="modify_product_form"></form>
             <?php endif; ?>
             <table class="element--center table--striped w--100">
                 <thead class="w--100 bg--secondary text--light">
@@ -74,9 +81,7 @@
                     <?php foreach ($results as $product): ?>
                         <?php if($product['stocks_id']== $selected_product_id): ?>
                             <tr>
-                                <td class="text--center p--1">
-                                    <input type="text" minlength="1" maxlength="40" name="ingredient" form="modify_product_form" class="text--center" value="<? echo $product['ingredient']; ?>" required>
-                                </td>
+                                <td class="text--center p--1"><? echo $product['ingredient']; ?></td>
                                 <td class="text--center p--1 dsp--flex align--center">
                                     <input type="number" min="0" name="quantity" form="modify_product_form" class="text--center w--50" value="<? echo $product['quantity']; ?>" required>
                                     <span class="w--50"><?php echo ' ' . $product['quantity_name']; ?></span>
@@ -86,6 +91,7 @@
                                 </td>
                                 <td class="text--center p--1">
                                     <input type="hidden" name="stocks_id" form="modify_product_form" value="<?php echo $product['stocks_id'] ?>" required>
+                                    <input type="hidden" name="ingredient" form="modify_product_form" value="<?php echo $product['ingredient'] ?>" required>
                                     <button type="submit" form="modify_product_form" class="button--sm">Apply</button>
                                 </td>
                             </tr>
