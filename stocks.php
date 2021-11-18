@@ -34,12 +34,17 @@
 ?>
 <?php include 'header.php' ;?>
     <div class="wrapper">
-        <main class="element--center">
+        <main class="element--center w--60 _mob_w--100">
             <h1 class="text--center">Stocks</h1>
+            <div class="dsp--flex justify--between">
+                <a href="safety-stocks.php" class="button m--3">Safety stocks</a>
+                <a href="#" class="button m--3">Add ingredient</a>
+                <a href="#" class="button m--3">Delete selection</a>
+            </div>
             <?php if(isset($selected_product_id) && !empty($selected_product_id)): ?>
-                <form method="POST" action="#" id="modify_product_form"></form>
+                <form method="POST" action="modify.php" id="modify_product_form"></form>
             <?php endif; ?>
-            <table class="element--center table--striped w--50 _mob_w--100">
+            <table class="element--center table--striped w--100">
                 <thead class="w--100 bg--secondary text--light">
                     <th class="w--25">Ingredient</th>
                     <th class="w--25">Quantity</th>
@@ -51,18 +56,18 @@
                         <?php if($product['id']== $selected_product_id): ?>
                             <tr>
                                 <td class="text--center p--1">
-                                    <input type="text" name="ingredient" form="modify_product_form" class="text--center bg--none" value="<? echo $product['ingredient']; ?>" required>
+                                    <input type="text" minlength="1" maxlength="40" name="ingredient" form="modify_product_form" class="text--center" value="<? echo $product['ingredient']; ?>" required>
                                 </td>
                                 <td class="text--center p--1 dsp--flex align--center">
-                                    <input type="number" min="0" name="quantity" form="modify_product_form" class="text--center bg--none w--50" value="<? echo $product['quantity']; ?>" required>
+                                    <input type="number" min="0" name="quantity" form="modify_product_form" class="text--center w--50" value="<? echo $product['quantity']; ?>" required>
                                     <span class="w--50"><?php echo ' ' . $product['quantity_name']; ?></span>
                                 </td>
                                 <td class="text--center p--1">
-                                    <input type="date" name="useby_date" form="modify_product_form" class="text--center bg--none" value="<? echo $product['useby_date']; ?>" required>
+                                    <input type="date" name="useby_date" form="modify_product_form" class="text--center" value="<? echo $product['useby_date']; ?>" required>
                                 </td>
                                 <td class="text--center p--1">
                                     <input type="hidden" name="id" form="modify_product_form" value="<?php echo $product['id'] ?>" required>
-                                    <button type="submit" form="modify_product_form" class="button--sm">Validate</button>
+                                    <button type="submit" form="modify_product_form" class="button--sm">Apply</button>
                                 </td>
                             </tr>
                         <?php else: ?>
