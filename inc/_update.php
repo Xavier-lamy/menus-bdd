@@ -91,22 +91,16 @@
                 $update_query->execute();
 
                 //Calculate total quantity of all products with $ingredient as name, in stocks (in stocks this is indeed not a unique value)
-                $sql = "SELECT `quantity` FROM `stocks` WHERE `ingredient` = :ingredient";
+                $sql = "SELECT SUM(`quantity`) FROM `stocks` WHERE `ingredient` = :ingredient";
                 $query = $db->prepare($sql);
 
                 $query->bindValue(':ingredient', $ingredient);
 
                 $query->execute();
 
-                $stock_quantities = $query->fetchAll();
-                $total_quantity = '';
+                $quantity_sum = $query->fetch();
 
-                foreach($stock_quantities as $stock_quantity){
-                    $stock_quantity = (int) $stock_quantity;
-                    $total_quantity += $stock_quantity;
-                }
-
-                var_dump($total_quantity);
+                $total_quantity = $quantity_sum["SUM(`quantity`)"];
 
                 /*Check if ingredient already exist in commands (in case it has been deleted by mistake), 
                 if yes add quantity to commands ingredient quantity and update must buy if necessary, 
