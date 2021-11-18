@@ -208,6 +208,9 @@ h6 {
   padding: .4rem .1rem;
   line-height: 1.5rem;
   vertical-align: middle;
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
   -webkit-transition: background-color 0.2s ease-in, -webkit-transform 0.2s ease-in;
   transition: background-color 0.2s ease-in, -webkit-transform 0.2s ease-in;
   transition: transform 0.2s ease-in, background-color 0.2s ease-in;
