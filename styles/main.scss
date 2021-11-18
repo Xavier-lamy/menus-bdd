@@ -172,7 +172,7 @@ header, footer {
     border-style: none;
     border-radius: $border-radius;
     display: inline-block;
-    padding: .4rem .1rem;
+    padding: .4rem .8rem;
     line-height: 1.5rem;
     vertical-align: middle;
     font-size: inherit;
@@ -274,6 +274,9 @@ input {
     &--50 {
         width: 50%;
     }
+    &--60 {
+        width: 60%;
+    }
     &--100 {
         width: 100%;
     }
@@ -336,7 +339,7 @@ input {
 }
 
 /*Responsive classes*/
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 992px) {
     ._mob_ {
         &w--100 {
             width: 100%;
