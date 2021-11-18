@@ -1,9 +1,15 @@
 <?php 
+    //Connection to db
+    require_once "./inc/_connect.php";
+
     //Read all data from commands
     $sql = "SELECT * FROM `commands`";
     require_once "./inc/_read.php";
 
-    if( isset($_GET) && !empty($_GET) ){
+    //End connection to db   
+    require_once "./inc/_disconnect.php";
+
+    if( isset($_GET['id']) && !empty($_GET['id']) ){
 
         //Cleaning the id
         $id = strip_tags($_GET['id']);
@@ -11,7 +17,7 @@
         //Check if $id is in one of the result of the query results
         $is_selected_product = function($results, $id) {
             foreach ($results as $result) {
-                if ($result['id']==$id) {
+                if ($result['commands_id']==$id) {
                     return true;
                 } else {
                     return false;
@@ -49,7 +55,7 @@
                 </thead>
                 <tbody>
                     <?php foreach ($results as $product): ?>
-                        <?php if($product['id']== $selected_product_id): ?>
+                        <?php if($product['commands_id']== $selected_product_id): ?>
                             <tr>
                                 <td class="text--center p--1"><? echo $product['ingredient']; ?></td>
                                 <td class="text--center p--1"><? echo $product['quantity']. ' ' . $product['quantity_name']; ?></td>
@@ -58,7 +64,7 @@
                                     <span class="w--50"><?php echo ' ' . $product['quantity_name']; ?></span>
                                 </td>
                                 <td class="text--center p--1">
-                                    <input type="hidden" name="id" form="modify_product_form" value="<?php echo $product['id'] ?>" required>
+                                    <input type="hidden" name="id" form="modify_product_form" value="<?php echo $product['commands_id'] ?>" required>
                                     <button type="submit" form="modify_product_form" class="button--sm">Apply</button>
                                 </td>
                             </tr>
@@ -67,7 +73,7 @@
                                 <td class="text--center p--1"><? echo $product['ingredient']; ?></td>
                                 <td class="text--center p--1"><? echo $product['quantity']. ' ' . $product['quantity_name']; ?></td>
                                 <td class="text--center p--1"><? echo $product['alert_stock']. ' ' . $product['quantity_name']; ?></td>
-                                <td class="text--center p--1"><a href="safety-stocks.php?id=<?php echo $product['id'] ?>" class="button--sm">Modify</a></td>
+                                <td class="text--center p--1"><a href="safety-stocks.php?id=<?php echo $product['commands_id'] ?>" class="button--sm">Modify</a></td>
                             </tr>
                         <?php endif; ?>                        
                     <?php endforeach; ?>
