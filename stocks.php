@@ -72,7 +72,7 @@
                                     <input type="date" name="useby_date" form="modify_product_form" class="text--center" value="<? echo $product['useby_date']; ?>" required>
                                 </td>
                                 <td class="text--center p--1">
-                                    <input type="hidden" name="stocks-id" form="modify_product_form" value="<?php echo $product['stocks_id'] ?>" required>
+                                    <input type="hidden" name="stocks_id" form="modify_product_form" value="<?php echo $product['stocks_id'] ?>" required>
                                     <button type="submit" form="modify_product_form" class="button--sm">Apply</button>
                                 </td>
                             </tr>

@@ -64,7 +64,7 @@
                                     <span class="w--50"><?php echo ' ' . $product['quantity_name']; ?></span>
                                 </td>
                                 <td class="text--center p--1">
-                                    <input type="hidden" name="id" form="modify_product_form" value="<?php echo $product['commands_id'] ?>" required>
+                                    <input type="hidden" name="commands_id" form="modify_product_form" value="<?php echo $product['commands_id'] ?>" required>
                                     <button type="submit" form="modify_product_form" class="button--sm">Apply</button>
                                 </td>
                             </tr>
