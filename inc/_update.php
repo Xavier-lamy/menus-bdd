@@ -68,12 +68,14 @@
         elseif(isset($_POST['useby_date']) && !empty($_POST['useby_date'])
             && isset($_POST['stocks_id']) && !empty($_POST['stocks_id'])
             && isset($_POST['ingredient']) && !empty($_POST['ingredient'])
-            && isset($_POST['quantity']) && !empty($_POST['quantity'])){
+            && isset($_POST['quantity']) && !empty($_POST['quantity'])
+            && isset($_POST['quantity_name']) && !empty($_POST['quantity_name'])){
             
             $useby_date = strip_tags($_POST['useby_date']);
             $stocks_id = (int) strip_tags($_POST['stocks_id']);
             $ingredient = strip_tags($_POST['ingredient']);
             $quantity = (int) strip_tags($_POST['quantity']);
+            $quantity_name = strip_tags($_POST['quantity_name']);
 
             //Check if quantity is the type we want:
             if($quantity >= 0 && $quantity <= 100000){
@@ -160,8 +162,24 @@
                     header('Location: ../stocks.php');    
 
                 }else {
-                    //Add ingredient return echo for now
-                    echo "can't add ingredient";
+                    //if doesn't exist in commands add it (for stock_alert add quantity for now, and so must buy should be true (1), customer can change it later)
+                    $sql = "INSERT INTO `commands` (`ingredient`, `quantity`, `quantity_name`, `alert_stock`, `must_buy`)
+                    VALUES (:ingredient, :quantity, :quantity_name, :alert_stock, :must_buy)";
+                    
+                    $insert_query = $db->prepare($sql);
+
+                    $insert_query->bindValue(':ingredient', $ingredient);
+                    $insert_query->bindValue(':quantity', $quantity, PDO::PARAM_INT);
+                    $insert_query->bindValue(':quantity_name', $quantity_name);
+                    $insert_query->bindValue(':alert_stock', $quantity, PDO::PARAM_INT);
+                    $insert_query->bindValue(':must_buy', 1, PDO::PARAM_INT);
+                    
+                    $insert_query->execute();
+
+                    //End connection to db and redirect   
+                    require_once dirname(__DIR__)."/inc/_disconnect.php";
+                    $_SESSION['success'] = 'New ingredient added to stock, you can go to safety stocks to change safety amount';
+                    header('Location: ../stocks.php');
                 }             
             }
             else {
