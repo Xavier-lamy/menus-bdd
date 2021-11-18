@@ -107,6 +107,9 @@ h6 {
     &r--3 {
         margin-right: 1rem;
     }
+    &y--2 {
+        margin: .5rem 0rem;
+    }
 }
 
 /*Animation: underline when hover*/
@@ -161,6 +164,21 @@ header, footer {
 }
 
 /*Elements*/
+.alert {
+    &--error {
+        background-color: $error-fade;
+        color: $error; 
+    }
+    &--warning {
+        background-color: $warning-fade;
+        color: $warning;
+    }
+    &--success {
+        background-color: $success-fade;
+        color: $success;
+    }
+}
+
 .list--unstyled {
     list-style: none;
 }

@@ -1,4 +1,7 @@
 <?php 
+    //Create session
+    session_start();
+
     //Connection to db
     require_once "./inc/_connect.php";
 
@@ -47,6 +50,16 @@
                 <a href="#" class="button m--3">Add ingredient</a>
                 <a href="#" class="button m--3">Delete selection</a>
             </div>
+
+            <?php if(isset($_SESSION['error']) && !empty($_SESSION['error'])): ?>
+                <div class="alert--error my--2 p--2">
+                    <?php 
+                        echo $_SESSION['error']; 
+                        $_SESSION['error'] = '';
+                    ?>
+                </div>
+            <?php endif; ?>
+            
             <?php if(isset($selected_product_id) && !empty($selected_product_id)): ?>
                 <form method="POST" action="modify.php" id="modify_product_form"></form>
             <?php endif; ?>

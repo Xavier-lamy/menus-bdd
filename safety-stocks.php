@@ -1,4 +1,7 @@
 <?php 
+    //Create session
+    session_start();
+
     //Connection to db
     require_once "./inc/_connect.php";
 
@@ -43,6 +46,16 @@
         <main class="element--center w--60 _mob_w--100">
             <h1 class="text--center">Safety stocks</h1>
             <a href="stocks.php" class="button m--3">Return to stocks</a>
+
+            <?php if(isset($_SESSION['error']) && !empty($_SESSION['error'])): ?>
+                <div class="alert--error my--2 p--2">
+                    <?php 
+                        echo $_SESSION['error']; 
+                        $_SESSION['error'] = '';
+                    ?>
+                </div>
+            <?php endif; ?>
+            
             <?php if(isset($selected_product_id) && !empty($selected_product_id)): ?>
                 <form method="POST" action="modify.php" id="modify_product_form"></form>
             <?php endif; ?>
