@@ -6,6 +6,8 @@
         //Connection to db
         require_once dirname(__DIR__)."/inc/_connect.php";
 
+        //Inititalize $nb_deleted:
+        $nb_deleted = 0;
         foreach ($_POST as $id) {
             strip_tags($id);
 
@@ -90,16 +92,16 @@
 
             $query->execute();
 
-            $nb_deleted += $query->rowCount();
+            $nb_deleted += 1;
         }
         //End connection to db   
         require_once dirname(__DIR__)."/inc/_disconnect.php";
 
         //Redirection
         if($nb_deleted == 1){
-            $_SESSION['success'] = `Deletion completed, {$nb_deleted} entry deleted!`;
+            $_SESSION['success'] = "Deletion completed, {$nb_deleted} entry deleted!";
         }else {
-            $_SESSION['success'] = `Deletion completed, {$nb_deleted} entries deleted!`;
+            $_SESSION['success'] = "Deletion completed, {$nb_deleted} entries deleted!";
         }
         header('Location: ../stocks.php');
         exit();
