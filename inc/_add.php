@@ -1,4 +1,7 @@
 <?php
+    //Create session
+    session_start();
+
 if(isset($_POST['ingredient']) && !empty($_POST['ingredient'])
 && isset($_POST['quantity']) && !empty($_POST['quantity'])
 && isset($_POST['quantity_name']) && !empty($_POST['quantity_name'])

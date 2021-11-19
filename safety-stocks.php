@@ -48,7 +48,7 @@
             <a href="stocks.php" class="button m--3">Return to stocks</a>
 
             <?php if(isset($_SESSION['error']) && !empty($_SESSION['error'])): ?>
-                <div class="alert--error my--2 p--2">
+                <div class="alert--message my--2 p--2">
                     <?php 
                         echo $_SESSION['error']; 
                         $_SESSION['error'] = '';

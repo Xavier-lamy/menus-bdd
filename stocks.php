@@ -48,11 +48,11 @@
             <div class="dsp--flex justify--between">
                 <a href="safety-stocks.php" class="button m--3">Safety stocks</a>
                 <a href="stocks.php?param=add_item" class="button m--3">Add ingredient</a>
-                <a href="#" class="button m--3">Delete selection</a>
+                <button type="submit" form="delete_product_form" class="button m--3">Delete selection</button>
             </div>
 
             <?php if(isset($_SESSION['error']) && !empty($_SESSION['error'])): ?>
-                <div class="alert--error my--2 p--2">
+                <div class="alert--message my--2 p--2">
                     <?php 
                         echo $_SESSION['error']; 
                         $_SESSION['error'] = '';
@@ -67,12 +67,14 @@
                 </div>
             <?php endif; ?>
 
+            <!--Modifications forms-->
             <?php if(isset($selected_product_id) && !empty($selected_product_id)): ?>
                 <form method="POST" action="./inc/_update.php" id="modify_product_form"></form>
             <?php endif; ?>
             <?php if( isset($_GET['param']) && $_GET['param'] == 'add_item' ): ?>
                 <form method="POST" action="./inc/_add.php" id="add_product_form"></form>
             <?php endif; ?>
+            <form method="POST" action="delete-confirmation.php" id="delete_product_form"></form>
 
             <table class="element--center table--striped w--100">
                 <thead class="w--100 bg--secondary text--light">
@@ -122,7 +124,10 @@
                                 <td class="text--center p--1"><? echo $product['ingredient']; ?></td>
                                 <td class="text--center p--1"><? echo $product['quantity']. ' ' . $product['quantity_name']; ?></td>
                                 <td class="text--center p--1"><? echo $product['useby_date']; ?></td>
-                                <td class="text--center p--1"><a href="stocks.php?id=<?php echo $product['stocks_id'] ?>" class="button--sm">Modify</a></td>
+                                <td class="text--center p--1">
+                                    <a href="stocks.php?id=<?php echo $product['stocks_id'] ?>" class="button--sm">Modify</a>
+                                    <input type="checkbox" id="<? echo $product['stocks_id']; ?>" name="<? echo $product['stocks_id']; ?>" form="delete_product_form" value="<? echo $product['stocks_id']; ?>">
+                                </td>
                             </tr>
                         <?php endif; ?>                        
                     <?php endforeach; ?>
