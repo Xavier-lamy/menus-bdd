@@ -68,7 +68,7 @@
         elseif(isset($_POST['useby_date']) && !empty($_POST['useby_date'])
             && isset($_POST['stocks_id']) && !empty($_POST['stocks_id'])
             && isset($_POST['ingredient']) && !empty($_POST['ingredient'])
-            && isset($_POST['quantity']) && !empty($_POST['quantity'])
+            && isset($_POST['quantity']) && (!empty($_POST['quantity'])||$_POST['quantity']==0)
             && isset($_POST['quantity_name']) && !empty($_POST['quantity_name'])){
             
             $useby_date = strip_tags($_POST['useby_date']);
