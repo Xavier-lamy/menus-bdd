@@ -77,10 +77,10 @@
                     <?php foreach ($results as $product): ?>
                         <?php if($product['commands_id']== $selected_product_id): ?>
                             <tr>
-                                <td class="text--center p--1"><? echo $product['ingredient']; ?></td>
-                                <td class="text--center p--1"><? echo $product['quantity']. ' ' . $product['quantity_name']; ?></td>
+                                <td class="text--center p--1"><?php echo $product['ingredient']; ?></td>
+                                <td class="text--center p--1"><?php echo $product['quantity']. ' ' . $product['quantity_name']; ?></td>
                                 <td class="text--center p--1 dsp--flex align--center">
-                                    <input type="number" min="0" name="alert_stock" form="modify_product_form" class="text--center w--50" value="<? echo $product['alert_stock']; ?>" required>
+                                    <input type="number" min="0" name="alert_stock" form="modify_product_form" class="text--center w--50" value="<?php echo $product['alert_stock']; ?>" required>
                                     <span class="w--50"><?php echo ' ' . $product['quantity_name']; ?></span>
                                 </td>
                                 <td class="text--center p--1">
@@ -90,9 +90,9 @@
                             </tr>
                         <?php else: ?>
                             <tr>
-                                <td class="text--center p--1"><? echo $product['ingredient']; ?></td>
-                                <td class="text--center p--1"><? echo $product['quantity']. ' ' . $product['quantity_name']; ?></td>
-                                <td class="text--center p--1"><? echo $product['alert_stock']. ' ' . $product['quantity_name']; ?></td>
+                                <td class="text--center p--1"><?php echo $product['ingredient']; ?></td>
+                                <td class="text--center p--1"><?php echo $product['quantity']. ' ' . $product['quantity_name']; ?></td>
+                                <td class="text--center p--1"><?php echo $product['alert_stock']. ' ' . $product['quantity_name']; ?></td>
                                 <td class="text--center p--1"><a href="safety-stocks.php?id=<?php echo $product['commands_id'] ?>" class="button--sm">Modify</a></td>
                             </tr>
                         <?php endif; ?>                        

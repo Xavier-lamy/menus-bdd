@@ -73,10 +73,10 @@
                 <tbody>
                     <?php foreach ($results as $product): ?>
                             <tr>
-                                <td class="text--center p--1"><? echo $product['ingredient']; ?></td>
-                                <td class="text--center p--1"><? echo $product['quantity']. ' ' . $product['quantity_name']; ?></td>
+                                <td class="text--center p--1"><?php echo $product['ingredient']; ?></td>
+                                <td class="text--center p--1"><?php echo $product['quantity']. ' ' . $product['quantity_name']; ?></td>
                                 <td class="text--center p--1">
-                                    <? echo $product['useby_date']; ?>
+                                    <?php echo $product['useby_date']; ?>
                                     <input type="hidden" name="<?php echo $product['stocks_id'] ?>" form="confirm_deletion_form" value="<?php echo $product['stocks_id'] ?>" required>
                                 </td>
                             </tr>                      

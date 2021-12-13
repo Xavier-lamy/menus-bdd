@@ -104,13 +104,13 @@
                     <?php foreach ($results as $product): ?>
                         <?php if($product['stocks_id']== $selected_product_id): ?>
                             <tr>
-                                <td class="text--center p--1"><? echo $product['ingredient']; ?></td>
+                                <td class="text--center p--1"><?php echo $product['ingredient']; ?></td>
                                 <td class="text--center p--1 dsp--flex align--center">
-                                    <input type="number" aria-label="Quantity" min="0" name="quantity" form="modify_product_form" class="text--center w--50" value="<? echo $product['quantity']; ?>" required>
+                                    <input type="number" aria-label="Quantity" min="0" name="quantity" form="modify_product_form" class="text--center w--50" value="<?php echo $product['quantity']; ?>" required>
                                     <span class="w--50"><?php echo ' ' . $product['quantity_name']; ?></span>
                                 </td>
                                 <td class="text--center p--1">
-                                    <input type="date" min="2000-01-01" max="3000-01-01" aria-label="Useby date" name="useby_date" form="modify_product_form" class="text--center" value="<? echo $product['useby_date']; ?>" required>
+                                    <input type="date" min="2000-01-01" max="3000-01-01" aria-label="Useby date" name="useby_date" form="modify_product_form" class="text--center" value="<?php echo $product['useby_date']; ?>" required>
                                 </td>
                                 <td class="text--center p--1">
                                     <input type="hidden" name="stocks_id" form="modify_product_form" value="<?php echo $product['stocks_id'] ?>" required>
@@ -121,12 +121,12 @@
                             </tr>
                         <?php else: ?>
                             <tr>
-                                <td class="text--center p--1"><? echo $product['ingredient']; ?></td>
-                                <td class="text--center p--1"><? echo $product['quantity']. ' ' . $product['quantity_name']; ?></td>
-                                <td class="text--center p--1"><? echo $product['useby_date']; ?></td>
+                                <td class="text--center p--1"><?php echo $product['ingredient']; ?></td>
+                                <td class="text--center p--1"><?php echo $product['quantity']. ' ' . $product['quantity_name']; ?></td>
+                                <td class="text--center p--1"><?php echo $product['useby_date']; ?></td>
                                 <td class="text--center p--1">
                                     <a href="stocks.php?id=<?php echo $product['stocks_id'] ?>" class="button--sm">Modify</a>
-                                    <input type="checkbox" id="<? echo $product['stocks_id']; ?>" name="<? echo $product['stocks_id']; ?>" form="delete_product_form" value="<? echo $product['stocks_id']; ?>">
+                                    <input type="checkbox" id="<?php echo $product['stocks_id']; ?>" name="<?php echo $product['stocks_id']; ?>" form="delete_product_form" value="<?php echo $product['stocks_id']; ?>">
                                 </td>
                             </tr>
                         <?php endif; ?>                        
