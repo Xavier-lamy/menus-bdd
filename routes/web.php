@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\HTTP\Controllers\PostController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route:: get('/', [PostController::class, 'index'])->name('front');
+Route:: get('/stocks', [PostController::class, 'show_stocks'])->name('stocks');
+Route:: get('/safety-stocks', [PostController::class, 'show_safety_stocks'])->name('safety-stocks');
