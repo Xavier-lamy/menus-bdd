@@ -6,15 +6,16 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    //Define returning views functions
     public function index() {
         return view('front');
     }
 
-    public function show_stocks() {
+    public function stocks() {
         return view('stocks');
     }
 
-    public function show_safety_stocks() {
+    public function safety_stocks() {
         return view('safety-stocks');
     }
 }

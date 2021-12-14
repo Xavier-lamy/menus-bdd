@@ -16,5 +16,5 @@ use App\HTTP\Controllers\PostController;
 */
 
 Route:: get('/', [PostController::class, 'index'])->name('front');
-Route:: get('/stocks', [PostController::class, 'show_stocks'])->name('stocks');
-Route:: get('/safety-stocks', [PostController::class, 'show_safety_stocks'])->name('safety-stocks');
+Route:: get('/stocks', [PostController::class, 'stocks'])->name('stocks');
+Route:: get('/safety-stocks', [PostController::class, 'safety_stocks'])->name('safety-stocks');
