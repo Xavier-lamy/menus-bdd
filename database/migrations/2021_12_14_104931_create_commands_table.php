@@ -15,7 +15,7 @@ class CreateCommandsTable extends Migration
     {
         Schema::create('commands', function (Blueprint $table) {
             $table->id('commands_id');
-            $table->string('ingredient', 60);
+            $table->string('ingredient', 60)->unique();
             $table->unsignedInteger('quantity');
             $table->string('quantity_name', 40);
             $table->unsignedInteger('alert_stock');
