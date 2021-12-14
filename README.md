@@ -27,18 +27,19 @@
 + La gestion des stocks par défaut sera un déclenchement des commandes basé sur un stock d'alerte pour simplifier il n'y aura pas d'autre type de stock dans un premier temps (stock saisonnier, commande régulière,...)
 + De la même façon il n'y a que des DLC et pas de différenciation avec les DLUO dans un premier temps
 + Modèle avec les types de données et des exemples:
++ Ajout d'une colonne commands_id pour relier cette table à la table commands
 
-| id | ingredient | quantity | quantity_name          | useby_date |
-|----|------------|----------|-----------------------|-----|
-|INT | VARCHAR(40)| INT      |     VARCHAR(30)       | DATE|
-|UNSIGNED|NOT NULL| NOT NULL |     NOT NULL          | NOT NULL |
-|AUTO_INCREMENT|  | UNSIGNED |                       |     |
-|PRIMARY KEY|     |          |                       |     |
-|1   |  farine    |     200  |       grammes         |  2023-02-04   |
-|2   |  oeufs     |     15   |       unités          |  2021-11-26   |
-|3   |  sucre     |     300  |       grammes         |  2022-06-24   |
-|4   |  lait      |      30  |       centilitres     |  2021-12-12   |
-|5   |  lait      |     100  |       centilitres     |  2021-12-25   |
+| id | ingredient | commands_id | quantity | quantity_name          | useby_date |
+|----|------------|-------------|----------|-----------------------|-----|
+|INT | VARCHAR(40)|   INT       | INT      |     VARCHAR(30)       | DATE|
+|UNSIGNED|NOT NULL| UNSIGNED    | NOT NULL |     NOT NULL          | NOT NULL |
+|AUTO_INCREMENT|  |             | UNSIGNED |                       |     |
+|PRIMARY KEY|     |             |          |                       |     |
+|1   |  farine    |             |     200  |       grammes         |  2023-02-04   |
+|2   |  oeufs     |             |     15   |       unités          |  2021-11-26   |
+|3   |  sucre     |             |     300  |       grammes         |  2022-06-24   |
+|4   |  lait      |             |      30  |       centilitres     |  2021-12-12   |
+|5   |  lait      |             |     100  |       centilitres     |  2021-12-25   |
 
 
 ### Table 'commands'
