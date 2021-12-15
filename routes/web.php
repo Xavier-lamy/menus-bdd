@@ -22,7 +22,7 @@ Route:: get('/stocks', [FrontController::class, 'show_stocks'])->name('stocks');
 Route:: get('/stocks/create', [FrontController::class, 'create_stock_product'])->name('stock.create');
 Route:: post('/stocks/create', [FrontController::class, 'add_stock_product'])->name('stock.add');
 
-/**For safety-stocks */
-Route:: get('/safety-stocks', [FrontController::class, 'show_safety_stocks'])->name('safety-stocks');
-Route:: get('/safety-stocks/create', [FrontController::class, 'create_command_product'])->name('command.create');
-Route:: post('/safety-stocks/create', [FrontController::class, 'add_command_product'])->name('command.add');
+/**For total-stocks */
+Route:: get('/total-stocks', [FrontController::class, 'show_total_stocks'])->name('total-stocks');
+Route:: get('/total-stocks/create', [FrontController::class, 'create_command_product'])->name('command.create');
+Route:: post('/total-stocks/create', [FrontController::class, 'add_command_product'])->name('command.add');

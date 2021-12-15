@@ -3,7 +3,7 @@
 @section("wrapper")
 <div class="wrapper">
     <main class="element--center w--60 _mob_w--100">
-        <h1 class="text--center">Safety stocks</h1>
+        <h1 class="text--center">Total stocks</h1>
         <div class="dsp--flex justify--between">
             <a href=" {{ route('stocks') }} " class="button m--3">Return to stocks</a>
             <a href=" {{ route('command.create') }} " class="button m--3">Add a new type of product</a>

@@ -5,7 +5,7 @@
     <main class="element--center w--60 _mob_w--100">
         <h1 class="text--center">Stocks</h1>
         <div class="dsp--flex justify--between">
-            <a href=" {{ route('safety-stocks') }} " class="button m--3">Safety stocks</a>
+            <a href=" {{ route('total-stocks') }} " class="button m--3">Total stocks</a>
             <a href=" {{ route('stock.create') }} " class="button m--3">Add ingredient</a>
             <button type="submit" form="delete_product_form" class="button m--3">Delete selection</button>
         </div>
@@ -20,7 +20,7 @@
             </div>
         @elseif(isset($is_creating) && $commands_products->count() < 1)
             <div class="alert--message my--2 p--2">
-                <span>No products are available in safety stocks, please create one first, in order to be able to add products in stocks</span>
+                <span>No products are available in total stocks, please create one first, in order to be able to add products in stocks</span>
             </div>
         @endif
 

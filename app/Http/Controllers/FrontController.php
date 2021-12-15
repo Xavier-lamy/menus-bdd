@@ -64,11 +64,11 @@ class FrontController extends Controller
         return redirect('stocks')->with('success', 'New product added to stocks');
     }
 
-    /**Safety-stocks */
-    public function show_safety_stocks() {
+    /**Total-stocks */
+    public function show_total_stocks() {
         $products = Command::all();
 
-        return view('safety-stocks', [
+        return view('total-stocks', [
             'products' => $products,
         ]);
     }
@@ -77,7 +77,7 @@ class FrontController extends Controller
         $is_creating = true;
         $products = Command::all();
 
-        return view('safety-stocks', [
+        return view('total-stocks', [
             'products' => $products,
             'is_creating' => $is_creating,
         ]);
@@ -93,6 +93,6 @@ class FrontController extends Controller
             'must_buy' => 1,
         ]);
 
-        return redirect('safety-stocks')->with('success', 'Product successfully added !');
+        return redirect('total-stocks')->with('success', 'Product successfully added !');
     }
 }
