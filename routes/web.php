@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\HTTP\Controllers\PostController;
+use App\HTTP\Controllers\FrontController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +15,6 @@ use App\HTTP\Controllers\PostController;
 |
 */
 
-Route:: get('/', [PostController::class, 'index'])->name('front');
-Route:: get('/stocks', [PostController::class, 'stocks'])->name('stocks');
-Route:: get('/safety-stocks', [PostController::class, 'safety_stocks'])->name('safety-stocks');
+Route:: get('/', [FrontController::class, 'index'])->name('front');
+Route:: get('/stocks', [FrontController::class, 'stocks'])->name('stocks');
+Route:: get('/safety-stocks', [FrontController::class, 'show_safety_stocks'])->name('safety-stocks');

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Command;
 use Illuminate\Http\Request;
 
-class PostController extends Controller
+class FrontController extends Controller
 {
     //Define returning views functions
     public function index() {
@@ -15,7 +16,8 @@ class PostController extends Controller
         return view('stocks');
     }
 
-    public function safety_stocks() {
+    public function show_safety_stocks() {
+   /*      $products = Command::all */
         return view('safety-stocks');
     }
 }
