@@ -34,7 +34,11 @@
                                 <td class="text--center p--1">{{ ($product->alert_stock)*1.5 }} {{ $product->quantity_name }}</td>
                             </tr>
                         @endforeach
-                    @endif                   
+                    @else 
+                        <tr>
+                            <td colspan="2" class="text--center">Shopping list is empty</td>
+                        </tr>
+                    @endif                  
                 </tbody>
             </table>
         </main>

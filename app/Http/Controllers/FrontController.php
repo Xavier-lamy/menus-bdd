@@ -221,4 +221,101 @@ class FrontController extends Controller
             return redirect('total-stocks')->with('success', 'Product successfully added !');            
         }
     }
+
+    public function modify_command_product($id) {
+
+        //Amodif
+        $products = Command::all();
+
+        return view('total-stocks', [
+            'products' => $products,
+            'modifying_product_id' => $id,
+        ]);
+    }
+
+    public function apply_command_product_modifications(Request $request) {
+
+        //Modify commands: ingredient, unit and alert-stock
+        $command_id = $request->id;
+        $commands_product = Command::find($command_id);
+        $command_ingredient = $request->ingredient;
+        $command_quantity_name = $request->quantity_name;
+        $command_alert_stock = $request->alert_stock;
+
+        $commands_product->update([
+            'ingredient' => $command_ingredient,
+            'quantity_name' => $command_quantity_name,
+            'alert_stock' => $command_alert_stock,
+        ]);
+
+        //Check if must_buy
+        $new_commands_product = Command::find($command_id);
+        $new_command_quantity = $new_commands_product->quantity;
+        $new_command_alert_stock = $new_commands_product->alert_stock;
+        if($new_command_quantity <= $new_command_alert_stock){
+            $must_buy = 1;
+        }
+        else {
+            $must_buy = 0;
+        }
+        //Update commands:
+        $new_commands_product->update([
+            'must_buy' => $must_buy,
+        ]);
+
+        //Modify related stock products ingredient name and unit
+        Stock::where('command_id', $command_id)->update([
+            'ingredient' => $command_ingredient,
+            'quantity_name' => $command_quantity_name,
+        ]);
+        
+        return redirect('total-stocks')->with('success', 'Product modified !');
+    }
+
+    public function delete_command_products_confirmation(Request $request){
+        $delete_confirmation = 'commands';
+        $delete_ids = $request->except('_token');
+
+        $products = Command::whereIn('id', $delete_ids)->get();
+
+        if($products->count() > 0){
+            return view('confirmation', [
+                'delete_confirmation' => $delete_confirmation,
+                'products' => $products,
+            ]);            
+        }
+        else {
+            return redirect('total-stocks')->with('message', 'You need to select products first !');
+        }
+    }
+
+    public function delete_command_products(Request $request){
+        $delete_ids = $request->except('_token');
+        $entries_deleted = 0;
+        
+        foreach($delete_ids as $delete_id){
+            // remove product from stocks
+            $stocks_products = Stock::where('command_id', $delete_id);
+
+            $stocks_products->delete();
+
+            //remove entry from total stocks and all related entries in stocks
+            $commands_product = Command::find($delete_id);
+
+            $commands_product->delete();
+            
+            $entries_deleted += 1;
+        }
+
+        if($entries_deleted == 1){
+            return redirect('stocks')->with('success', $entries_deleted . ' entry deleted !');
+        }
+        elseif($entries_deleted > 1){
+            return redirect('stocks')->with('success', $entries_deleted . ' entries deleted !');
+        }
+        else {
+            return redirect('stocks')->with('error', 'There is an error, no entry deleted !');
+        }
+        
+    }
 }

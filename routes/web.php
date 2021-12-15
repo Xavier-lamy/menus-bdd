@@ -30,3 +30,7 @@ Route:: post('/stocks/delete', [FrontController::class, 'delete_stock_products']
 Route:: get('/total-stocks', [FrontController::class, 'show_total_stocks'])->name('total-stocks');
 Route:: get('/total-stocks/create', [FrontController::class, 'create_command_product'])->name('command.create');
 Route:: post('/total-stocks/create', [FrontController::class, 'add_command_product'])->name('command.add');
+Route:: get('/total-stocks/modify/{id}', [FrontController::class, 'modify_command_product'])->name('command.modify');
+Route:: post('/total-stocks/modify', [FrontController::class, 'apply_command_product_modifications'])->name('command.apply');
+Route:: post('/command-delete-confirmation', [FrontController::class, 'delete_command_products_confirmation'])->name('command-delete-confirmation');
+Route:: post('/total-stocks/delete', [FrontController::class, 'delete_command_products'])->name('command.delete');

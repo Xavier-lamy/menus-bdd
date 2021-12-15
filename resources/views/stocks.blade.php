@@ -108,6 +108,10 @@
                             </tr>
                         @endif
                     @endforeach
+                @else 
+                    <tr>
+                        <td colspan="4" class="text--center">Stocks are empty</td>
+                    </tr>
                 @endif
             </tbody>
         </table>

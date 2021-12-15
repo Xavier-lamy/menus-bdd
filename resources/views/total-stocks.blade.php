@@ -7,7 +7,7 @@
         <div class="dsp--flex justify--between">
             <a href=" {{ route('stocks') }} " class="button m--3">Return to stocks</a>
             <a href=" {{ route('command.create') }} " class="button m--3">Add a new type of product</a>
-            <button type="submit" form="delete_product_type_form" class="button m--3">Delete selection</button>
+            <button type="submit" form="delete_product_form" class="button m--3">Delete selection</button>
         </div>
 
         <!--Alerts-->
@@ -27,9 +27,20 @@
         <!--End alerts-->
 
         <!--Forms-->
-        <form method="POST" action=" {{ route('command.add') }} " id="add_product_type_form">
+        @if(isset($is_creating))
+            <form method="POST" action=" {{ route('command.add') }} " id="add_product_type_form">
+                @csrf
+            </form>
+        @elseif(isset($modifying_product_id))
+            <form method="POST" action=" {{ route('command.apply') }} " id="modify_product_form">
+                @csrf
+            </form>
+        @endif
+        <form method="POST" action=" {{ route('command-delete-confirmation') }} " id="delete_product_form">
             @csrf
         </form>
+
+
         <!--End forms-->
 
         <table class="element--center table--striped w--100">
@@ -58,13 +69,38 @@
                 @endisset
                 @if ($products->count() > 0)
                     @foreach($products as $product)
-                        <tr>
-                            <td class="text--center p--1">{{ $product->ingredient }}</td>
-                            <td class="text--center p--1">{{ $product->quantity }} {{ $product->quantity_name }}</td>
-                            <td class="text--center p--1">{{ $product->alert_stock }}</td>
-                            <td class="text--center p--1"><a href="#" class="button--sm">Modify</a></td>
-                        </tr>
+                        @if(isset($modifying_product_id) && $modifying_product_id == $product->id)
+                            <tr>
+                                <td class="text--center p--1">
+                                    <input type="text" aria-label="Ingredient" maxlength="60" minlength="1" name="ingredient" form="modify_product_form" class="text--center" value="{{ $product->ingredient }}" required>
+                                </td>
+                                <td class="text--center p--1">
+                                    <input type="text" aria-label="Unit" maxlength="40" minlength="1" name="quantity_name" form="modify_product_form" class="text--center" value="{{ $product->quantity_name }}" required>
+                                </td>
+                                <td class="text--center p--1">
+                                    <input type="number" min="0" name="alert_stock" form="modify_product_form" class="text--center" value="{{ $product->alert_stock }}" required>
+                                </td>
+                                <td class="text--center p--1">
+                                    <input type="hidden" name="id" form="modify_product_form" value="{{ $product->id }}" required>
+                                    <button type="submit" form="modify_product_form" class="button--sm">Apply</button>
+                                </td>
+                            </tr>
+                        @else 
+                            <tr>
+                                <td class="text--center p--1">{{ $product->ingredient }}</td>
+                                <td class="text--center p--1">{{ $product->quantity }} {{ $product->quantity_name }}</td>
+                                <td class="text--center p--1">{{ $product->alert_stock }}</td>
+                                <td class="text--center p--1">
+                                    <a href=" {{ route('command.modify', ['id' => $product->id]) }} " class="button--sm">Modify</a>
+                                    <input type="checkbox" id="{{ $product->id }}" name="delete_{{ $product->id }}" form="delete_product_form" value="{{ $product->id }}">
+                                </td>
+                            </tr>
+                        @endif
                     @endforeach
+                @else 
+                    <tr>
+                        <td colspan="4" class="text--center">Total stocks are empty</td>
+                    </tr>
                 @endif
             </tbody>
         </table>
