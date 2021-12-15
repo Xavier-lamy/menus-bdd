@@ -17,7 +17,10 @@ class FrontController extends Controller
     }
 
     public function show_safety_stocks() {
-   /*      $products = Command::all */
-        return view('safety-stocks');
+        $products = Command::all();
+
+        return view('safety-stocks', [
+            'products' => $products,
+        ]);
     }
 }
