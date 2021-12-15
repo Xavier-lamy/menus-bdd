@@ -6,8 +6,24 @@
         <h1 class="text--center">Safety stocks</h1>
         <div class="dsp--flex justify--between">
             <a href=" {{ route('stocks') }} " class="button m--3">Return to stocks</a>
-            <a href="#" class="button m--3">Add a new type of product</a>
+            <a href=" {{ route('command.create') }} " class="button m--3">Add a new type of product</a>
         </div>
+
+        @if(session('error') !== null)
+            <div class="alert--message my--2 p--2">
+                {{ session('error') }}
+            </div>
+        @elseif(session('success') !== null)
+            <div class="alert--success my--2 p--2">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        <!--Forms-->
+        <form method="POST" action=" {{ route('command.add') }} " id="add_product_type_form">
+            @csrf
+        </form>
+        <!--End forms-->
 
         <table class="element--center table--striped w--100">
             <thead class="w--100 bg--secondary text--light">
@@ -17,6 +33,22 @@
                 <th class="w--25">Modifications</th>
             </thead>
             <tbody>
+                @isset ($is_creating)
+                    <tr>
+                        <td class="text--center p--1">
+                            <input type="text" aria-label="Ingredient" maxlength="60" minlength="1" name="ingredient" form="add_product_type_form" class="text--center" placeholder="Ingredient" required>
+                        </td>
+                        <td class="text--center p--1">
+                            <input type="text" aria-label="Unit" maxlength="40" minlength="1" name="quantity_name" form="add_product_type_form" class="text--center" placeholder="Unit" required>
+                        </td>
+                        <td class="text--center p--1">
+                            <input type="number" min="0" name="alert_stock" form="add_product_type_form" class="text--center" placeholder="Alert Stock" required>
+                        </td>
+                        <td class="text--center p--1">
+                            <button type="submit" form="add_product_type_form" class="button--sm">Add new</button>
+                        </td>
+                    </tr>  
+                @endisset
                 @if ($products->count() > 0)
                     @foreach($products as $product)
                         <tr>

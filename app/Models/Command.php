@@ -10,6 +10,10 @@ class Command extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['ingredient', 'quantity', 'quantity_name', 'alert_stock', 'must_buy'];
+
+    public $timestamps = false;
+
     public function stocks(){
         return $this->hasMany(Stock::class);
     }

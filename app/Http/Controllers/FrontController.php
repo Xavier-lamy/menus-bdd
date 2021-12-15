@@ -23,4 +23,27 @@ class FrontController extends Controller
             'products' => $products,
         ]);
     }
+
+    public function create_command_product() {
+        $is_creating = true;
+        $products = Command::all();
+
+        return view('safety-stocks', [
+            'products' => $products,
+            'is_creating' => $is_creating,
+        ]);
+    }
+
+    public function add_command_product(Request $request) {
+
+        Command::create([
+            'ingredient' => $request->ingredient,
+            'quantity' => 0,
+            'quantity_name' => $request->quantity_name,
+            'alert_stock' => $request->alert_stock,
+            'must_buy' => 1,
+        ]);
+
+        return redirect('safety-stocks')->with('success', 'Product successfully added !');
+    }
 }

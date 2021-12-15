@@ -16,5 +16,11 @@ use App\HTTP\Controllers\FrontController;
 */
 
 Route:: get('/', [FrontController::class, 'index'])->name('front');
+
+/*For stocks */
 Route:: get('/stocks', [FrontController::class, 'stocks'])->name('stocks');
+
+/**For safety-stocks */
 Route:: get('/safety-stocks', [FrontController::class, 'show_safety_stocks'])->name('safety-stocks');
+Route:: get('/safety-stocks/create', [FrontController::class, 'create_command_product'])->name('command.create');
+Route:: post('/safety-stocks/create', [FrontController::class, 'add_command_product'])->name('command.add');
