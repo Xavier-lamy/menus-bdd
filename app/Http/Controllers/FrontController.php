@@ -87,15 +87,24 @@ class FrontController extends Controller
     }
 
     public function add_command_product(Request $request) {
+        $ingredient = $request->ingredient;
+        $quantity_name = $request->quantity_name;
+        $alert_stock = $request->alert_stock;
+        $product_exist = Command::where('ingredient', $ingredient)->where('quantity_name', $quantity_name)->first();
 
-        Command::create([
-            'ingredient' => $request->ingredient,
-            'quantity' => 0,
-            'quantity_name' => $request->quantity_name,
-            'alert_stock' => $request->alert_stock,
-            'must_buy' => 1,
-        ]);
+        if(!empty($product_exist)){
+            return redirect('total-stocks')->with('message', 'Product already exists !');
+        }
+        else {
+            Command::create([
+                'ingredient' => $ingredient,
+                'quantity' => 0,
+                'quantity_name' => $quantity_name,
+                'alert_stock' => $alert_stock,
+                'must_buy' => 1,
+            ]);
 
-        return redirect('total-stocks')->with('success', 'Product successfully added !');
+            return redirect('total-stocks')->with('success', 'Product successfully added !');            
+        }
     }
 }
