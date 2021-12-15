@@ -15,6 +15,6 @@ class Stock extends Model
     public $timestamps = false;
 
     public function command(){
-        return $this->belongsTo(Command::class, 'commands_id');
+        return $this->belongsTo(Command::class, 'command_id', 'id');
     }
 }

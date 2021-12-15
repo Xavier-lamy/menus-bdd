@@ -19,8 +19,8 @@ class CreateStocksTable extends Migration
             $table->unsignedInteger('quantity');
             $table->string('quantity_name', 40);
             $table->date('useby_date');
-            $table->unsignedBigInteger('commands_id');
-            $table->foreign('commands_id')->references('id')->on('commands');
+            $table->unsignedBigInteger('command_id');
+            $table->foreign('command_id')->references('id')->on('commands');
         });
     }
 
