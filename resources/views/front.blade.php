@@ -4,6 +4,23 @@
     <div class="wrapper">
         <main class="element--center w--60 _mob_w--100">
             <h1 class="text--center">My shopping list</h1>
+
+            <!--Alerts-->
+            @if(session('error') !== null)
+                <div class="alert--warning my--2 p--2">
+                    {{ session('error') }}
+                </div>
+            @elseif(session('success') !== null)
+                <div class="alert--success my--2 p--2">
+                    {{ session('success') }}
+                </div>
+            @elseif(session('message') !== null)
+                <div class="alert--message my--2 p--2">
+                    {{ session('message') }}
+                </div>
+            @endif
+            <!--End alerts-->
+
             <table class="element--center table--striped w--100">
                 <thead class="w--100 bg--secondary text--light">
                     <th class="w--25">Ingredient</th>

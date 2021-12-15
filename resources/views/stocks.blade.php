@@ -10,6 +10,7 @@
             <button type="submit" form="delete_product_form" class="button m--3">Delete selection</button>
         </div>
         
+        <!--Alerts-->
         @if(session('error') !== null)
             <div class="alert--warning my--2 p--2">
                 {{ session('error') }}
@@ -22,7 +23,12 @@
             <div class="alert--message my--2 p--2">
                 <span>No products are available in total stocks, please create one first, in order to be able to add products in stocks</span>
             </div>
+        @elseif(session('message') !== null)
+            <div class="alert--message my--2 p--2">
+                {{ session('message') }}
+            </div>
         @endif
+        <!--End alerts-->
 
         <!--Forms-->
         <form method="POST" action=" {{ route('stock.add') }} " id="add_product_form">
