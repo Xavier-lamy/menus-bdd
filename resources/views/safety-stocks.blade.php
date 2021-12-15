@@ -11,7 +11,7 @@
         </div>
 
         @if(session('error') !== null)
-            <div class="alert--message my--2 p--2">
+            <div class="alert--warning my--2 p--2">
                 {{ session('error') }}
             </div>
         @elseif(session('success') !== null)

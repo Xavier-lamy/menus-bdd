@@ -19,6 +19,8 @@ Route:: get('/', [FrontController::class, 'index'])->name('front');
 
 /*For stocks */
 Route:: get('/stocks', [FrontController::class, 'show_stocks'])->name('stocks');
+Route:: get('/stocks/create', [FrontController::class, 'create_stock_product'])->name('stock.create');
+Route:: post('/stocks/create', [FrontController::class, 'add_stock_product'])->name('stock.add');
 
 /**For safety-stocks */
 Route:: get('/safety-stocks', [FrontController::class, 'show_safety_stocks'])->name('safety-stocks');
