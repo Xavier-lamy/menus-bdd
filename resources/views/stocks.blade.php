@@ -40,6 +40,9 @@
                 @csrf
             </form>
         @endif
+        <form method="POST" action=" {{ route('stock-delete-confirmation') }} " id="delete_product_form">
+            @csrf
+        </form>
         <!--End forms-->
 
         <table class="element--center table--striped w--100">
@@ -98,7 +101,10 @@
                                 <td class="text--center p--1">{{ $product->ingredient }}</td>
                                 <td class="text--center p--1">{{ $product->quantity }} {{ $product->quantity_name }}</td>
                                 <td class="text--center p--1">{{ $product->useby_date }}</td>
-                                <td class="text--center p--1"><a href=" {{ route('stock.modify', ['id' => $product->id]) }} " class="button--sm">Modify</a></td>
+                                <td class="text--center p--1">
+                                    <a href=" {{ route('stock.modify', ['id' => $product->id]) }} " class="button--sm">Modify</a>
+                                    <input type="checkbox" id="{{ $product->id }}" name="delete_{{ $product->id }}" form="delete_product_form" value="{{ $product->id }}">
+                                </td>
                             </tr>
                         @endif
                     @endforeach

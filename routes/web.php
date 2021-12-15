@@ -23,6 +23,8 @@ Route:: get('/stocks/create', [FrontController::class, 'create_stock_product'])-
 Route:: post('/stocks/create', [FrontController::class, 'add_stock_product'])->name('stock.add');
 Route:: get('/stocks/modify/{id}', [FrontController::class, 'modify_stock_product'])->name('stock.modify');
 Route:: post('/stocks/modify', [FrontController::class, 'apply_stock_product_modifications'])->name('stock.apply');
+Route:: post('/stock-delete-confirmation', [FrontController::class, 'delete_stock_products_confirmation'])->name('stock-delete-confirmation');
+Route:: post('/stocks/delete', [FrontController::class, 'delete_stock_products'])->name('stock.delete');
 
 /**For total-stocks */
 Route:: get('/total-stocks', [FrontController::class, 'show_total_stocks'])->name('total-stocks');
