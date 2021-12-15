@@ -21,6 +21,8 @@ Route:: get('/', [FrontController::class, 'index'])->name('front');
 Route:: get('/stocks', [FrontController::class, 'show_stocks'])->name('stocks');
 Route:: get('/stocks/create', [FrontController::class, 'create_stock_product'])->name('stock.create');
 Route:: post('/stocks/create', [FrontController::class, 'add_stock_product'])->name('stock.add');
+Route:: get('/stocks/modify/{id}', [FrontController::class, 'modify_stock_product'])->name('stock.modify');
+Route:: post('/stocks/modify', [FrontController::class, 'apply_stock_product_modifications'])->name('stock.apply');
 
 /**For total-stocks */
 Route:: get('/total-stocks', [FrontController::class, 'show_total_stocks'])->name('total-stocks');

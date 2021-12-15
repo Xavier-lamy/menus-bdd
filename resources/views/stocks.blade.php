@@ -31,9 +31,15 @@
         <!--End alerts-->
 
         <!--Forms-->
-        <form method="POST" action=" {{ route('stock.add') }} " id="add_product_form">
-            @csrf
-        </form>
+        @if(isset($is_creating))
+            <form method="POST" action=" {{ route('stock.add') }} " id="add_product_form">
+                @csrf
+            </form>
+        @elseif(isset($modifying_product_id))
+            <form method="POST" action=" {{ route('stock.apply') }} " id="modify_product_form">
+                @csrf
+            </form>
+        @endif
         <!--End forms-->
 
         <table class="element--center table--striped w--100">
@@ -71,12 +77,30 @@
                 @endisset                
                 @if ($products->count() > 0)
                     @foreach($products as $product)
-                        <tr>
-                            <td class="text--center p--1">{{ $product->ingredient }}</td>
-                            <td class="text--center p--1">{{ $product->quantity }} {{ $product->quantity_name }}</td>
-                            <td class="text--center p--1">{{ $product->useby_date }}</td>
-                            <td class="text--center p--1"><a href="#" class="button--sm">Modify</a></td>
-                        </tr>
+                        @if(isset($modifying_product_id) && $modifying_product_id == $product->id)
+                            <tr>
+                                <td class="text--center p--1">{{ $product->ingredient }}</td>
+                                <td class="text--center p--1 dsp--flex align--center">
+                                    <input type="number" aria-label="Quantity" min="0" name="quantity" form="modify_product_form" class="text--center w--50" value="{{ $product->quantity }}" required>
+                                    <span class="w--50">{{ $product->quantity_name }}</span>
+                                </td>
+                                <td class="text--center p--1">
+                                    <input type="date" min="2000-01-01" max="3000-01-01" aria-label="Useby date" name="useby_date" form="modify_product_form" class="text--center" value="{{ $product->useby_date }}" required>
+                                </td>
+                                <td class="text--center p--1">
+                                    <input type="hidden" name="id" form="modify_product_form" value="{{ $product->id }}" required>
+                                    <input type="hidden" name="command_id" form="modify_product_form" value="{{ $product->command_id }}" required>
+                                    <button type="submit" form="modify_product_form" class="button--sm">Apply</button>
+                                </td>
+                            </tr>
+                        @else 
+                            <tr>
+                                <td class="text--center p--1">{{ $product->ingredient }}</td>
+                                <td class="text--center p--1">{{ $product->quantity }} {{ $product->quantity_name }}</td>
+                                <td class="text--center p--1">{{ $product->useby_date }}</td>
+                                <td class="text--center p--1"><a href=" {{ route('stock.modify', ['id' => $product->id]) }} " class="button--sm">Modify</a></td>
+                            </tr>
+                        @endif
                     @endforeach
                 @endif
             </tbody>

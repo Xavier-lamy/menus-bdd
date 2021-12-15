@@ -39,7 +39,7 @@ class FrontController extends Controller
     public function add_stock_product(Request $request) {
         $id = $request->command_id;
         $commands_product = Command::find($id);
-        
+
         Stock::create([
             'ingredient' => $commands_product->ingredient,
             'quantity' => $request->quantity,
@@ -65,6 +65,53 @@ class FrontController extends Controller
         ]);
 
         return redirect('stocks')->with('success', 'New product added to stocks');
+    }
+
+    public function modify_stock_product($id) {
+        $products = Stock::all();
+
+        return view('stocks', [
+            'products' => $products,
+            'modifying_product_id' => $id,
+        ]);
+    }
+
+    public function apply_stock_product_modifications(Request $request) {
+        //Fetch data from request
+        $stock_id = $request->id;
+        $command_id = $request->command_id;
+        $stock_quantity = $request->quantity;
+        $useby_date = $request->useby_date;
+        
+        //Fetch ancient value for stock quantity
+        $stocks_product = Stock::find($stock_id);
+        $old_stock_quantity = $stocks_product->quantity;
+
+        //update product in stocks
+        $stocks_product->update([
+            'quantity' => $stock_quantity,
+            'useby_date' => $useby_date,
+        ]);
+
+        //update product in commands
+        $commands_product = Command::find($command_id);
+
+        $alert_stock = $commands_product->alert_stock;
+        $command_quantity = $commands_product->quantity;
+        $newquantity = ($command_quantity - $old_stock_quantity) + $stock_quantity;
+        if($newquantity <= $alert_stock){
+            $must_buy = 1;
+        }
+        else {
+            $must_buy = 0;
+        }
+
+        $commands_product->update([
+            'quantity' => $newquantity,
+            'must_buy' => $must_buy,
+        ]);
+
+        return redirect('stocks')->with('success', 'Product modified !');
     }
 
     /**Total-stocks */
