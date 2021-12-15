@@ -37,15 +37,15 @@ class FrontController extends Controller
     }
 
     public function add_stock_product(Request $request) {
-        $id = $request->commands_id;
+        $id = $request->command_id;
         $commands_product = Command::find($id);
-
+        
         Stock::create([
             'ingredient' => $commands_product->ingredient,
             'quantity' => $request->quantity,
             'quantity_name' => $commands_product->quantity_name,
             'useby_date' => $request->useby_date,
-            'commands_id' => $request->commands_id,
+            'command_id' => $id,
         ]);
 
         $alert_stock = $commands_product->alert_stock;

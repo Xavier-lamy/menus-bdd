@@ -47,7 +47,7 @@
                 @isset ($is_creating)
                     <tr>
                         <td class="text--center p--1">
-                            <select name="commands_id"  aria-label="Ingredient (unit)" form="add_product_form" class="text--center" placeholder="Ingredient (unit)" required>
+                            <select name="command_id"  aria-label="Ingredient (unit)" form="add_product_form" class="text--center" placeholder="Ingredient (unit)" required>
                                 @if($commands_products->count() > 0)
                                     <option value="" selected>Choose an ingredient and a unit</option>
                                     @foreach($commands_products as $commands_product)
