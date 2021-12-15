@@ -18,7 +18,7 @@ use App\HTTP\Controllers\FrontController;
 Route:: get('/', [FrontController::class, 'index'])->name('front');
 
 /*For stocks */
-Route:: get('/stocks', [FrontController::class, 'stocks'])->name('stocks');
+Route:: get('/stocks', [FrontController::class, 'show_stocks'])->name('stocks');
 
 /**For safety-stocks */
 Route:: get('/safety-stocks', [FrontController::class, 'show_safety_stocks'])->name('safety-stocks');

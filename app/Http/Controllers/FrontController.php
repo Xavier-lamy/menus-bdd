@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Command;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
@@ -12,10 +13,15 @@ class FrontController extends Controller
         return view('front');
     }
 
-    public function stocks() {
-        return view('stocks');
+    /**Stocks */
+    public function show_stocks() {
+        $products = Stock::all();
+        return view('stocks', [
+            'products' => $products,
+        ]);
     }
 
+    /**Safety-stocks */
     public function show_safety_stocks() {
         $products = Command::all();
 

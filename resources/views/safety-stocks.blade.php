@@ -7,6 +7,7 @@
         <div class="dsp--flex justify--between">
             <a href=" {{ route('stocks') }} " class="button m--3">Return to stocks</a>
             <a href=" {{ route('command.create') }} " class="button m--3">Add a new type of product</a>
+            <button type="submit" form="delete_product_type_form" class="button m--3">Delete selection</button>
         </div>
 
         @if(session('error') !== null)
