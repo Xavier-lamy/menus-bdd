@@ -31,7 +31,7 @@
                         @foreach($products as $product)
                             <tr>
                                 <td class="text--center p--1">{{ $product->ingredient }}</td>
-                                <td class="text--center p--1">{{ ($product->alert_stock)*1.5 }} {{ $product->quantity_name }}</td>
+                                <td class="text--center p--1">{{ (($product->alert_stock) * 1.5) - ($product->quantity) }} {{ $product->quantity_name }}</td>
                             </tr>
                         @endforeach
                     @else 
