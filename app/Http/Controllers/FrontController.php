@@ -10,7 +10,10 @@ class FrontController extends Controller
 {
     //Define returning views functions
     public function index() {
-        return view('front');
+        $products = Command::where('must_buy', 1)->get();
+        return view('front', [
+            'products' => $products,
+        ]);
     }
 
     /**Stocks */

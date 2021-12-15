@@ -10,17 +10,14 @@
                     <th class="w--25">Quantity needed</th>
                 </thead>
                 <tbody>
-                    <?php /* foreach ($results as $product): */ ?>
-                        <tr>
-                            <td class="text--center p--1"><?php /* echo $product['ingredient']; */ ?></td>
-                            <td class="text--center p--1">
-                                <?php 
-                                    /* $must_buy_quantity = $product['alert_stock'] * 2;
-                                    echo $must_buy_quantity . ' ' . $product['quantity_name'];  */
-                                ?>
-                            </td>
-                        </tr>                        
-                    <?php /* endforeach; */ ?>
+                    @if ($products->count() > 0)
+                        @foreach($products as $product)
+                            <tr>
+                                <td class="text--center p--1">{{ $product->ingredient }}</td>
+                                <td class="text--center p--1">{{ ($product->alert_stock)*1.5 }} {{ $product->quantity_name }}</td>
+                            </tr>
+                        @endforeach
+                    @endif                   
                 </tbody>
             </table>
         </main>
