@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Command;
 use App\Models\Stock;
+use App\Rules\CommandIdValided;
 use Illuminate\Http\Request;
 
 class CreateController extends Controller
@@ -22,6 +23,12 @@ class CreateController extends Controller
     }
 
     public function add_stock_product(Request $request) {
+        $request->validate([
+            'quantity' => ['required', 'min:0', 'integer'],
+            'useby_date' => ['required', 'date_format:Y-m-d', 'after:2000-01-01', 'before:2300-01-01'],
+            'command_id' => [new CommandIdValided],
+        ]);
+
         $id = $request->command_id;
         $commands_product = Command::find($id);
 
@@ -64,13 +71,19 @@ class CreateController extends Controller
     }
 
     public function add_command_product(Request $request) {
-        $ingredient = $request->ingredient;
-        $quantity_name = $request->quantity_name;
+        $request->validate([
+            'ingredient' => ['required', 'min:1', 'max:60', 'string'],
+            'quantity_name' => ['required', 'min:1', 'max:40', 'string'],
+            'alert_stock' => ['required', 'min:0', 'integer'],
+        ]);
+
+        $ingredient = strtolower($request->ingredient);
+        $quantity_name = strtolower($request->quantity_name);
         $alert_stock = $request->alert_stock;
         $product_exist = Command::where('ingredient', $ingredient)->where('quantity_name', $quantity_name)->first();
 
         if(!empty($product_exist)){
-            return redirect('total-stocks')->with('message', 'Product already exists !');
+            return redirect('total-stocks')->with('message', "Product: {$ingredient} ({$quantity_name}),already exists !");
         }
         else {
             Command::create([

@@ -19,6 +19,13 @@ class UpdateController extends Controller
     }
 
     public function apply_stock_product_modifications(Request $request) {
+        $request->validate([
+            'id' => ['required', 'min:0', 'integer'],
+            'command_id' => ['required', 'min:0', 'integer'],
+            'useby_date' => ['required', 'date_format:Y-m-d', 'after:2000-01-01', 'before:2300-01-01'],
+            'quantity' => ['required', 'min:0', 'integer'],
+        ]);
+
         //Fetch data from request
         $stock_id = $request->id;
         $command_id = $request->command_id;
@@ -69,12 +76,18 @@ class UpdateController extends Controller
     }
 
     public function apply_command_product_modifications(Request $request) {
+        $request->validate([
+            'id' => ['required', 'min:0', 'integer'],
+            'ingredient' => ['required', 'min:1', 'max:60', 'string'],
+            'quantity_name' => ['required', 'min:1', 'max:40', 'string'],
+            'alert_stock' => ['required', 'min:0', 'integer'],
+        ]);
 
         //Modify commands: ingredient, unit and alert-stock
         $command_id = $request->id;
         $commands_product = Command::find($command_id);
-        $command_ingredient = $request->ingredient;
-        $command_quantity_name = $request->quantity_name;
+        $command_ingredient = strtolower($request->ingredient);
+        $command_quantity_name = strtolower($request->quantity_name);
         $command_alert_stock = $request->alert_stock;
 
         $commands_product->update([

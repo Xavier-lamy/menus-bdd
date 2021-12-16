@@ -11,6 +11,7 @@ class ReadController extends Controller
     //Stocks
     public function show_stocks() {
         $products = Stock::all();
+        
         return view('stocks', [
             'products' => $products,
         ]);
