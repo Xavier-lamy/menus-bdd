@@ -52,15 +52,15 @@
             </thead>
             <tbody>
                 @isset ($is_creating)
-                    <tr>
+                    <tr class="bg--secondary-fade">
                         <td class="text--center p--1">
-                            <input type="text" aria-label="Ingredient" maxlength="60" minlength="1" name="ingredient" form="add_product_type_form" class="text--center" placeholder="Ingredient" required>
+                            <input type="text" aria-label="Ingredient" maxlength="60" minlength="1" name="ingredient" form="add_product_type_form" class="text--center input--inset" placeholder="Ingredient" required>
                         </td>
                         <td class="text--center p--1">
-                            <input type="text" aria-label="Unit" maxlength="40" minlength="1" name="quantity_name" form="add_product_type_form" class="text--center" placeholder="Unit" required>
+                            <input type="text" aria-label="Unit" maxlength="40" minlength="1" name="quantity_name" form="add_product_type_form" class="text--center input--inset" placeholder="Unit" required>
                         </td>
                         <td class="text--center p--1">
-                            <input type="number" min="0" name="alert_stock" form="add_product_type_form" class="text--center" placeholder="Alert Stock" required>
+                            <input type="number" min="0" name="alert_stock" form="add_product_type_form" class="text--center input--inset" placeholder="Alert Stock" required>
                         </td>
                         <td class="text--center p--1">
                             <button type="submit" form="add_product_type_form" class="button--sm">Add new</button>
@@ -70,15 +70,15 @@
                 @if ($products->count() > 0)
                     @foreach($products as $product)
                         @if(isset($modifying_product_id) && $modifying_product_id == $product->id)
-                            <tr>
+                            <tr class="bg--secondary-fade">
                                 <td class="text--center p--1">
-                                    <input type="text" aria-label="Ingredient" maxlength="60" minlength="1" name="ingredient" form="modify_product_form" class="text--center" value="{{ $product->ingredient }}" required>
+                                    <input type="text" aria-label="Ingredient" maxlength="60" minlength="1" name="ingredient" form="modify_product_form" class="text--center input--inset" value="{{ $product->ingredient }}" required>
                                 </td>
                                 <td class="text--center p--1">
-                                    <input type="text" aria-label="Unit" maxlength="40" minlength="1" name="quantity_name" form="modify_product_form" class="text--center" value="{{ $product->quantity_name }}" required>
+                                    <input type="text" aria-label="Unit" maxlength="40" minlength="1" name="quantity_name" form="modify_product_form" class="text--center input--inset" value="{{ $product->quantity_name }}" required>
                                 </td>
                                 <td class="text--center p--1">
-                                    <input type="number" min="0" name="alert_stock" form="modify_product_form" class="text--center" value="{{ $product->alert_stock }}" required>
+                                    <input type="number" min="0" name="alert_stock" form="modify_product_form" class="text--center input--inset" value="{{ $product->alert_stock }}" required>
                                 </td>
                                 <td class="text--center p--1">
                                     <input type="hidden" name="id" form="modify_product_form" value="{{ $product->id }}" required>

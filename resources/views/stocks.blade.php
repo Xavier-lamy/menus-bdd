@@ -54,9 +54,9 @@
             </thead>
             <tbody>
                 @isset ($is_creating)
-                    <tr>
+                    <tr class="bg--secondary-fade">
                         <td class="text--center p--1">
-                            <select name="command_id"  aria-label="Ingredient (unit)" form="add_product_form" class="text--center" placeholder="Ingredient (unit)" required>
+                            <select name="command_id"  aria-label="Ingredient (unit)" form="add_product_form" class="text--center input--inset" required>
                                 @if($commands_products->count() > 0)
                                     <option value="" selected>Choose an ingredient and a unit</option>
                                     @foreach($commands_products as $commands_product)
@@ -68,10 +68,10 @@
                             </select>
                         </td>
                         <td class="text--center p--1">
-                            <input type="number" aria-label="Quantity" min="0" name="quantity" form="add_product_form" class="text--center" placeholder="Quantity" required>
+                            <input type="number" aria-label="Quantity" min="0" name="quantity" form="add_product_form" class="text--center input--inset" placeholder="Quantity" required>
                         </td>
                         <td class="text--center p--1">
-                            <input type="date" min="2000-01-01" max="3000-01-01" aria-label="Useby date" name="useby_date" form="add_product_form" class="text--center" required>
+                            <input type="date" min="2000-01-01" max="3000-01-01" aria-label="Useby date" name="useby_date" form="add_product_form" class="text--center input--inset" required>
                         </td>
                         <td class="text--center p--1">
                             <button type="submit" form="add_product_form" class="button--sm">Add new</button>
@@ -81,14 +81,14 @@
                 @if ($products->count() > 0)
                     @foreach($products as $product)
                         @if(isset($modifying_product_id) && $modifying_product_id == $product->id)
-                            <tr>
+                            <tr class="bg--secondary-fade">
                                 <td class="text--center p--1">{{ $product->ingredient }}</td>
                                 <td class="text--center p--1 dsp--flex align--center">
-                                    <input type="number" aria-label="Quantity" min="0" name="quantity" form="modify_product_form" class="text--center w--50" value="{{ $product->quantity }}" required>
+                                    <input type="number" aria-label="Quantity" min="0" name="quantity" form="modify_product_form" class="text--center w--50 input--inset" value="{{ $product->quantity }}" required>
                                     <span class="w--50">{{ $product->quantity_name }}</span>
                                 </td>
                                 <td class="text--center p--1">
-                                    <input type="date" min="2000-01-01" max="3000-01-01" aria-label="Useby date" name="useby_date" form="modify_product_form" class="text--center" value="{{ $product->useby_date }}" required>
+                                    <input type="date" min="2000-01-01" max="3000-01-01" aria-label="Useby date" name="useby_date" form="modify_product_form" class="text--center input--inset" value="{{ $product->useby_date }}" required>
                                 </td>
                                 <td class="text--center p--1">
                                     <input type="hidden" name="id" form="modify_product_form" value="{{ $product->id }}" required>

@@ -98,6 +98,9 @@ h6 {
 .bg--secondary {
   background-color: #2f6872;
 }
+.bg--secondary-fade {
+  background: #2f6872a9;
+}
 .bg---none {
   background: transparent;
 }
@@ -278,6 +281,20 @@ input:active, input:focus {
 .placeholder--dark ::placeholder {
   color: #272525;
   opacity: 1;
+}
+
+.input--inset {
+  border: 0.1rem #2f6872 solid;
+  box-shadow: inset 0.1rem 0.1rem 0.2rem #2f6872a9;
+  border-radius: 0.8rem;
+  padding: 0.35rem;
+  background-color: #f0f0f0;
+}
+.input--insetinput {
+  cursor: text;
+}
+.input--insetselect {
+  cursor: pointer;
 }
 
 /*Border*/

@@ -61,7 +61,10 @@ h6 {
     }
     &-secondary {
         background-color: $secondary;
-    }   
+    }
+    &-secondary-fade {
+        background: $secondary-fade;
+    }  
     &--none {
         background: transparent;
     } 
@@ -239,6 +242,21 @@ input {
         color: $text;
         opacity: 1;
     } 
+}
+
+.input--inset {
+    border: .1rem $secondary solid;
+    box-shadow: inset .1rem .1rem .2rem $secondary-fade;
+    border-radius: $border-radius;
+    padding: .35rem;
+    background-color: $background;
+    &input {
+        cursor: text;  
+    }
+    &select {
+        cursor: pointer;
+    }
+    
 }
 
 /*Border*/
