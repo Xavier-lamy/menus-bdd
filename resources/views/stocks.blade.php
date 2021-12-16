@@ -30,6 +30,12 @@
             <div class="alert--message my--2 p--2">
                 {{ session('message') }}
             </div>
+        @elseif($errors->any())
+            <ul class="alert--warning my--2 p--2 list--unstyled">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         @endif
         <!--End alerts-->
 
@@ -83,7 +89,7 @@
                             <input type="number" aria-label="Quantity" min="0" name="quantity" form="add_product_form" class="text--center input--inset" placeholder="Quantity" required>
                         </td>
                         <td class="text--center p--1">
-                            <input type="date" min="2000-01-01" max="3000-01-01" aria-label="Useby date" name="useby_date" form="add_product_form" class="text--center input--inset" required>
+                            <input type="date" min="2000-01-01" max="2300-01-01" aria-label="Useby date" name="useby_date" form="add_product_form" class="text--center input--inset" required>
                         </td>
                         <td class="text--center p--1">
                             <button type="submit" form="add_product_form" class="button--sm">Add new</button>
