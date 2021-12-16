@@ -334,6 +334,22 @@ input:active, input:focus {
 .tooltip_container:hover .tooltip_text {
   visibility: visible;
 }
+.tooltip_container:after {
+  content: "";
+  position: absolute;
+  /* position tooltip correctly */
+  right: 50%;
+  /* vertically center */
+  bottom: 1.6rem;
+  transform: translateY(-50%);
+  /* the arrow */
+  border: 0.5rem solid #2f6872a9;
+  border-color: #2f6872a9 transparent transparent transparent;
+  display: none;
+}
+.tooltip_container:hover:after {
+  display: block;
+}
 .tooltip_text {
   visibility: hidden;
   width: -webkit-fit-content;
@@ -348,7 +364,7 @@ input:active, input:focus {
   position: absolute;
   z-index: 1;
   bottom: 3.1rem;
-  right: 0.45rem;
+  right: 25%;
 }
 
 /*Border*/

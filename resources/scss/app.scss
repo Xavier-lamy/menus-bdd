@@ -296,6 +296,26 @@ input {
             .tooltip_text {
                 visibility: visible;
             }
+        }    
+        &:after {
+            content: "";
+            position:absolute;
+            
+            /* position tooltip correctly */
+            right: 50%;
+           
+            /* vertically center */
+            bottom: 1.6rem;
+            transform:translateY(-50%);
+           
+            /* the arrow */
+            border: .5rem solid $secondary-fade;
+            border-color: $secondary-fade transparent transparent transparent;
+            
+            display:none; 
+        }
+        &:hover:after {
+            display:block;
         }
     }
     &_text {
@@ -310,8 +330,9 @@ input {
         position: absolute;
         z-index: 1;
         bottom: 3.1rem;
-        right: .45rem;
+        right: 25%;
     }
+
 
 }
 
