@@ -1,3 +1,6 @@
+@php 
+    use \App\Http\Controllers\FrontController; 
+@endphp
 @extends("layouts.app")
 
 @section("wrapper")
@@ -49,7 +52,16 @@
             <thead class="w--100 bg--secondary text--light">
                 <th class="w--25">Ingredient</th>
                 <th class="w--25">Quantity</th>
-                <th class="w--25">Use-by Date</th>
+                <th class="w--25 tooltip_container">
+                    Use-by Date
+                    <span class="tooltip_text">
+                        <ul class="list--unstyled fw--normal p--1 m--1">
+                            <li class="text--warning">Expired !</li>
+                            <li class="text--message">Expire soon</li>
+                            <li class="text--success">Not urgent</li>
+                        </ul>
+                    </span>
+                </th>
                 <th class="w--25">Modifications</th>
             </thead>
             <tbody>
@@ -100,7 +112,9 @@
                             <tr>
                                 <td class="text--center p--1">{{ $product->ingredient }}</td>
                                 <td class="text--center p--1">{{ $product->quantity }} {{ $product->quantity_name }}</td>
-                                <td class="text--center p--1">{{ $product->useby_date }}</td>
+                                <td class="text--center p--1 text-{{ FrontController::check_product_expiry($product->useby_date); }}">
+                                    {{ $product->useby_date }}
+                                </td>
                                 <td class="text--center p--1">
                                     <a href=" {{ route('stock.modify', ['id' => $product->id]) }} " class="button--sm">Modify</a>
                                     <input type="checkbox" id="{{ $product->id }}" name="delete_{{ $product->id }}" form="delete_product_form" value="{{ $product->id }}">

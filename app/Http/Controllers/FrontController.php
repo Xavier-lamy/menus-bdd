@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Command;
 use App\Models\Stock;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class FrontController extends Controller
 {
@@ -14,5 +15,22 @@ class FrontController extends Controller
         return view('front', [
             'products' => $products,
         ]);
+    }
+
+    public static function check_product_expiry($date){
+        $current = Carbon::now()->format('Y-m-d');
+        //Force correct format for returned date:
+        $date = Carbon::createFromFormat('Y-m-d', $date);
+        $diffInDays = $date->diffInDays($current);
+
+        if($date->lt($current)){
+            return $class_sufix='-warning';
+        }
+        elseif($diffInDays <= 10 && $diffInDays >= 1) {
+            return $class_sufix='-message';
+        }
+        else {
+            return $class_sufix='-success';
+        }  
     }
 }

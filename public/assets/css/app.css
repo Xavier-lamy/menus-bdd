@@ -2,6 +2,7 @@
 /*Fonts*/
 /*Colors*/
 /*Fonts size*/
+/*Fonts weight*/
 /*General design*/
 /**Fonts**/
 @font-face {
@@ -81,6 +82,15 @@ h6 {
 .text--dark {
   color: #151515;
 }
+.text--success {
+  color: #143f1e;
+}
+.text--warning {
+  color: #7e2626;
+}
+.text--message {
+  color: #1d1585;
+}
 
 /*Alignment*/
 .text--center {
@@ -105,7 +115,18 @@ h6 {
   background: transparent;
 }
 
+/*Fonts weights*/
+.fw--bold {
+  font-weight: 700;
+}
+.fw--normal {
+  font-weight: 400;
+}
+
 /*Padding and margin*/
+.p--0 {
+  padding: 0;
+}
 .p--1 {
   padding: 0.25rem;
 }
@@ -125,6 +146,9 @@ h6 {
   margin-right: 1rem;
 }
 
+.m--0 {
+  margin: 0;
+}
 .m--1 {
   margin: 0.25rem;
 }
@@ -297,6 +321,32 @@ input:active, input:focus {
   cursor: pointer;
 }
 
+.tooltip_container {
+  position: relative;
+}
+.tooltip_container:hover {
+  cursor: pointer;
+}
+.tooltip_container:hover .tooltip_text {
+  visibility: visible;
+}
+.tooltip_text {
+  visibility: hidden;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  box-shadow: 0.2rem 0.2rem 0.3rem #151515a9;
+  background-color: #f0f0f0;
+  border: 0.05rem solid #2f6872;
+  text-align: center;
+  line-height: 1.3rem;
+  border-radius: 0.8rem;
+  position: absolute;
+  z-index: 1;
+  bottom: 3.1rem;
+  right: 0.3rem;
+}
+
 /*Border*/
 .border--top {
   border-top: 0.5px solid #151515;
@@ -393,7 +443,7 @@ input:active, input:focus {
 }
 @media screen and (min-width: 1800px) {
   .wrapper {
-    margin: 10%;
+    margin: 5% 10%;
   }
 }
 @media screen and (max-width: 900px) {
