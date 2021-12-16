@@ -60,7 +60,7 @@
                 @isset ($is_creating)
                     <tr class="bg--secondary-fade">
                         <td class="text--center p--1">
-                            <input type="text" aria-label="Ingredient" maxlength="60" minlength="1" name="ingredient" form="add_product_type_form" class="text--center input--inset" placeholder="Ingredient" required>
+                            <input type="text" aria-label="Ingredient" maxlength="60" minlength="1" name="ingredient" form="add_product_type_form" class="text--center input--inset" placeholder="Ingredient" required autofocus>
                         </td>
                         <td class="text--center p--1">
                             <input type="text" aria-label="Unit" maxlength="40" minlength="1" name="quantity_name" form="add_product_type_form" class="text--center input--inset" placeholder="Unit" required>
@@ -70,6 +70,7 @@
                         </td>
                         <td class="text--center p--1">
                             <button type="submit" form="add_product_type_form" class="button--sm">Add new</button>
+                            <a href=" {{ route('total-stocks') }} " class="button--sm">Cancel</a>
                         </td>
                     </tr>  
                 @endisset
@@ -78,7 +79,7 @@
                         @if(isset($modifying_product_id) && $modifying_product_id == $product->id)
                             <tr class="bg--secondary-fade">
                                 <td class="text--center p--1">
-                                    <input type="text" aria-label="Ingredient" maxlength="60" minlength="1" name="ingredient" form="modify_product_form" class="text--center input--inset" value="{{ $product->ingredient }}" required>
+                                    <input type="text" aria-label="Ingredient" maxlength="60" minlength="1" name="ingredient" form="modify_product_form" class="text--center input--inset" value="{{ $product->ingredient }}" required autofocus>
                                 </td>
                                 <td class="text--center p--1">
                                     <input type="text" aria-label="Unit" maxlength="40" minlength="1" name="quantity_name" form="modify_product_form" class="text--center input--inset" value="{{ $product->quantity_name }}" required>
@@ -89,6 +90,7 @@
                                 <td class="text--center p--1">
                                     <input type="hidden" name="id" form="modify_product_form" value="{{ $product->id }}" required>
                                     <button type="submit" form="modify_product_form" class="button--sm">Apply</button>
+                                    <a href=" {{ route('total-stocks') }} " class="button--sm">Cancel</a>
                                 </td>
                             </tr>
                         @else 

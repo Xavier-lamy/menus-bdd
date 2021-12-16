@@ -59,7 +59,7 @@
                 <th class="w--25">Ingredient</th>
                 <th class="w--25">Quantity</th>
                 <th class="w--25 tooltip_container">
-                    Use-by Date
+                    Use-by Date <i class="fas fa-question-circle"></i>
                     <span class="tooltip_text">
                         <ul class="list--unstyled fw--normal p--1 m--1">
                             <li class="text--warning">Expired !</li>
@@ -74,7 +74,7 @@
                 @isset ($is_creating)
                     <tr class="bg--secondary-fade">
                         <td class="text--center p--1">
-                            <select name="command_id"  aria-label="Ingredient (unit)" form="add_product_form" class="text--center input--inset" required>
+                            <select name="command_id"  aria-label="Ingredient (unit)" form="add_product_form" class="text--center input--inset" placeholder="Ingredient (unit)" required autofocus>
                                 @if($commands_products->count() > 0)
                                     <option value="" selected>Choose an ingredient and a unit</option>
                                     @foreach($commands_products as $commands_product)
@@ -93,6 +93,7 @@
                         </td>
                         <td class="text--center p--1">
                             <button type="submit" form="add_product_form" class="button--sm">Add new</button>
+                            <a href=" {{ route('stocks') }} " class="button--sm">Cancel</a>
                         </td>
                     </tr>  
                 @endisset                
@@ -102,7 +103,7 @@
                             <tr class="bg--secondary-fade">
                                 <td class="text--center p--1">{{ $product->ingredient }}</td>
                                 <td class="text--center p--1 dsp--flex align--center">
-                                    <input type="number" aria-label="Quantity" min="0" name="quantity" form="modify_product_form" class="text--center w--50 input--inset" value="{{ $product->quantity }}" required>
+                                    <input type="number" aria-label="Quantity" min="0" name="quantity" form="modify_product_form" class="text--center w--50 input--inset" value="{{ $product->quantity }}" required autofocus>
                                     <span class="w--50">{{ $product->quantity_name }}</span>
                                 </td>
                                 <td class="text--center p--1">
@@ -112,6 +113,7 @@
                                     <input type="hidden" name="id" form="modify_product_form" value="{{ $product->id }}" required>
                                     <input type="hidden" name="command_id" form="modify_product_form" value="{{ $product->command_id }}" required>
                                     <button type="submit" form="modify_product_form" class="button--sm">Apply</button>
+                                    <a href=" {{ route('stocks') }} " class="button--sm">Cancel</a>
                                 </td>
                             </tr>
                         @else 
