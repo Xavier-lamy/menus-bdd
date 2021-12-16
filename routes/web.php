@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 
 use App\HTTP\Controllers\FrontController;
+use App\HTTP\Controllers\ReadController;
+use App\HTTP\Controllers\CreateController;
+use App\HTTP\Controllers\UpdateController;
+use App\HTTP\Controllers\DeleteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,22 +19,31 @@ use App\HTTP\Controllers\FrontController;
 |
 */
 
+/*Front */
 Route:: get('/', [FrontController::class, 'index'])->name('front');
 
-/*For stocks */
-Route:: get('/stocks', [FrontController::class, 'show_stocks'])->name('stocks');
-Route:: get('/stocks/create', [FrontController::class, 'create_stock_product'])->name('stock.create');
-Route:: post('/stocks/create', [FrontController::class, 'add_stock_product'])->name('stock.add');
-Route:: get('/stocks/modify/{id}', [FrontController::class, 'modify_stock_product'])->name('stock.modify');
-Route:: post('/stocks/modify', [FrontController::class, 'apply_stock_product_modifications'])->name('stock.apply');
-Route:: post('/stock-delete-confirmation', [FrontController::class, 'delete_stock_products_confirmation'])->name('stock-delete-confirmation');
-Route:: post('/stocks/delete', [FrontController::class, 'delete_stock_products'])->name('stock.delete');
+/*Stocks */
+//Read
+Route:: get('/stocks', [ReadController::class, 'show_stocks'])->name('stocks');
+//Create
+Route:: get('/stocks/create', [CreateController::class, 'create_stock_product'])->name('stock.create');
+Route:: post('/stocks/create', [CreateController::class, 'add_stock_product'])->name('stock.add');
+//Update
+Route:: get('/stocks/modify/{id}', [UpdateController::class, 'modify_stock_product'])->name('stock.modify');
+Route:: post('/stocks/modify', [UpdateController::class, 'apply_stock_product_modifications'])->name('stock.apply');
+//Delete
+Route:: post('/stock-delete-confirmation', [DeleteController::class, 'delete_stock_products_confirmation'])->name('stock-delete-confirmation');
+Route:: post('/stocks/delete', [DeleteController::class, 'delete_stock_products'])->name('stock.delete');
 
-/**For total-stocks */
-Route:: get('/total-stocks', [FrontController::class, 'show_total_stocks'])->name('total-stocks');
-Route:: get('/total-stocks/create', [FrontController::class, 'create_command_product'])->name('command.create');
-Route:: post('/total-stocks/create', [FrontController::class, 'add_command_product'])->name('command.add');
-Route:: get('/total-stocks/modify/{id}', [FrontController::class, 'modify_command_product'])->name('command.modify');
-Route:: post('/total-stocks/modify', [FrontController::class, 'apply_command_product_modifications'])->name('command.apply');
-Route:: post('/command-delete-confirmation', [FrontController::class, 'delete_command_products_confirmation'])->name('command-delete-confirmation');
-Route:: post('/total-stocks/delete', [FrontController::class, 'delete_command_products'])->name('command.delete');
+/**Total-stocks */
+//Read
+Route:: get('/total-stocks', [ReadController::class, 'show_total_stocks'])->name('total-stocks');
+//Create
+Route:: get('/total-stocks/create', [CreateController::class, 'create_command_product'])->name('command.create');
+Route:: post('/total-stocks/create', [CreateController::class, 'add_command_product'])->name('command.add');
+//Update
+Route:: get('/total-stocks/modify/{id}', [UpdateController::class, 'modify_command_product'])->name('command.modify');
+Route:: post('/total-stocks/modify', [UpdateController::class, 'apply_command_product_modifications'])->name('command.apply');
+//Delete
+Route:: post('/command-delete-confirmation', [DeleteController::class, 'delete_command_products_confirmation'])->name('command-delete-confirmation');
+Route:: post('/total-stocks/delete', [DeleteController::class, 'delete_command_products'])->name('command.delete');
