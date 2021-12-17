@@ -124,12 +124,7 @@ class DeleteController extends Controller
             $commands_product = Command::find($delete_id);
 
             if(!empty($commands_product)){
-                // remove product from stocks
-                $stocks_products = Stock::where('command_id', $delete_id);
-
-                $stocks_products->delete();
-
-                //remove entry from total stocks
+                //remove entry from total stocks (and stocks cascade delete)
                 $commands_product->delete();
                 
                 $entries_deleted += 1;                
