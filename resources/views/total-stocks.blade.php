@@ -74,42 +74,40 @@
                         </td>
                     </tr>  
                 @endisset
-                @if ($products->count() > 0)
-                    @foreach($products as $product)
-                        @if(isset($modifying_product_id) && $modifying_product_id == $product->id)
-                            <tr class="bg--secondary-fade">
-                                <td class="text--center p--1">
-                                    <input type="text" aria-label="Ingredient" maxlength="60" minlength="1" name="ingredient" form="modify_product_form" class="text--center input--inset" value="{{ $product->ingredient }}" required autofocus>
-                                </td>
-                                <td class="text--center p--1">
-                                    <input type="text" aria-label="Unit" maxlength="40" minlength="1" name="quantity_name" form="modify_product_form" class="text--center input--inset" value="{{ $product->quantity_name }}" required>
-                                </td>
-                                <td class="text--center p--1">
-                                    <input type="number" min="0" name="alert_stock" form="modify_product_form" class="text--center input--inset" value="{{ $product->alert_stock }}" required>
-                                </td>
-                                <td class="text--center p--1">
-                                    <input type="hidden" name="id" form="modify_product_form" value="{{ $product->id }}" required>
-                                    <button type="submit" form="modify_product_form" class="button--sm">Apply</button>
-                                    <a href=" {{ route('total-stocks') }} " class="button--sm">Cancel</a>
-                                </td>
-                            </tr>
-                        @else 
-                            <tr>
-                                <td class="text--center p--1">{{ $product->ingredient }}</td>
-                                <td class="text--center p--1">{{ $product->quantity }} {{ $product->quantity_name }}</td>
-                                <td class="text--center p--1">{{ $product->alert_stock }}</td>
-                                <td class="text--center p--1">
-                                    <a href=" {{ route('command.modify', ['id' => $product->id]) }} " class="button--sm">Modify</a>
-                                    <input type="checkbox" id="{{ $product->id }}" name="delete_{{ $product->id }}" form="delete_product_form" value="{{ $product->id }}">
-                                </td>
-                            </tr>
-                        @endif
-                    @endforeach
-                @else 
+                @forelse($products as $product)
+                    @if(isset($modifying_product_id) && $modifying_product_id == $product->id)
+                        <tr class="bg--secondary-fade">
+                            <td class="text--center p--1">
+                                <input type="text" aria-label="Ingredient" maxlength="60" minlength="1" name="ingredient" form="modify_product_form" class="text--center input--inset" value="{{ $product->ingredient }}" required autofocus>
+                            </td>
+                            <td class="text--center p--1">
+                                <input type="text" aria-label="Unit" maxlength="40" minlength="1" name="quantity_name" form="modify_product_form" class="text--center input--inset" value="{{ $product->quantity_name }}" required>
+                            </td>
+                            <td class="text--center p--1">
+                                <input type="number" min="0" name="alert_stock" form="modify_product_form" class="text--center input--inset" value="{{ $product->alert_stock }}" required>
+                            </td>
+                            <td class="text--center p--1">
+                                <input type="hidden" name="id" form="modify_product_form" value="{{ $product->id }}" required>
+                                <button type="submit" form="modify_product_form" class="button--sm">Apply</button>
+                                <a href=" {{ route('total-stocks') }} " class="button--sm">Cancel</a>
+                            </td>
+                        </tr>
+                    @else 
+                        <tr>
+                            <td class="text--center p--1">{{ $product->ingredient }}</td>
+                            <td class="text--center p--1">{{ $product->quantity }} {{ $product->quantity_name }}</td>
+                            <td class="text--center p--1">{{ $product->alert_stock }}</td>
+                            <td class="text--center p--1">
+                                <a href=" {{ route('command.modify', ['id' => $product->id]) }} " class="button--sm">Modify</a>
+                                <input type="checkbox" id="{{ $product->id }}" name="delete_{{ $product->id }}" form="delete_product_form" value="{{ $product->id }}">
+                            </td>
+                        </tr>
+                    @endif
+                @empty 
                     <tr>
                         <td colspan="4" class="text--center">Total stocks are empty</td>
                     </tr>
-                @endif
+                @endforelse
             </tbody>
         </table>
     </main>

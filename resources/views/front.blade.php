@@ -33,18 +33,16 @@
                     <th class="w--25">Quantity needed</th>
                 </thead>
                 <tbody>
-                    @if ($products->count() > 0)
-                        @foreach($products as $product)
-                            <tr>
-                                <td class="text--center p--1">{{ $product->ingredient }}</td>
-                                <td class="text--center p--1">{{ (($product->alert_stock) * 1.5) - ($product->quantity) }} {{ $product->quantity_name }}</td>
-                            </tr>
-                        @endforeach
-                    @else 
+                    @forelse($products as $product)
+                        <tr>
+                            <td class="text--center p--1">{{ $product->ingredient }}</td>
+                            <td class="text--center p--1">{{ (($product->alert_stock) * 1.5) - ($product->quantity) }} {{ $product->quantity_name }}</td>
+                        </tr>
+                    @empty 
                         <tr>
                             <td colspan="2" class="text--center">Shopping list is empty</td>
-                        </tr>
-                    @endif                  
+                        </tr>                        
+                    @endforelse
                 </tbody>
             </table>
         </main>

@@ -97,44 +97,42 @@
                         </td>
                     </tr>  
                 @endisset                
-                @if ($products->count() > 0)
-                    @foreach($products as $product)
-                        @if(isset($modifying_product_id) && $modifying_product_id == $product->id)
-                            <tr class="bg--secondary-fade">
-                                <td class="text--center p--1">{{ $product->ingredient }}</td>
-                                <td class="text--center p--1 dsp--flex align--center">
-                                    <input type="number" aria-label="Quantity" min="0" name="quantity" form="modify_product_form" class="text--center w--50 input--inset" value="{{ $product->quantity }}" required autofocus>
-                                    <span class="w--50">{{ $product->quantity_name }}</span>
-                                </td>
-                                <td class="text--center p--1">
-                                    <input type="date" min="2000-01-01" max="3000-01-01" aria-label="Useby date" name="useby_date" form="modify_product_form" class="text--center input--inset" value="{{ $product->useby_date }}" required>
-                                </td>
-                                <td class="text--center p--1">
-                                    <input type="hidden" name="id" form="modify_product_form" value="{{ $product->id }}" required>
-                                    <input type="hidden" name="command_id" form="modify_product_form" value="{{ $product->command_id }}" required>
-                                    <button type="submit" form="modify_product_form" class="button--sm">Apply</button>
-                                    <a href=" {{ route('stocks') }} " class="button--sm">Cancel</a>
-                                </td>
-                            </tr>
-                        @else 
-                            <tr>
-                                <td class="text--center p--1">{{ $product->ingredient }}</td>
-                                <td class="text--center p--1">{{ $product->quantity }} {{ $product->quantity_name }}</td>
-                                <td class="text--center p--1 text-{{ FrontController::check_product_expiry($product->useby_date); }}">
-                                    {{ $product->useby_date }}
-                                </td>
-                                <td class="text--center p--1">
-                                    <a href=" {{ route('stock.modify', ['id' => $product->id]) }} " class="button--sm">Modify</a>
-                                    <input type="checkbox" id="{{ $product->id }}" name="delete_{{ $product->id }}" form="delete_product_form" value="{{ $product->id }}">
-                                </td>
-                            </tr>
-                        @endif
-                    @endforeach
-                @else 
-                    <tr>
-                        <td colspan="4" class="text--center">Stocks are empty</td>
-                    </tr>
-                @endif
+                @forelse($products as $product)
+                    @if(isset($modifying_product_id) && $modifying_product_id == $product->id)
+                        <tr class="bg--secondary-fade">
+                            <td class="text--center p--1">{{ $product->ingredient }}</td>
+                            <td class="text--center p--1 dsp--flex align--center">
+                                <input type="number" aria-label="Quantity" min="0" name="quantity" form="modify_product_form" class="text--center w--50 input--inset" value="{{ $product->quantity }}" required autofocus>
+                                <span class="w--50">{{ $product->quantity_name }}</span>
+                            </td>
+                            <td class="text--center p--1">
+                                <input type="date" min="2000-01-01" max="3000-01-01" aria-label="Useby date" name="useby_date" form="modify_product_form" class="text--center input--inset" value="{{ $product->useby_date }}" required>
+                            </td>
+                            <td class="text--center p--1">
+                                <input type="hidden" name="id" form="modify_product_form" value="{{ $product->id }}" required>
+                                <input type="hidden" name="command_id" form="modify_product_form" value="{{ $product->command_id }}" required>
+                                <button type="submit" form="modify_product_form" class="button--sm">Apply</button>
+                                <a href=" {{ route('stocks') }} " class="button--sm">Cancel</a>
+                            </td>
+                        </tr>
+                    @else 
+                        <tr>
+                            <td class="text--center p--1">{{ $product->ingredient }}</td>
+                            <td class="text--center p--1">{{ $product->quantity }} {{ $product->quantity_name }}</td>
+                            <td class="text--center p--1 text-{{ FrontController::check_product_expiry($product->useby_date); }}">
+                                {{ $product->useby_date }}
+                            </td>
+                            <td class="text--center p--1">
+                                <a href=" {{ route('stock.modify', ['id' => $product->id]) }} " class="button--sm">Modify</a>
+                                <input type="checkbox" id="{{ $product->id }}" name="delete_{{ $product->id }}" form="delete_product_form" value="{{ $product->id }}">
+                            </td>
+                        </tr>
+                    @endif
+                @empty
+                        <tr>
+                            <td colspan="4" class="text--center">Stocks are empty</td>
+                        </tr>
+                @endforelse
             </tbody>
         </table>
     </main>

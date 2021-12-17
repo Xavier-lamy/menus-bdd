@@ -99,8 +99,7 @@
                         <th class="w--25">Safety stock</th>
                     </thead>
                     <tbody>
-                        @if ($products->count() > 0)
-                            @foreach($products as $product)
+                            @forelse($products as $product)
                                 <tr>
                                     <td class="text--center p--1">{{ $product->ingredient }}</td>
                                     <td class="text--center p--1">{{ $product->quantity }} {{ $product->quantity_name }}</td>
@@ -109,8 +108,11 @@
                                         <input type="hidden" name="delete_{{ $product->id }}" form="confirm_commands_deletion_form" value="{{ $product->id }}" required>
                                     </td>
                                 </tr>
-                            @endforeach
-                        @endif 
+                            @empty 
+                                <tr>
+                                    <td colspan="3" class="text--center">No products to delete</td>
+                                </tr>
+                            @endforelse 
                     </tbody>
                 </table>
             </main>
