@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\HTTP\Controllers\FrontController;
 use App\HTTP\Controllers\StockController;
+use App\HTTP\Controllers\CommandController;
 use App\HTTP\Controllers\ReadController;
 use App\HTTP\Controllers\CreateController;
 use App\HTTP\Controllers\UpdateController;
@@ -38,13 +39,13 @@ Route:: post('/stocks/delete', [StockController::class, 'destroy'])->name('stock
 
 /**Total-stocks */
 //Read
-Route:: get('/total-stocks', [ReadController::class, 'show_total_stocks'])->name('total-stocks');
+Route:: get('/total-stocks', [CommandController::class, 'index'])->name('total-stocks');
 //Create
-Route:: get('/total-stocks/create', [CreateController::class, 'create_command_product'])->name('command.create');
-Route:: post('/total-stocks/create', [CreateController::class, 'add_command_product'])->name('command.add');
+Route:: get('/total-stocks/create', [CommandController::class, 'create'])->name('command.create');
+Route:: post('/total-stocks/create', [CommandController::class, 'store'])->name('command.add');
 //Update
-Route:: get('/total-stocks/modify/{id}', [UpdateController::class, 'modify_command_product'])->name('command.modify');
-Route:: post('/total-stocks/modify', [UpdateController::class, 'apply_command_product_modifications'])->name('command.apply');
+Route:: get('/total-stocks/modify/{id}', [CommandController::class, 'edit'])->name('command.modify');
+Route:: post('/total-stocks/modify', [CommandController::class, 'update'])->name('command.apply');
 //Delete
-Route:: post('/command-delete-confirmation', [DeleteController::class, 'delete_command_products_confirmation'])->name('command-delete-confirmation');
-Route:: post('/total-stocks/delete', [DeleteController::class, 'delete_command_products'])->name('command.delete');
+Route:: post('/command-delete-confirmation', [CommandController::class, 'confirm_destroy'])->name('command-delete-confirmation');
+Route:: post('/total-stocks/delete', [CommandController::class, 'destroy'])->name('command.delete');
