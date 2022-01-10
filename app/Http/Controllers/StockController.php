@@ -165,7 +165,7 @@ class StockController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Ask the user before removing.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -188,7 +188,7 @@ class StockController extends Controller
         }
     }
 
-        /**
+    /**
      * Remove the specified resource from storage.
      *
      * @param  \Illuminate\Http\Request  $request

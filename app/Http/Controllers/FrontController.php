@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Command;
-use App\Models\Stock;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 class FrontController extends Controller
