@@ -5,10 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\HTTP\Controllers\FrontController;
 use App\HTTP\Controllers\StockController;
 use App\HTTP\Controllers\CommandController;
-use App\HTTP\Controllers\ReadController;
-use App\HTTP\Controllers\CreateController;
-use App\HTTP\Controllers\UpdateController;
-use App\HTTP\Controllers\DeleteController;
 
 /*
 |--------------------------------------------------------------------------
