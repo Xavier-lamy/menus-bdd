@@ -15,7 +15,7 @@ class FrontController extends Controller
         ]);
     }
 
-    public static function check_product_expiry($date){
+    public static function checkProductExpire($date){
         $current = Carbon::now()->format('Y-m-d');
         //Force correct format for returned date:
         $date = Carbon::createFromFormat('Y-m-d', $date);

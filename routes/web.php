@@ -30,7 +30,7 @@ Route:: post('/stocks/create', [StockController::class, 'store'])->name('stock.a
 Route:: get('/stocks/modify/{id}', [StockController::class, 'edit'])->name('stock.modify');
 Route:: post('/stocks/modify', [StockController::class, 'update'])->name('stock.apply');
 //Delete
-Route:: post('/stock-delete-confirmation', [StockController::class, 'confirm_destroy'])->name('stock-delete-confirmation');
+Route:: post('/stock-delete-confirmation', [StockController::class, 'confirmDestroy'])->name('stock-delete-confirmation');
 Route:: post('/stocks/delete', [StockController::class, 'destroy'])->name('stock.delete');
 
 /**Total-stocks */
@@ -43,5 +43,5 @@ Route:: post('/total-stocks/create', [CommandController::class, 'store'])->name(
 Route:: get('/total-stocks/modify/{id}', [CommandController::class, 'edit'])->name('command.modify');
 Route:: post('/total-stocks/modify', [CommandController::class, 'update'])->name('command.apply');
 //Delete
-Route:: post('/command-delete-confirmation', [CommandController::class, 'confirm_destroy'])->name('command-delete-confirmation');
+Route:: post('/command-delete-confirmation', [CommandController::class, 'confirmDestroy'])->name('command-delete-confirmation');
 Route:: post('/total-stocks/delete', [CommandController::class, 'destroy'])->name('command.delete');

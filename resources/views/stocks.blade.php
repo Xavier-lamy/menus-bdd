@@ -119,7 +119,7 @@
                         <tr>
                             <td class="text--center p--1">{{ $product->ingredient }}</td>
                             <td class="text--center p--1">{{ $product->quantity }} {{ $product->quantity_name }}</td>
-                            <td class="text--center p--1 text-{{ FrontController::check_product_expiry($product->useby_date); }}">
+                            <td class="text--center p--1 text-{{ FrontController::checkProductExpire($product->useby_date); }}">
                                 {{ $product->useby_date }}
                             </td>
                             <td class="text--center p--1">

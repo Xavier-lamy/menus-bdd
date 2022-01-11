@@ -79,10 +79,7 @@ class CommandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        // Not used for now
-    }
+    /* public function show($id) */
 
     /**
      * Show the form for editing the specified resource.
@@ -119,20 +116,20 @@ class CommandController extends Controller
         $command_id = $request->id;
         $commands_product = Command::find($command_id);
         $command_ingredient = strtolower($request->ingredient);
-        $command_quantity_name = strtolower($request->quantity_name);
+        $command_unit = strtolower($request->quantity_name);
         $command_alert_stock = $request->alert_stock;
 
         $commands_product->update([
             'ingredient' => $command_ingredient,
-            'quantity_name' => $command_quantity_name,
+            'quantity_name' => $command_unit,
             'alert_stock' => $command_alert_stock,
         ]);
 
         //Check if must_buy
         $new_commands_product = Command::find($command_id);
         $new_command_quantity = $new_commands_product->quantity;
-        $new_command_alert_stock = $new_commands_product->alert_stock;
-        if($new_command_quantity <= $new_command_alert_stock){
+        $new_alert_stock = $new_commands_product->alert_stock;
+        if($new_command_quantity <= $new_alert_stock){
             $must_buy = 1;
         }
         else {
@@ -146,7 +143,7 @@ class CommandController extends Controller
         //Modify related stock products ingredient name and unit
         Stock::where('command_id', $command_id)->update([
             'ingredient' => $command_ingredient,
-            'quantity_name' => $command_quantity_name,
+            'quantity_name' => $command_unit,
         ]);
         
         return redirect('total-stocks')->with('success', 'Product modified !');
@@ -158,7 +155,7 @@ class CommandController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function confirm_destroy(Request $request)
+    public function confirmDestroy(Request $request)
     {
         $delete_confirmation = 'commands';
         $delete_ids = $request->except('_token');

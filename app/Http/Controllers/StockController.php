@@ -91,10 +91,7 @@ class StockController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        // Not used for now 
-    }
+    /* public function show($id) */
 
     /**
      * Show the form for editing the specified resource.
@@ -170,7 +167,7 @@ class StockController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function confirm_destroy(Request $request)
+    public function confirmDestroy(Request $request)
     {
         $delete_confirmation = 'stocks';
         $delete_ids = $request->except('_token');
