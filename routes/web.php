@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\HTTP\Controllers\FrontController;
-use App\HTTP\Controllers\StockController;
-use App\HTTP\Controllers\CommandController;
+use App\Http\Controllers\FrontController;
+use App\Http\Controllers\StockController;
+use App\Http\Controllers\CommandController;
 
 /*
 |--------------------------------------------------------------------------
