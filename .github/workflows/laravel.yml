@@ -33,6 +33,8 @@ jobs:
         php artisan route:clear
         php artisan view:clear
         php artisan cache:clear
+    - name: Run migrations
+      run: php artisan migrate
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         DB_CONNECTION: sqlite
