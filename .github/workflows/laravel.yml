@@ -38,3 +38,8 @@ jobs:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
       run: vendor/bin/phpunit
+    - uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: laravel.log
+        path: storage/logs/
