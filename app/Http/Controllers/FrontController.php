@@ -27,8 +27,7 @@ class FrontController extends Controller
         elseif($diffInDays <= 10 && $diffInDays >= 1) {
             return $class_sufix='-message';
         }
-        else {
-            return $class_sufix='-success';
-        }  
+        
+        return $class_sufix='-success';
     }
 }

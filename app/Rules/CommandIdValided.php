@@ -27,9 +27,9 @@ class CommandIdValided implements Rule
     {
         if(!empty($value) && is_numeric($value) && $value >= 1){
             return true;
-        }else {
-            return false;
         }
+        
+        return false;
     }
 
     /**

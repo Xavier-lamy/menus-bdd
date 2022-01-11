@@ -60,17 +60,16 @@ class CommandController extends Controller
         if(!empty($product_exist)){
             return redirect('total-stocks')->with('message', "Product: {$ingredient} ({$quantity_name}),already exists !");
         }
-        else {
-            Command::create([
-                'ingredient' => $ingredient,
-                'quantity' => 0,
-                'quantity_name' => $quantity_name,
-                'alert_stock' => $alert_stock,
-                'must_buy' => 1,
-            ]);
 
-            return redirect('total-stocks')->with('success', 'Product successfully added !');            
-        }
+        Command::create([
+            'ingredient' => $ingredient,
+            'quantity' => 0,
+            'quantity_name' => $quantity_name,
+            'alert_stock' => $alert_stock,
+            'must_buy' => 1,
+        ]);
+
+        return redirect('total-stocks')->with('success', 'Product successfully added !');            
     }
 
     /**
@@ -129,12 +128,12 @@ class CommandController extends Controller
         $new_commands_product = Command::find($command_id);
         $new_command_quantity = $new_commands_product->quantity;
         $new_alert_stock = $new_commands_product->alert_stock;
+        $must_buy = 0;
+
         if($new_command_quantity <= $new_alert_stock){
             $must_buy = 1;
         }
-        else {
-            $must_buy = 0;
-        }
+
         //Update commands:
         $new_commands_product->update([
             'must_buy' => $must_buy,
@@ -168,9 +167,9 @@ class CommandController extends Controller
                 'products' => $products,
             ]);            
         }
-        else {
-            return redirect('total-stocks')->with('message', 'You need to select products first !');
-        }
+
+        return redirect('total-stocks')->with('message', 'You need to select products first !');
+
     }
 
     /**
@@ -195,33 +194,22 @@ class CommandController extends Controller
                 
                 $entries_deleted += 1;                
             }
-            else {
-                $entries_deleted += 0;
-            }
         }
 
-        if($entries_total != $entries_deleted){
-            $difference = $entries_total - $entries_deleted;
-            if($entries_deleted == 1){
-                return redirect('total-stocks')->with('success', "{$entries_deleted} entry deleted, {$difference} couldn't be deleted");
-            }
-            elseif($entries_deleted > 1){
-                return redirect('total-stocks')->with('success', "{$entries_deleted} entries deleted, {$difference} couldn't be deleted");
-            }
-            elseif($entries_deleted == 0) {
+        $difference = $entries_total - $entries_deleted;
+        switch($entries_deleted){
+            case 0:
                 return redirect('total-stocks')->with('error', "There is an error, no entry deleted");
-            }
-        }
-        else {
-            if($entries_deleted == 1){
+            case 1:
+                if($entries_total != $entries_deleted){
+                    return redirect('total-stocks')->with('success', "{$entries_deleted} entry deleted, {$difference} couldn't be deleted"); 
+                }
                 return redirect('total-stocks')->with('success', "{$entries_deleted} entry deleted !");
-            }
-            elseif($entries_deleted > 1){
-                return redirect('total-stocks')->with('success', "{$entries_deleted} entries deleted !");
-            }
-            elseif($entries_deleted == 0){
-                return redirect('total-stocks')->with('error', "There is an error, no entry deleted !");
-            }            
+            default:
+                if($entries_total != $entries_deleted){
+                    return redirect('total-stocks')->with('success', "{$entries_deleted} entries deleted, {$difference} couldn't be deleted"); 
+                } 
+                return redirect('total-stocks')->with('success', "{$entries_deleted} entries deleted !"); 
         }
     }
 }

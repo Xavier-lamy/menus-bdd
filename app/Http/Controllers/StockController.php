@@ -70,11 +70,10 @@ class StockController extends Controller
         $command_quantity = $commands_product->quantity;
         $stock_quantity = $request->quantity;
         $newquantity = $command_quantity + $stock_quantity;
+        $must_buy = 0;
+
         if($newquantity <= $alert_stock){
             $must_buy = 1;
-        }
-        else {
-            $must_buy = 0;
         }
 
         $commands_product->update([
@@ -146,11 +145,10 @@ class StockController extends Controller
         $alert_stock = $commands_product->alert_stock;
         $command_quantity = $commands_product->quantity;
         $newquantity = ($command_quantity - $old_stock_quantity) + $stock_quantity;
+        $must_buy = 0;
+
         if($newquantity <= $alert_stock){
             $must_buy = 1;
-        }
-        else {
-            $must_buy = 0;
         }
 
         $commands_product->update([
@@ -180,9 +178,9 @@ class StockController extends Controller
                 'products' => $products,
             ]);            
         }
-        else {
-            return redirect('stocks')->with('message', 'You need to select products first !');
-        }
+
+        return redirect('stocks')->with('message', 'You need to select products first !');
+
     }
 
     /**
@@ -213,11 +211,10 @@ class StockController extends Controller
                 $command_quantity = $commands_product->quantity;
                 $alert_stock = $commands_product->alert_stock;
                 $newquantity = $command_quantity - $stock_quantity;
+                $must_buy = 0;
+
                 if($newquantity <= $alert_stock){
                     $must_buy = 1;
-                }
-                else {
-                    $must_buy = 0;
                 }
 
                 //Update commands:
@@ -226,38 +223,27 @@ class StockController extends Controller
                     'must_buy' => $must_buy,
                 ]);
                 
-        //remove product from stocks
+                //remove product from stocks
                 $stocks_product->delete();
 
                 $entries_deleted += 1;                
             }
-            else {
-                $entries_deleted += 0;
-            }
         }
 
-        if($entries_total != $entries_deleted){
-            $difference = $entries_total - $entries_deleted;
-            if($entries_deleted == 1){
-                return redirect('stocks')->with('success', "{$entries_deleted} entry deleted, {$difference} couldn't be deleted");
-            }
-            elseif($entries_deleted > 1){
-                return redirect('stocks')->with('success', "{$entries_deleted} entries deleted, {$difference} couldn't be deleted");
-            }
-            elseif($entries_deleted == 0) {
+        $difference = $entries_total - $entries_deleted;
+        switch($entries_deleted){
+            case 0:
                 return redirect('stocks')->with('error', "There is an error, no entry deleted");
-            }
-        }
-        else {
-            if($entries_deleted == 1){
+            case 1:
+                if($entries_total != $entries_deleted){
+                    return redirect('stocks')->with('success', "{$entries_deleted} entry deleted, {$difference} couldn't be deleted"); 
+                }
                 return redirect('stocks')->with('success', "{$entries_deleted} entry deleted !");
-            }
-            elseif($entries_deleted > 1){
-                return redirect('stocks')->with('success', "{$entries_deleted} entries deleted !");
-            }
-            elseif($entries_deleted == 0){
-                return redirect('stocks')->with('error', "There is an error, no entry deleted !");
-            }            
+            default:
+                if($entries_total != $entries_deleted){
+                    return redirect('stocks')->with('success', "{$entries_deleted} entries deleted, {$difference} couldn't be deleted"); 
+                } 
+                return redirect('stocks')->with('success', "{$entries_deleted} entries deleted !"); 
         }
     }
 }
