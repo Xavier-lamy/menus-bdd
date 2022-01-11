@@ -28,8 +28,11 @@ jobs:
       run: |
         mkdir -p database
         touch database/database.sqlite
-    - name: Config cache
-      run: php artisan config:cache
+    - name: Clear cache
+      run: |
+        php artisan route:clear
+        php artisan view:clear
+        php artisan cache:clear
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         DB_CONNECTION: sqlite
