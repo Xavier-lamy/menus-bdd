@@ -34,7 +34,7 @@ class StockControllerTest extends TestCase
             'must_buy' => 1,
         ]);
 
-        //Test a request for adding product
+        //Test a request for adding product in stocks
         $response = $this->post('/stocks/create', [
             'quantity' => 200,
             'useby_date' => '2002-11-01',
@@ -44,9 +44,7 @@ class StockControllerTest extends TestCase
         //Check if the product we just add is added correctly in database
         $stock = Stock::where([
             'id' => 1,
-            'ingredient' => 'flour',
             'quantity' => 200,
-            'unit' => 'grams',
             'useby_date' => '2002-11-01',
             'command_id' => 1,
         ])->get();
@@ -96,9 +94,7 @@ class StockControllerTest extends TestCase
 
         Stock::create([
             'id' => 1,
-            'ingredient' => 'flour',
             'quantity' => 200,
-            'unit' => 'grams',
             'useby_date' => '2002-11-01',
             'command_id' => 1,
         ]);
@@ -113,9 +109,7 @@ class StockControllerTest extends TestCase
         //Check if the product we just update has been updated correctly
         $stock = Stock::where([
             'id' => 1,
-            'ingredient' => 'flour',
             'quantity' => 600,
-            'unit' => 'grams',
             'useby_date' => '2002-11-01',
             'command_id' => 1,
         ])->get();
@@ -167,18 +161,14 @@ class StockControllerTest extends TestCase
         //Create 2 products in stocks
         Stock::create([
             'id' => 1,
-            'ingredient' => 'flour',
             'quantity' => 200,
-            'unit' => 'grams',
             'useby_date' => '2002-11-01',
             'command_id' => 1,
         ]);
 
         Stock::create([
             'id' => 2,
-            'ingredient' => 'flour',
             'quantity' => 300,
-            'unit' => 'grams',
             'useby_date' => '2002-11-03',
             'command_id' => 1,
         ]);

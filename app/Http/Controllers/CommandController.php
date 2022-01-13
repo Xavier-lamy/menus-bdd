@@ -47,9 +47,9 @@ class CommandController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'ingredient' => ['required', 'min:1', 'max:60', 'string'],
-            'unit' => ['required', 'min:1', 'max:40', 'string'],
-            'alert_stock' => ['required', 'min:0', 'integer'],
+            'ingredient' => ['required', 'min:1', 'max:40', 'string'],
+            'unit' => ['required', 'min:1', 'max:30', 'string'],
+            'alert_stock' => ['required', 'min:0', 'max:1000000000', 'integer'],
         ]);
 
         $ingredient = strtolower($request->ingredient);
@@ -106,9 +106,9 @@ class CommandController extends Controller
     {
         $request->validate([
             'id' => ['required', 'min:0', 'integer'],
-            'ingredient' => ['required', 'min:1', 'max:60', 'string'],
-            'unit' => ['required', 'min:1', 'max:40', 'string'],
-            'alert_stock' => ['required', 'min:0', 'integer'],
+            'ingredient' => ['required', 'min:1', 'max:40', 'string'],
+            'unit' => ['required', 'min:1', 'max:30', 'string'],
+            'alert_stock' => ['required', 'min:0', 'max:1000000000', 'integer'],
         ]);
 
         //Modify commands: ingredient, unit and alert-stock
@@ -137,12 +137,6 @@ class CommandController extends Controller
         //Update commands:
         $new_commands_product->update([
             'must_buy' => $must_buy,
-        ]);
-
-        //Modify related stock products ingredient name and unit
-        Stock::where('command_id', $command_id)->update([
-            'ingredient' => $command_ingredient,
-            'unit' => $command_unit,
         ]);
         
         return redirect('commands')->with('success', 'Product modified !');

@@ -53,7 +53,6 @@ class CommandControllerTest extends TestCase
      *  - Redirect
      *  - Return a success message
      *  - The product is correctly updated in commands
-     *  - The product is correctly updated in stocks
      *
      * @return void
      */
@@ -68,15 +67,6 @@ class CommandControllerTest extends TestCase
             'unit' => 'grams',
             'alert_stock' => 400,
             'must_buy' => 1,
-        ]);
-
-        Stock::create([
-            'id' => 1,
-            'ingredient' => 'flour',
-            'quantity' => 200,
-            'unit' => 'grams',
-            'useby_date' => '2002-11-01',
-            'command_id' => 1,
         ]);
 
         $response = $this->post('/commands/modify', [
@@ -97,18 +87,6 @@ class CommandControllerTest extends TestCase
         ])->get();
 
         $this->assertTrue(!empty($command));
-
-        //Check if the related product has been updated in stocks
-        $stock = Stock::where([
-            'id' => 1,
-            'ingredient' => 'sugar',
-            'quantity' => 200,
-            'unit' => 'bags',
-            'useby_date' => '2002-11-01',
-            'command_id' => 1,
-        ])->get();
-        
-        $this->assertTrue(!empty($stock));
 
         $response
             ->assertRedirect('/commands')
@@ -142,18 +120,14 @@ class CommandControllerTest extends TestCase
         //Create 2 products in stocks
         Stock::create([
             'id' => 1,
-            'ingredient' => 'flour',
             'quantity' => 200,
-            'unit' => 'grams',
             'useby_date' => '2002-11-01',
             'command_id' => 1,
         ]);
 
         Stock::create([
             'id' => 2,
-            'ingredient' => 'flour',
             'quantity' => 300,
-            'unit' => 'grams',
             'useby_date' => '2002-11-03',
             'command_id' => 1,
         ]);

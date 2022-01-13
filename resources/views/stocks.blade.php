@@ -100,10 +100,10 @@
                 @forelse($products as $product)
                     @if(isset($modifying_product_id) && $modifying_product_id == $product->id)
                         <tr class="bg--secondary-fade">
-                            <td class="text--center p--1">{{ $product->ingredient }}</td>
+                            <td class="text--center p--1">{{ $product->command->ingredient }}</td>
                             <td class="text--center p--1 dsp--flex align--center">
                                 <input type="number" aria-label="Quantity" min="0" name="quantity" form="modify_product_form" class="text--center w--50 input--inset" value="{{ $product->quantity }}" required autofocus>
-                                <span class="w--50">{{ $product->unit }}</span>
+                                <span class="w--50">{{ $product->command->unit }}</span>
                             </td>
                             <td class="text--center p--1">
                                 <input type="date" min="2000-01-01" max="3000-01-01" aria-label="Useby date" name="useby_date" form="modify_product_form" class="text--center input--inset" value="{{ $product->useby_date }}" required>
@@ -117,8 +117,8 @@
                         </tr>
                     @else 
                         <tr>
-                            <td class="text--center p--1">{{ $product->ingredient }}</td>
-                            <td class="text--center p--1">{{ $product->quantity }} {{ $product->unit }}</td>
+                            <td class="text--center p--1">{{ $product->command->ingredient }}</td>
+                            <td class="text--center p--1">{{ $product->quantity }} {{ $product->command->unit }}</td>
                             <td class="text--center p--1 text-{{ FrontController::checkProductExpire($product->useby_date); }}">
                                 {{ $product->useby_date }}
                             </td>

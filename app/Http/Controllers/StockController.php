@@ -50,7 +50,7 @@ class StockController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'quantity' => ['required', 'min:0', 'integer'],
+            'quantity' => ['required', 'min:0', 'max:1000000000', 'integer'],
             'useby_date' => ['required', 'date_format:Y-m-d', 'after:2000-01-01', 'before:2300-01-01'],
             'command_id' => [new CommandIdValided],
         ]);
@@ -59,9 +59,7 @@ class StockController extends Controller
         $commands_product = Command::find($id);
 
         Stock::create([
-            'ingredient' => $commands_product->ingredient,
             'quantity' => $request->quantity,
-            'unit' => $commands_product->unit,
             'useby_date' => $request->useby_date,
             'command_id' => $id,
         ]);
@@ -120,7 +118,7 @@ class StockController extends Controller
             'id' => ['required', 'min:0', 'integer'],
             'command_id' => ['required', 'min:0', 'integer'],
             'useby_date' => ['required', 'date_format:Y-m-d', 'after:2000-01-01', 'before:2300-01-01'],
-            'quantity' => ['required', 'min:0', 'integer'],
+            'quantity' => ['required', 'min:0', 'max:1000000000', 'integer'],
         ]);
 
         //Fetch data from request

@@ -47,8 +47,8 @@
                         @if ($products->count() > 0)
                             @foreach($products as $product)
                                 <tr>
-                                    <td class="text--center p--1">{{ $product->ingredient }}</td>
-                                    <td class="text--center p--1">{{ $product->quantity }} {{ $product->unit }}</td>
+                                    <td class="text--center p--1">{{ $product->command->ingredient }}</td>
+                                    <td class="text--center p--1">{{ $product->quantity }} {{ $product->command->unit }}</td>
                                     <td class="text--center p--1">
                                         {{ $product->useby_date }}
                                         <input type="hidden" name="delete_{{ $product->id }}" form="confirm_stocks_deletion_form" value="{{ $product->id }}" required>
