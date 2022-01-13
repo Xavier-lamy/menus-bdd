@@ -37,7 +37,7 @@ class RouteTest extends TestCase
      *
      * @return void
      */
-    public function testStockscreateRoute()
+    public function testStocksCreateRoute()
     {
         $response = $this->get('/stocks/create');
 
@@ -121,7 +121,7 @@ class RouteTest extends TestCase
      *
      * @return void
      */
-    public function testCommandscreateRoute()
+    public function testCommandsCreateRoute()
     {
         $response = $this->get('/total-stocks/create');
 
