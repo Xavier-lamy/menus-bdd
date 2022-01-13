@@ -48,7 +48,7 @@
                             @foreach($products as $product)
                                 <tr>
                                     <td class="text--center p--1">{{ $product->ingredient }}</td>
-                                    <td class="text--center p--1">{{ $product->quantity }} {{ $product->quantity_name }}</td>
+                                    <td class="text--center p--1">{{ $product->quantity }} {{ $product->unit }}</td>
                                     <td class="text--center p--1">
                                         {{ $product->useby_date }}
                                         <input type="hidden" name="delete_{{ $product->id }}" form="confirm_stocks_deletion_form" value="{{ $product->id }}" required>
@@ -102,7 +102,7 @@
                             @forelse($products as $product)
                                 <tr>
                                     <td class="text--center p--1">{{ $product->ingredient }}</td>
-                                    <td class="text--center p--1">{{ $product->quantity }} {{ $product->quantity_name }}</td>
+                                    <td class="text--center p--1">{{ $product->quantity }} {{ $product->unit }}</td>
                                     <td class="text--center p--1">
                                         {{ $product->alert_stock }}
                                         <input type="hidden" name="delete_{{ $product->id }}" form="confirm_commands_deletion_form" value="{{ $product->id }}" required>

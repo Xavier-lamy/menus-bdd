@@ -10,7 +10,7 @@ class Stock extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['ingredient', 'quantity', 'quantity_name', 'useby_date', 'command_id'];
+    protected $fillable = ['ingredient', 'quantity', 'unit', 'useby_date', 'command_id'];
 
     public $timestamps = false;
 

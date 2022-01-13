@@ -48,23 +48,23 @@ class CommandController extends Controller
     {
         $request->validate([
             'ingredient' => ['required', 'min:1', 'max:60', 'string'],
-            'quantity_name' => ['required', 'min:1', 'max:40', 'string'],
+            'unit' => ['required', 'min:1', 'max:40', 'string'],
             'alert_stock' => ['required', 'min:0', 'integer'],
         ]);
 
         $ingredient = strtolower($request->ingredient);
-        $quantity_name = strtolower($request->quantity_name);
+        $unit = strtolower($request->unit);
         $alert_stock = $request->alert_stock;
-        $product_exist = Command::where('ingredient', $ingredient)->where('quantity_name', $quantity_name)->first();
+        $product_exist = Command::where('ingredient', $ingredient)->where('unit', $unit)->first();
 
         if(!empty($product_exist)){
-            return redirect('total-stocks')->with('message', "Product: {$ingredient} ({$quantity_name}),already exists !");
+            return redirect('total-stocks')->with('message', "Product: {$ingredient} ({$unit}),already exists !");
         }
 
         Command::create([
             'ingredient' => $ingredient,
             'quantity' => 0,
-            'quantity_name' => $quantity_name,
+            'unit' => $unit,
             'alert_stock' => $alert_stock,
             'must_buy' => 1,
         ]);
@@ -107,7 +107,7 @@ class CommandController extends Controller
         $request->validate([
             'id' => ['required', 'min:0', 'integer'],
             'ingredient' => ['required', 'min:1', 'max:60', 'string'],
-            'quantity_name' => ['required', 'min:1', 'max:40', 'string'],
+            'unit' => ['required', 'min:1', 'max:40', 'string'],
             'alert_stock' => ['required', 'min:0', 'integer'],
         ]);
 
@@ -115,12 +115,12 @@ class CommandController extends Controller
         $command_id = $request->id;
         $commands_product = Command::find($command_id);
         $command_ingredient = strtolower($request->ingredient);
-        $command_unit = strtolower($request->quantity_name);
+        $command_unit = strtolower($request->unit);
         $command_alert_stock = $request->alert_stock;
 
         $commands_product->update([
             'ingredient' => $command_ingredient,
-            'quantity_name' => $command_unit,
+            'unit' => $command_unit,
             'alert_stock' => $command_alert_stock,
         ]);
 
@@ -142,7 +142,7 @@ class CommandController extends Controller
         //Modify related stock products ingredient name and unit
         Stock::where('command_id', $command_id)->update([
             'ingredient' => $command_ingredient,
-            'quantity_name' => $command_unit,
+            'unit' => $command_unit,
         ]);
         
         return redirect('total-stocks')->with('success', 'Product modified !');

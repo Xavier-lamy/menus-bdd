@@ -29,7 +29,7 @@ class StockControllerTest extends TestCase
             'id' => 1,
             'ingredient' => 'flour',
             'quantity' => 0,
-            'quantity_name' => 'grams',
+            'unit' => 'grams',
             'alert_stock' => 150,
             'must_buy' => 1,
         ]);
@@ -46,7 +46,7 @@ class StockControllerTest extends TestCase
             'id' => 1,
             'ingredient' => 'flour',
             'quantity' => 200,
-            'quantity_name' => 'grams',
+            'unit' => 'grams',
             'useby_date' => '2002-11-01',
             'command_id' => 1,
         ])->get();
@@ -58,7 +58,7 @@ class StockControllerTest extends TestCase
             'id' => 1,
             'ingredient' => 'flour',
             'quantity' => 200,
-            'quantity_name' => 'grams',
+            'unit' => 'grams',
             'alert_stock' => 150,
             'must_buy' => 0,
         ])->get();
@@ -89,7 +89,7 @@ class StockControllerTest extends TestCase
             'id' => 1,
             'ingredient' => 'flour',
             'quantity' => 200,
-            'quantity_name' => 'grams',
+            'unit' => 'grams',
             'alert_stock' => 150,
             'must_buy' => 1,
         ]);
@@ -98,7 +98,7 @@ class StockControllerTest extends TestCase
             'id' => 1,
             'ingredient' => 'flour',
             'quantity' => 200,
-            'quantity_name' => 'grams',
+            'unit' => 'grams',
             'useby_date' => '2002-11-01',
             'command_id' => 1,
         ]);
@@ -115,7 +115,7 @@ class StockControllerTest extends TestCase
             'id' => 1,
             'ingredient' => 'flour',
             'quantity' => 600,
-            'quantity_name' => 'grams',
+            'unit' => 'grams',
             'useby_date' => '2002-11-01',
             'command_id' => 1,
         ])->get();
@@ -127,7 +127,7 @@ class StockControllerTest extends TestCase
             'id' => 1,
             'ingredient' => 'flour',
             'quantity' => 600,
-            'quantity_name' => 'grams',
+            'unit' => 'grams',
             'alert_stock' => 150,
             'must_buy' => 0,
         ])->get();
@@ -159,7 +159,7 @@ class StockControllerTest extends TestCase
             'id' => 1,
             'ingredient' => 'flour',
             'quantity' => 500,
-            'quantity_name' => 'grams',
+            'unit' => 'grams',
             'alert_stock' => 150,
             'must_buy' => 0,
         ]);
@@ -169,7 +169,7 @@ class StockControllerTest extends TestCase
             'id' => 1,
             'ingredient' => 'flour',
             'quantity' => 200,
-            'quantity_name' => 'grams',
+            'unit' => 'grams',
             'useby_date' => '2002-11-01',
             'command_id' => 1,
         ]);
@@ -178,7 +178,7 @@ class StockControllerTest extends TestCase
             'id' => 2,
             'ingredient' => 'flour',
             'quantity' => 300,
-            'quantity_name' => 'grams',
+            'unit' => 'grams',
             'useby_date' => '2002-11-03',
             'command_id' => 1,
         ]);
@@ -199,7 +199,7 @@ class StockControllerTest extends TestCase
             'id' => 1,
             'ingredient' => 'flour',
             'quantity' => 0,
-            'quantity_name' => 'grams',
+            'unit' => 'grams',
             'alert_stock' => 150,
             'must_buy' => 1,
         ])->get();

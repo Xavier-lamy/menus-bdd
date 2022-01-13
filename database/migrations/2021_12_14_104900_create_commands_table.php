@@ -17,7 +17,7 @@ class CreateCommandsTable extends Migration
             $table->id('id');
             $table->string('ingredient', 60);
             $table->unsignedInteger('quantity');
-            $table->string('quantity_name', 40);
+            $table->string('unit', 40);
             $table->unsignedInteger('alert_stock');
             $table->boolean('must_buy');
         });

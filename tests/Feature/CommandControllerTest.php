@@ -25,7 +25,7 @@ class CommandControllerTest extends TestCase
         //Test a request for adding product
         $response = $this->post('/total-stocks/create', [
             'ingredient' => 'flour',
-            'quantity_name' => 'grams',
+            'unit' => 'grams',
             'alert_stock' => 200,
         ]);
 
@@ -34,7 +34,7 @@ class CommandControllerTest extends TestCase
             'id' => 1,
             'ingredient' => 'flour',
             'quantity' => 0,
-            'quantity_name' => 'grams',
+            'unit' => 'grams',
             'alert_stock' => 200,
             'must_buy' => 1,
         ])->get();
@@ -65,7 +65,7 @@ class CommandControllerTest extends TestCase
             'id' => 1,
             'ingredient' => 'flour',
             'quantity' => 200,
-            'quantity_name' => 'grams',
+            'unit' => 'grams',
             'alert_stock' => 400,
             'must_buy' => 1,
         ]);
@@ -74,7 +74,7 @@ class CommandControllerTest extends TestCase
             'id' => 1,
             'ingredient' => 'flour',
             'quantity' => 200,
-            'quantity_name' => 'grams',
+            'unit' => 'grams',
             'useby_date' => '2002-11-01',
             'command_id' => 1,
         ]);
@@ -82,7 +82,7 @@ class CommandControllerTest extends TestCase
         $response = $this->post('/total-stocks/modify', [
             'id' => 1,
             'ingredient' => 'sugar',
-            'quantity_name' => 'bags',
+            'unit' => 'bags',
             'alert_stock' => 100,
         ]);
 
@@ -91,7 +91,7 @@ class CommandControllerTest extends TestCase
             'id' => 1,
             'ingredient' => 'sugar',
             'quantity' => 200,
-            'quantity_name' => 'bags',
+            'unit' => 'bags',
             'alert_stock' => 100,
             'must_buy' => 0,
         ])->get();
@@ -103,7 +103,7 @@ class CommandControllerTest extends TestCase
             'id' => 1,
             'ingredient' => 'sugar',
             'quantity' => 200,
-            'quantity_name' => 'bags',
+            'unit' => 'bags',
             'useby_date' => '2002-11-01',
             'command_id' => 1,
         ])->get();
@@ -134,7 +134,7 @@ class CommandControllerTest extends TestCase
             'id' => 1,
             'ingredient' => 'flour',
             'quantity' => 500,
-            'quantity_name' => 'grams',
+            'unit' => 'grams',
             'alert_stock' => 150,
             'must_buy' => 0,
         ]);
@@ -144,7 +144,7 @@ class CommandControllerTest extends TestCase
             'id' => 1,
             'ingredient' => 'flour',
             'quantity' => 200,
-            'quantity_name' => 'grams',
+            'unit' => 'grams',
             'useby_date' => '2002-11-01',
             'command_id' => 1,
         ]);
@@ -153,7 +153,7 @@ class CommandControllerTest extends TestCase
             'id' => 2,
             'ingredient' => 'flour',
             'quantity' => 300,
-            'quantity_name' => 'grams',
+            'unit' => 'grams',
             'useby_date' => '2002-11-03',
             'command_id' => 1,
         ]);

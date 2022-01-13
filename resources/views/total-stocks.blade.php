@@ -63,7 +63,7 @@
                             <input type="text" aria-label="Ingredient" maxlength="60" minlength="1" name="ingredient" form="add_product_type_form" class="text--center input--inset" placeholder="Ingredient" required autofocus>
                         </td>
                         <td class="text--center p--1">
-                            <input type="text" aria-label="Unit" maxlength="40" minlength="1" name="quantity_name" form="add_product_type_form" class="text--center input--inset" placeholder="Unit" required>
+                            <input type="text" aria-label="Unit" maxlength="40" minlength="1" name="unit" form="add_product_type_form" class="text--center input--inset" placeholder="Unit" required>
                         </td>
                         <td class="text--center p--1">
                             <input type="number" min="0" name="alert_stock" form="add_product_type_form" class="text--center input--inset" placeholder="Alert Stock" required>
@@ -81,7 +81,7 @@
                                 <input type="text" aria-label="Ingredient" maxlength="60" minlength="1" name="ingredient" form="modify_product_form" class="text--center input--inset" value="{{ $product->ingredient }}" required autofocus>
                             </td>
                             <td class="text--center p--1">
-                                <input type="text" aria-label="Unit" maxlength="40" minlength="1" name="quantity_name" form="modify_product_form" class="text--center input--inset" value="{{ $product->quantity_name }}" required>
+                                <input type="text" aria-label="Unit" maxlength="40" minlength="1" name="unit" form="modify_product_form" class="text--center input--inset" value="{{ $product->unit }}" required>
                             </td>
                             <td class="text--center p--1">
                                 <input type="number" min="0" name="alert_stock" form="modify_product_form" class="text--center input--inset" value="{{ $product->alert_stock }}" required>
@@ -95,7 +95,7 @@
                     @else 
                         <tr>
                             <td class="text--center p--1">{{ $product->ingredient }}</td>
-                            <td class="text--center p--1">{{ $product->quantity }} {{ $product->quantity_name }}</td>
+                            <td class="text--center p--1">{{ $product->quantity }} {{ $product->unit }}</td>
                             <td class="text--center p--1">{{ $product->alert_stock }}</td>
                             <td class="text--center p--1">
                                 <a href=" {{ route('command.modify', ['id' => $product->id]) }} " class="button--sm">Modify</a>

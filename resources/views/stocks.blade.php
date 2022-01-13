@@ -78,7 +78,7 @@
                                 @if($commands_products->count() > 0)
                                     <option value="" selected>Choose an ingredient and a unit</option>
                                     @foreach($commands_products as $commands_product)
-                                        <option value="{{ $commands_product->id }}">{{ $commands_product->ingredient }} ({{ $commands_product->quantity_name }})</option>
+                                        <option value="{{ $commands_product->id }}">{{ $commands_product->ingredient }} ({{ $commands_product->unit }})</option>
                                     @endforeach
                                 @else
                                     <option value="" selected>No products available</option>
@@ -103,7 +103,7 @@
                             <td class="text--center p--1">{{ $product->ingredient }}</td>
                             <td class="text--center p--1 dsp--flex align--center">
                                 <input type="number" aria-label="Quantity" min="0" name="quantity" form="modify_product_form" class="text--center w--50 input--inset" value="{{ $product->quantity }}" required autofocus>
-                                <span class="w--50">{{ $product->quantity_name }}</span>
+                                <span class="w--50">{{ $product->unit }}</span>
                             </td>
                             <td class="text--center p--1">
                                 <input type="date" min="2000-01-01" max="3000-01-01" aria-label="Useby date" name="useby_date" form="modify_product_form" class="text--center input--inset" value="{{ $product->useby_date }}" required>
@@ -118,7 +118,7 @@
                     @else 
                         <tr>
                             <td class="text--center p--1">{{ $product->ingredient }}</td>
-                            <td class="text--center p--1">{{ $product->quantity }} {{ $product->quantity_name }}</td>
+                            <td class="text--center p--1">{{ $product->quantity }} {{ $product->unit }}</td>
                             <td class="text--center p--1 text-{{ FrontController::checkProductExpire($product->useby_date); }}">
                                 {{ $product->useby_date }}
                             </td>

@@ -29,7 +29,7 @@
 + Modèle avec les types de données et des exemples:
 + Ajout d'une colonne commands_id pour relier cette table à la table commands
 
-| id | ingredient | commands_id | quantity | quantity_name          | useby_date |
+| id | ingredient | commands_id | quantity | unit          | useby_date |
 |----|------------|-------------|----------|-----------------------|-----|
 |INT | VARCHAR(40)|   INT       | INT      |     VARCHAR(30)       | DATE|
 |UNSIGNED|NOT NULL| UNSIGNED    | NOT NULL |     NOT NULL          | NOT NULL |
@@ -46,7 +46,7 @@
 + Elle reprend les même ingrédients mais avec cette fois leur quantité totale indépendamment de la date
 + Dans celle ci le nom des ingrédients doit être unique, exceptionnelement ce sera le nom des ingrédients qui servira de liens entre les 2 tables, liens à établir entre les deux tables : quand un ingrédient avec une date est ajouté ou retiré à 'stocks' on le modifie également dans la quantité totale de 'commands'
 
-| id | ingredient | quantity | quantity_name          | alert_stock     | must_buy |
+| id | ingredient | quantity | unit          | alert_stock     | must_buy |
 |----|------------|----------|-----------------------|----------------|---------|
 |INT | VARCHAR(40)| INT      |     VARCHAR(30)       |  INT           | BIT     |
 |UNSIGNED|NOT NULL| NOT NULL |     NOT NULL          |  NOT NULL      | NOT NULL|

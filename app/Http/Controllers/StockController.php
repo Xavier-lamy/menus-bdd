@@ -61,7 +61,7 @@ class StockController extends Controller
         Stock::create([
             'ingredient' => $commands_product->ingredient,
             'quantity' => $request->quantity,
-            'quantity_name' => $commands_product->quantity_name,
+            'unit' => $commands_product->unit,
             'useby_date' => $request->useby_date,
             'command_id' => $id,
         ]);
