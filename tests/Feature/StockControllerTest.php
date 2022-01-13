@@ -34,7 +34,7 @@ class StockControllerTest extends TestCase
             'must_buy' => 1,
         ]);
 
-        //Test a request for modifying product
+        //Test a request for adding product
         $response = $this->post('/stocks/create', [
             'quantity' => 200,
             'useby_date' => '2002-11-01',
@@ -189,7 +189,6 @@ class StockControllerTest extends TestCase
         ]);
 
         //Check if the products we delete are not there anymore
-        /* $stock = Stock::whereIn('id', [1, 2])->get(); */
         $stock = Stock::find(1);
         $stock2 = Stock::find(2);
         
