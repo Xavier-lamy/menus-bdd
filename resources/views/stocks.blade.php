@@ -8,7 +8,7 @@
     <main class="element--center w--60 _mob_w--100">
         <h1 class="text--center">Stocks</h1>
         <div class="dsp--flex justify--between">
-            <a href=" {{ route('total-stocks') }} " class="button m--3">Total stocks</a>
+            <a href=" {{ route('commands') }} " class="button m--3">Total stocks</a>
             <a href=" {{ route('stock.create') }} " class="button m--3">Add ingredient</a>
             <button type="submit" form="delete_product_form" class="button m--3">Delete selection</button>
         </div>

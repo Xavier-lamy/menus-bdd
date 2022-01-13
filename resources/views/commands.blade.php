@@ -70,7 +70,7 @@
                         </td>
                         <td class="text--center p--1">
                             <button type="submit" form="add_product_type_form" class="button--sm">Add new</button>
-                            <a href=" {{ route('total-stocks') }} " class="button--sm">Cancel</a>
+                            <a href=" {{ route('commands') }} " class="button--sm">Cancel</a>
                         </td>
                     </tr>  
                 @endisset
@@ -89,7 +89,7 @@
                             <td class="text--center p--1">
                                 <input type="hidden" name="id" form="modify_product_form" value="{{ $product->id }}" required>
                                 <button type="submit" form="modify_product_form" class="button--sm">Apply</button>
-                                <a href=" {{ route('total-stocks') }} " class="button--sm">Cancel</a>
+                                <a href=" {{ route('commands') }} " class="button--sm">Cancel</a>
                             </td>
                         </tr>
                     @else 

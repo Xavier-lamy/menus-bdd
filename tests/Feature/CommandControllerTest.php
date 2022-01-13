@@ -23,7 +23,7 @@ class CommandControllerTest extends TestCase
     {
         $this->withoutExceptionHandling();
         //Test a request for adding product
-        $response = $this->post('/total-stocks/create', [
+        $response = $this->post('/commands/create', [
             'ingredient' => 'flour',
             'unit' => 'grams',
             'alert_stock' => 200,
@@ -42,7 +42,7 @@ class CommandControllerTest extends TestCase
         $this->assertTrue(!empty($command));
 
         $response
-            ->assertRedirect('/total-stocks')
+            ->assertRedirect('/commands')
             ->assertSessionHas([
                 'success' => 'Product successfully added !',
             ]);
@@ -79,7 +79,7 @@ class CommandControllerTest extends TestCase
             'command_id' => 1,
         ]);
 
-        $response = $this->post('/total-stocks/modify', [
+        $response = $this->post('/commands/modify', [
             'id' => 1,
             'ingredient' => 'sugar',
             'unit' => 'bags',
@@ -111,7 +111,7 @@ class CommandControllerTest extends TestCase
         $this->assertTrue(!empty($stock));
 
         $response
-            ->assertRedirect('/total-stocks')
+            ->assertRedirect('/commands')
             ->assertSessionHas([
                 'success' => 'Product modified !',
             ]);
@@ -158,7 +158,7 @@ class CommandControllerTest extends TestCase
             'command_id' => 1,
         ]);
 
-        $response = $this->post('/total-stocks/delete', [
+        $response = $this->post('/commands/delete', [
             'delete_1' => 1,
         ]);
 
@@ -171,7 +171,7 @@ class CommandControllerTest extends TestCase
         $this->assertTrue(empty($stock) && empty($stock2));
 
         $response
-            ->assertRedirect('/total-stocks')
+            ->assertRedirect('/commands')
             ->assertSessionHas([
                 'success' => '1 entry deleted !',
             ]);

@@ -17,7 +17,7 @@ class CommandController extends Controller
     {
         $products = Command::all();
 
-        return view('total-stocks', [
+        return view('commands', [
             'products' => $products,
         ]);
     }
@@ -32,7 +32,7 @@ class CommandController extends Controller
         $is_creating = true;
         $products = Command::all();
 
-        return view('total-stocks', [
+        return view('commands', [
             'products' => $products,
             'is_creating' => $is_creating,
         ]);
@@ -58,7 +58,7 @@ class CommandController extends Controller
         $product_exist = Command::where('ingredient', $ingredient)->where('unit', $unit)->first();
 
         if(!empty($product_exist)){
-            return redirect('total-stocks')->with('message', "Product: {$ingredient} ({$unit}),already exists !");
+            return redirect('commands')->with('message', "Product: {$ingredient} ({$unit}),already exists !");
         }
 
         Command::create([
@@ -69,7 +69,7 @@ class CommandController extends Controller
             'must_buy' => 1,
         ]);
 
-        return redirect('total-stocks')->with('success', 'Product successfully added !');            
+        return redirect('commands')->with('success', 'Product successfully added !');            
     }
 
     /**
@@ -90,7 +90,7 @@ class CommandController extends Controller
     {
         $products = Command::all();
 
-        return view('total-stocks', [
+        return view('commands', [
             'products' => $products,
             'modifying_product_id' => $id,
         ]);
@@ -145,7 +145,7 @@ class CommandController extends Controller
             'unit' => $command_unit,
         ]);
         
-        return redirect('total-stocks')->with('success', 'Product modified !');
+        return redirect('commands')->with('success', 'Product modified !');
     }
 
     /**
@@ -168,7 +168,7 @@ class CommandController extends Controller
             ]);            
         }
 
-        return redirect('total-stocks')->with('message', 'You need to select products first !');
+        return redirect('commands')->with('message', 'You need to select products first !');
 
     }
 
@@ -199,17 +199,17 @@ class CommandController extends Controller
         $difference = $entries_total - $entries_deleted;
         switch($entries_deleted){
             case 0:
-                return redirect('total-stocks')->with('error', "There is an error, no entry deleted");
+                return redirect('commands')->with('error', "There is an error, no entry deleted");
             case 1:
                 if($entries_total != $entries_deleted){
-                    return redirect('total-stocks')->with('success', "{$entries_deleted} entry deleted, {$difference} couldn't be deleted"); 
+                    return redirect('commands')->with('success', "{$entries_deleted} entry deleted, {$difference} couldn't be deleted"); 
                 }
-                return redirect('total-stocks')->with('success', "{$entries_deleted} entry deleted !");
+                return redirect('commands')->with('success', "{$entries_deleted} entry deleted !");
             default:
                 if($entries_total != $entries_deleted){
-                    return redirect('total-stocks')->with('success', "{$entries_deleted} entries deleted, {$difference} couldn't be deleted"); 
+                    return redirect('commands')->with('success', "{$entries_deleted} entries deleted, {$difference} couldn't be deleted"); 
                 } 
-                return redirect('total-stocks')->with('success', "{$entries_deleted} entries deleted !"); 
+                return redirect('commands')->with('success', "{$entries_deleted} entries deleted !"); 
         }
     }
 }

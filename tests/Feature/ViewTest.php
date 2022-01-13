@@ -39,8 +39,8 @@ class ViewTest extends TestCase
      */
     public function testCommandsView()
     {
-        $response = $this->get('/total-stocks');
+        $response = $this->get('/commands');
 
-        $response->assertViewIs('total-stocks');
+        $response->assertViewIs('commands');
     }
 }

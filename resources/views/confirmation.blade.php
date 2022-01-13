@@ -68,7 +68,7 @@
                 Note: this is recommended to delete related products in stocks instead and keep the types in total stocks, this way you can easily change it back when you buy some again.<br>
                 Prefer keeping delete ability for products you will never buy again for sure (like Brussels sprouts) </p>
                 <div class="dsp--flex justify--between">
-                    <a href="{{ route('total-stocks') }}" class="button m--3">Cancel (return to total stocks)</a>
+                    <a href="{{ route('commands') }}" class="button m--3">Cancel (return to total stocks)</a>
                     <button type="submit" form="confirm_commands_deletion_form" class="button m--3">Confirm deletion</button>
                 </div>
 
