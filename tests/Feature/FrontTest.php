@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class ViewTest extends TestCase
+class FrontTest extends TestCase
 {
     /**
      * Test front view
@@ -21,26 +21,14 @@ class ViewTest extends TestCase
     }
 
     /**
-     * Test stocks view
+     * Test front route 
      *
      * @return void
      */
-    public function testStocksView()
+    public function testFrontRoute()
     {
-        $response = $this->get('/stocks');
+        $response = $this->get('/');
 
-        $response->assertViewIs('stocks');
-    }
-
-    /**
-     * Test commands view
-     *
-     * @return void
-     */
-    public function testCommandsView()
-    {
-        $response = $this->get('/commands');
-
-        $response->assertViewIs('commands');
+        $response->assertStatus(200);
     }
 }
