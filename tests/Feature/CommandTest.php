@@ -8,7 +8,7 @@ use App\Models\Stock;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class CommandControllerTest extends TestCase
+class CommandTest extends TestCase
 {
     use RefreshDatabase;
     /**
