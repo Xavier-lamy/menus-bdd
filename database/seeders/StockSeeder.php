@@ -10,7 +10,7 @@ use Carbon\Carbon;
 class StockSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Run the stock seeds.
      *
      * @return void
      */
