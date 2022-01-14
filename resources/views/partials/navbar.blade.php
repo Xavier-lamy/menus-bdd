@@ -2,7 +2,7 @@
     <ul class="navbar__links list--unstyled dsp--flex justify--between">
         <li><a href= {{ route('front') }} >Home</a></li>
         <li><a href="#">Menus</a></li>
-        <li><a href="#">Recipes</a></li>
+        <li><a href=" {{ route('recipes') }} ">Recipes</a></li>
         <li><a href= {{ route('stocks') }} >Stocks</a></li>
     </ul>
     <ul class="navbar__login list--unstyled dsp--flex justify--between">
