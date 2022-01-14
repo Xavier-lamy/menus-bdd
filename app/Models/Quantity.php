@@ -19,7 +19,7 @@ class Quantity extends Model
         return $this->belongsTo(Recipe::class);
     }
 
-    public function ingredientUnit(){
+    public function command(){
         return $this->belongsTo(Command::class);
     }
 }

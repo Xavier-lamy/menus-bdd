@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Recipe;
+use App\Models\Quantity;
 
 class RecipeController extends Controller
 {
@@ -13,7 +15,11 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        return view('recipes');
+        $recipes = Recipe::all();
+
+        return view('recipes', [
+            'recipes' => $recipes,            
+        ]);
     }
 
     /**
@@ -49,7 +55,14 @@ class RecipeController extends Controller
      */
     public function show($id)
     {
-        return view('recipe');
+        $recipe = Recipe::find($id);
+
+        $quantities = Quantity::where('recipe_id', $id)->get();
+
+        return view('recipe', [
+            'recipe' => $recipe,
+            'quantities' => $quantities,
+        ]);
     }
 
     /**

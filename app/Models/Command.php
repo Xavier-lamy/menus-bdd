@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Stock;
+use App\Models\Quantity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

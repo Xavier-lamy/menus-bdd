@@ -16,8 +16,8 @@ class CreateQuantitiesTable extends Migration
         Schema::create('quantities', function (Blueprint $table) {
             $table->id('id');
             $table->unsignedInteger('quantity');
-            $table->unsignedBigInteger('recipe_id');
             $table->unsignedBigInteger('command_id');
+            $table->unsignedBigInteger('recipe_id');
             $table->foreign('command_id')->references('id')->on('commands');
             $table->foreign('recipe_id')->references('id')->on('recipes');
         });
