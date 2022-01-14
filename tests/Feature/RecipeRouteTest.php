@@ -41,7 +41,7 @@ class RecipeRouteTest extends TestCase
      */
     public function testRecipeShowRoute()
     {
-        $response = $this->get('/recipe/{$id}');
+        $response = $this->get('/recipe/{id}');
 
         $response->assertStatus(200);
     }

@@ -73,8 +73,11 @@ class RecipeController extends Controller
      */
     public function edit($id)
     {
+        $recipe = Recipe::find($id);
+
         $is_editing = true;
         return view('recipe', [
+            'recipe' => $recipe,
             'is_editing' => $is_editing,
         ]);
     }
