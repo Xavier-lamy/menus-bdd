@@ -304,6 +304,12 @@ input.input--inset {
     }
 }
 
+select.input--inset {
+    &:focus {
+        outline: none;
+    }
+}
+
 .tooltip {
     &_container {
         position: relative;

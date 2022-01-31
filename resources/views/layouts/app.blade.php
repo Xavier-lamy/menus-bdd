@@ -19,5 +19,6 @@
         </div>
     </footer>
     <script src="https://kit.fontawesome.com/0cb3a70ede.js" crossorigin="anonymous"></script>
+    <script src="{{ asset("assets/js/script.js") }}"></script>
 </body>
 </html>
