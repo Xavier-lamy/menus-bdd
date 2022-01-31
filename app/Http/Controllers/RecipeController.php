@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Recipe;
 use App\Models\Quantity;
+use App\Models\Command;
 
 class RecipeController extends Controller
 {
@@ -30,9 +31,10 @@ class RecipeController extends Controller
     public function create()
     {
         $is_creating = true;
-
+        $commands_products = Command::orderBy('ingredient')->get();
         return view('recipe', [
             'is_creating' => $is_creating,
+            'commands_products' => $commands_products,
         ]);
     }
 

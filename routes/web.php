@@ -50,13 +50,13 @@ Route:: post('/commands/delete', [CommandController::class, 'destroy'])->name('c
 /**Recipes */
 //Read
 Route:: get('/recipes', [RecipeController::class, 'index'])->name('recipes');
-Route:: get('/recipe/{id}', [RecipeController::class, 'show'])->name('recipe.show');
+Route:: get('/recipe/show/{id}', [RecipeController::class, 'show'])->name('recipe.show');
 //Create
 Route:: get('/recipe/create', [RecipeController::class, 'create'])->name('recipe.create');
-Route:: post('/recipe/create', [RecipeController::class, 'store'])->name('recipe.add');
+Route:: post('/recipe/add', [RecipeController::class, 'store'])->name('recipe.add');
 //Update
 Route:: get('/recipe/modify/{id}', [RecipeController::class, 'edit'])->name('recipe.modify');
-Route:: post('/recipe/modify', [RecipeController::class, 'update'])->name('recipe.apply');
+Route:: post('/recipe/apply', [RecipeController::class, 'update'])->name('recipe.apply');
 //Delete
 Route:: post('/recipe-delete-confirmation', [RecipeController::class, 'confirmDestroy'])->name('recipe-delete-confirmation');
 Route:: post('/recipes/delete', [RecipeController::class, 'destroy'])->name('recipe.delete');

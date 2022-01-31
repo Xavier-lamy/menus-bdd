@@ -43,7 +43,7 @@
                     <tr>
                         <td class="text--center p--1">
                             <select name="command_id"  aria-label="Ingredient (unit)" form="add_product_form" class="text--center input--inset" title="Ingredient (unit)" required autofocus>
-                                @if($commands_products->count() > 0)
+                                @if(isset($commands_products) && $commands_products->count() > 0)
                                     <option value="" selected>Choose an ingredient and a unit</option>
                                     @foreach($commands_products as $commands_product)
                                         <option value="{{ $commands_product->id }}">{{ $commands_product->ingredient }} ({{ $commands_product->unit }})</option>

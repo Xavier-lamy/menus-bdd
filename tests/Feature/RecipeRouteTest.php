@@ -41,7 +41,7 @@ class RecipeRouteTest extends TestCase
      */
     public function testRecipeShowRoute()
     {
-        $response = $this->get('/recipe/{id}');
+        $response = $this->get('/recipe/show/{id}');
 
         $response->assertStatus(200);
     }
@@ -65,7 +65,7 @@ class RecipeRouteTest extends TestCase
      */
     public function testRecipesAddRoute()
     {
-        $response = $this->post('/recipe/create');
+        $response = $this->post('/recipe/add');
 
         $response->assertStatus(302);
     }
@@ -89,7 +89,7 @@ class RecipeRouteTest extends TestCase
      */
     public function testRecipesApplyRoute()
     {
-        $response = $this->post('/recipe/modify');
+        $response = $this->post('/recipe/apply');
 
         $response->assertStatus(302);
     }
