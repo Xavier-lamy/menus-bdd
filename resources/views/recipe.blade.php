@@ -34,7 +34,7 @@
             <form method="POST" action=" {{ route('recipe.add') }} " id="add_recipe_form">
                 @csrf
             </form>
-
+            <input type="text" name="recipe_name" aria-label="Recipe quantity" form="add_recipe_form" class="text--center input--inset my--2" placeholder="Recipe name" required autofocus>
             <table class="element--center table--striped w--100" id="addRecipeTable">
                 <thead class="w--100 bg--secondary text--light">
                     <th class="w--60">Ingredient</th>
@@ -43,7 +43,7 @@
                 <tbody>
                     <tr>
                         <td class="text--center p--1">
-                            <select name="ingredient[1][command_id]" id="ingredient_id_1" aria-label="Ingredient (unit)" form="add_recipe_form" class="text--center input--inset" title="Ingredient (unit)" required autofocus>
+                            <select name="ingredient[1][command_id]" id="ingredient_id_1" aria-label="Ingredient (unit)" form="add_recipe_form" class="text--center input--inset" title="Ingredient (unit)" required>
                                 @if(isset($commands_products) && $commands_products->count() > 0)
                                     <option value="" selected>Choose an ingredient and a unit</option>
                                     @foreach($commands_products as $commands_product)
