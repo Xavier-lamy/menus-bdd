@@ -26,7 +26,7 @@
                     </tr>
                 @empty 
                     <tr>
-                        <td colspan="4" class="text--center">No recipes available</td>
+                        <td colspan="2" class="text--center">No recipes available</td>
                     </tr>
                 @endforelse
             </tbody>
