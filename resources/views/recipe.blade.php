@@ -43,7 +43,7 @@
                 <tbody>
                     <tr>
                         <td class="text--center p--1">
-                            <select name="ingredient_id_1" id="ingredient_id_1" aria-label="Ingredient (unit)" form="add_recipe_form" class="text--center input--inset" title="Ingredient (unit)" required autofocus>
+                            <select name="ingredient[1][command_id]" id="ingredient_id_1" aria-label="Ingredient (unit)" form="add_recipe_form" class="text--center input--inset" title="Ingredient (unit)" required autofocus>
                                 @if(isset($commands_products) && $commands_products->count() > 0)
                                     <option value="" selected>Choose an ingredient and a unit</option>
                                     @foreach($commands_products as $commands_product)
@@ -55,7 +55,7 @@
                             </select>
                         </td>
                         <td  class="text--center p--1">
-                            <input type="number" aria-label="Quantity" min="0" name="quantity_1" form="add_recipe_form" class="text--center input--inset" placeholder="Quantity" required>
+                            <input type="number" aria-label="Quantity" min="0" name="ingredient[1][quantity]" form="add_recipe_form" class="text--center input--inset" placeholder="Quantity" required>
                         </td>
                         <td class="text--center p--1">
                             <button type="button" name="deleteRow" id="deleteRow1" class="button--sm">Delete row</button>
