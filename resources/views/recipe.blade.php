@@ -37,8 +37,8 @@
 
             <table class="element--center table--striped w--100" id="addRecipeTable">
                 <thead class="w--100 bg--secondary text--light">
-                    <th class="w--75">Ingredient</th>
-                    <th class="w--25">Quantity</th>
+                    <th class="w--60">Ingredient</th>
+                    <th colspan="2" class="w--40">Quantity</th>
                 </thead>
                 <tbody>
                     <tr>
@@ -54,18 +54,21 @@
                                 @endif
                             </select>
                         </td>
-                        <td>
+                        <td  class="text--center p--1">
                             <input type="number" aria-label="Quantity" min="0" name="quantity_1" form="add_recipe_form" class="text--center input--inset" placeholder="Quantity" required>
+                        </td>
+                        <td class="text--center p--1">
+                            <button type="button" name="deleteRow" id="deleteRow1" class="button--sm">Delete row</button>
                         </td>
                     </tr>
                     <tr id="addIngredientRow">
-                        <td colspan="2" class="text--center">
+                        <td colspan="3" class="text--center">
                             <button type="button" id="addIngredientButton" class="button m--1">Add ingredient</button>
                         </td>
                     </tr>
-                    <th colspan="2" class="bg--secondary text--light">Method</th>
+                    <th colspan="3" class="bg--secondary text--light">Method</th>
                     <tr>
-                        <td colspan="2">
+                        <td colspan="3">
                             <textarea name="recipe_method" cols="30" rows="10" form="add_recipe_form" class="textarea--inset" placeholder="Enter method here" required></textarea>
                         </td>
                     </tr>
