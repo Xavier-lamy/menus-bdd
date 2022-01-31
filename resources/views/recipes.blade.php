@@ -5,7 +5,7 @@
     <main class="element--center w--60 _mob_w--100">
         <h1 class="text--center">Recipes</h1>
         <div class="dsp--flex justify--between">
-
+            <a href=" {{ route('recipe.create') }} " class="button m--3">Add new</a>
         </div>
 
         @include("partials.alert")

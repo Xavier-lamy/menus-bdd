@@ -14,6 +14,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 h1 {
     font-size: $h1;
+    line-height: 3rem;
 }
 h2 {
     font-size: $h2;
@@ -442,7 +443,7 @@ input {
         margin: 5% 10%;
     }
     @media screen and (max-width: 900px)  {
-        margin: 1%;
+        margin: 3%;
     }
 }
 
