@@ -276,17 +276,32 @@ input {
     border-radius: $border-radius;
     padding: .35rem;
     background-color: $background;
-    &input {
-        cursor: text;  
-    }
-    &select {
-        cursor: pointer;
-    }
     &:focus {
         border: .15rem $primary solid;
         box-shadow: inset .1rem .1rem .2rem $secondary-fade;
     }
-    
+}
+
+select.input--inset {
+    cursor: pointer;
+}
+
+input.input--inset {
+    cursor: text;
+}
+
+.textarea--inset {
+    border: .1rem $secondary solid;
+    box-shadow: inset .1rem .1rem .2rem $secondary-fade;
+    border-radius: $border-radius;
+    padding: .35rem;
+    background-color: $background;
+    width: 100%;
+    &:focus {
+        border: .15rem $primary solid;
+        box-shadow: inset .1rem .1rem .2rem $secondary-fade;
+        outline: none;
+    }
 }
 
 .tooltip {
@@ -345,6 +360,17 @@ input {
 }
 
 /*Display*/
+.text {
+    &--center {
+        text-align: center;
+    }
+    &--start {
+        text-align: start;
+    }
+    &--end {
+        text-align: end;
+    }
+}
 .dsp {
     &--none {
         display: none;
@@ -370,6 +396,9 @@ input {
     }
     &--around {
         justify-content: space-around;
+    }
+    &--center {
+        justify-content: center;
     }
 }
 .align {

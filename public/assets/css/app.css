@@ -315,15 +315,31 @@ input:active, input:focus {
   padding: 0.35rem;
   background-color: #f0f0f0;
 }
-.input--insetinput {
-  cursor: text;
-}
-.input--insetselect {
-  cursor: pointer;
-}
 .input--inset:focus {
   border: 0.15rem #294673 solid;
   box-shadow: inset 0.1rem 0.1rem 0.2rem #2f6872a9;
+}
+
+select.input--inset {
+  cursor: pointer;
+}
+
+input.input--inset {
+  cursor: text;
+}
+
+.textarea--inset {
+  border: 0.1rem #2f6872 solid;
+  box-shadow: inset 0.1rem 0.1rem 0.2rem #2f6872a9;
+  border-radius: 0.8rem;
+  padding: 0.35rem;
+  background-color: #f0f0f0;
+  width: 100%;
+}
+.textarea--inset:focus {
+  border: 0.15rem #294673 solid;
+  box-shadow: inset 0.1rem 0.1rem 0.2rem #2f6872a9;
+  outline: none;
 }
 
 .tooltip_container {
@@ -374,6 +390,16 @@ input:active, input:focus {
 }
 
 /*Display*/
+.text--center {
+  text-align: center;
+}
+.text--start {
+  text-align: start;
+}
+.text--end {
+  text-align: end;
+}
+
 .dsp--none {
   display: none;
 }
@@ -396,6 +422,9 @@ input:active, input:focus {
 }
 .justify--around {
   justify-content: space-around;
+}
+.justify--center {
+  justify-content: center;
 }
 
 .align--center {
