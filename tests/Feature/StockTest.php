@@ -47,9 +47,9 @@ class StockTest extends TestCase
             'quantity' => 200,
             'useby_date' => '2002-11-01',
             'command_id' => 1,
-        ])->get();
+        ])->exists();
         
-        $this->assertTrue(!empty($stock));
+        $this->assertTrue($stock);
 
         //Check if the product related to it in commands has been updated
         $command = Command::where([
@@ -59,9 +59,9 @@ class StockTest extends TestCase
             'unit' => 'grams',
             'alert_stock' => 150,
             'must_buy' => 0,
-        ])->get();
+        ])->exists();
 
-        $this->assertTrue(!empty($command));
+        $this->assertTrue($command);
 
         $response
             ->assertRedirect('/stocks')
@@ -112,9 +112,9 @@ class StockTest extends TestCase
             'quantity' => 600,
             'useby_date' => '2002-11-01',
             'command_id' => 1,
-        ])->get();
+        ])->exists();
         
-        $this->assertTrue(!empty($stock));
+        $this->assertTrue($stock);
 
         //Check if the product related to it in commands has been updated
         $command = Command::where([
@@ -124,9 +124,9 @@ class StockTest extends TestCase
             'unit' => 'grams',
             'alert_stock' => 150,
             'must_buy' => 0,
-        ])->get();
+        ])->exists();
 
-        $this->assertTrue(!empty($command));
+        $this->assertTrue($command);
 
         $response
             ->assertRedirect('/stocks')
@@ -192,9 +192,9 @@ class StockTest extends TestCase
             'unit' => 'grams',
             'alert_stock' => 150,
             'must_buy' => 1,
-        ])->get();
+        ])->exists();
 
-        $this->assertTrue(!empty($command));
+        $this->assertTrue($command);
 
         $response
             ->assertRedirect('/stocks')

@@ -37,9 +37,9 @@ class CommandTest extends TestCase
             'unit' => 'grams',
             'alert_stock' => 200,
             'must_buy' => 1,
-        ])->get();
+        ])->exists();
 
-        $this->assertTrue(!empty($command));
+        $this->assertTrue($command);
 
         $response
             ->assertRedirect('/commands')
@@ -84,9 +84,9 @@ class CommandTest extends TestCase
             'unit' => 'bags',
             'alert_stock' => 100,
             'must_buy' => 0,
-        ])->get();
+        ])->exists();
 
-        $this->assertTrue(!empty($command));
+        $this->assertTrue($command);
 
         $response
             ->assertRedirect('/commands')
