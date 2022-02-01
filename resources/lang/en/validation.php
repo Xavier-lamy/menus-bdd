@@ -155,6 +155,8 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'ingredient.*.quantity' => 'ingredient quantity',
+    ],
 
 ];
