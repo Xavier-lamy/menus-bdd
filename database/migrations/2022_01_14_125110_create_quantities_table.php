@@ -18,7 +18,7 @@ class CreateQuantitiesTable extends Migration
             $table->unsignedInteger('quantity');
             $table->unsignedBigInteger('command_id');
             $table->unsignedBigInteger('recipe_id');
-            $table->foreign('command_id')->references('id')->on('commands');
+            $table->foreign('command_id')->references('id')->on('commands')->onDelete('cascade');
             $table->foreign('recipe_id')->references('id')->on('recipes');
         });
     }

@@ -65,6 +65,7 @@
             <main class="element--center w--60 _mob_w--100">
                 <h1 class="text--center">Confirm deletion of product types</h1>
                 <p class="alert--message my--2 p--2">Do you really want to delete those products, this will delete all products related to this type.<br>
+                It will also be remove from all the recipes it belongs to<br>
                 Note: this is recommended to delete related products in stocks instead and keep the types in total stocks, this way you can easily change it back when you buy some again.<br>
                 Prefer keeping delete ability for products you will never buy again for sure (like Brussels sprouts) </p>
                 <div class="dsp--flex justify--between">

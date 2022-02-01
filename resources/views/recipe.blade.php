@@ -19,19 +19,21 @@
                 </thead>
                 <tbody>
                     @forelse($recipe->quantities as $ingredient)
-                    <tr>
-                        <td class="text--center p--1">{{ $ingredient->command->ingredient }}</td>
-                        <td class="text--center p--1">{{ $ingredient->quantity }} {{ $ingredient->command->unit }}</td>
-                    </tr> 
+                        <tr>
+                            <td class="text--center p--1">{{ $ingredient->command->ingredient }}</td>
+                            <td class="text--center p--1">{{ $ingredient->quantity }} {{ $ingredient->command->unit }}</td>
+                        </tr> 
                     @empty
                        <tr>
                            <td colspan="2" class="text--center p--1">Recipe has no ingredients</td>
                         </tr>  
                     @endforelse
-                    <tr>
-                        <td class="text--center p--1 fw--bold">Total weight</td>
-                        <td class="text--center p--1 fw--bold">{{ $recipe->total_weight }} {{ $ingredient->command->unit }}</td>
-                    </tr>
+                    @if(isset($ingredient))
+                        <tr>
+                            <td class="text--center p--1 fw--bold">Total weight</td>
+                            <td class="text--center p--1 fw--bold">{{ $recipe->total_weight }} {{ $ingredient->command->unit }}</td>
+                        </tr>
+                    @endif
                     <th colspan="2" class="bg--secondary text--light">Method</th>
                     <tr>
                         <td colspan="2">
