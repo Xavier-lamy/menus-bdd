@@ -1,7 +1,7 @@
 //Add new ingredient row
 let addIngredientButton = document.getElementById('addIngredientButton');
-const ingredientOptions = document.getElementById('ingredient_id_1').innerHTML;
-let incrementedId = 2;
+const ingredientOptions = document.getElementById('selectIngredientOptions').innerHTML;
+let incrementedId = document.getElementsByName('ingredientRow').length + 1;
 
 addIngredientButton.addEventListener('click', function(){
     let buttonRow = document.getElementById('addIngredientRow');
