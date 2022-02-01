@@ -59,6 +59,10 @@ class RecipeController extends Controller
         $process = $request->process;
 
         //Check if all ingredients have same unit
+        if( empty($ingredients) ){
+            return redirect('recipe/create')->with('error', 'Recipe should have at least one ingredient');
+        }
+
         foreach( $ingredients as $ingredient ){
             $command_id = $ingredient['command_id'];
             $product = Command::find($command_id);
@@ -162,6 +166,9 @@ class RecipeController extends Controller
         $process = $request->process;
 
         //Check if all ingredients have same unit
+        if( empty($ingredients) ){
+            return redirect('recipe/modify/'.$recipe_id)->with('error', 'Recipe should have at least one ingredient');
+        }
         foreach( $ingredients as $ingredient ){
             $command_id = $ingredient['command_id'];
             $product = Command::find($command_id);

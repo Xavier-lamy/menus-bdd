@@ -115,7 +115,7 @@
                     <th colspan="3" class="bg--secondary text--light">Method</th>
                     <tr>
                         <td colspan="3">
-                            <textarea name="process" cols="30" rows="10" form="update_recipe_form" class="textarea--inset" placeholder="Enter method here" required>{!! nl2br($recipe->process) !!}</textarea>
+                            <textarea name="process" cols="30" rows="10" form="update_recipe_form" class="textarea--inset" placeholder="Enter method here" required>{{ $recipe->process }}</textarea>
                         </td>
                     </tr>
                 </tbody>
@@ -183,7 +183,7 @@
                     <th colspan="3" class="bg--secondary text--light">Method</th>
                     <tr>
                         <td colspan="3">
-                            <textarea name="process" cols="30" rows="10" form="add_recipe_form" class="textarea--inset" placeholder="Enter method here" required>{{ old('recipe_name') }}</textarea>
+                            <textarea name="process" cols="30" rows="10" form="add_recipe_form" class="textarea--inset" placeholder="Enter method here" required>{{ old('process') }}</textarea>
                         </td>
                     </tr>
                 </tbody>
