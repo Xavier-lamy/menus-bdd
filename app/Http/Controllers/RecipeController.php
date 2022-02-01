@@ -245,7 +245,41 @@ class RecipeController extends Controller
      */
     public function destroy(Request $request)
     {
-        //...
-        return redirect('recipes')->with('error', "There is an error, no entry deleted");
+        $delete_ids = $request->except('_token');
+        $entries_deleted = 0;
+        $entries_total = count($delete_ids);
+        
+        foreach($delete_ids as $deleted_id){
+
+            //remove recipe from table
+            $recipe = Recipe::find($deleted_id);
+
+            //remove related ingredients
+            $ingredients = Quantity::where('recipe_id', $deleted_id)->get();
+
+            foreach($ingredients as $ingredient){
+                $ingredient->delete();
+            }
+
+            $recipe->delete();
+
+            $entries_deleted += 1;                
+        }
+
+        $difference = $entries_total - $entries_deleted;
+        switch($entries_deleted){
+            case 0:
+                return redirect('recipes')->with('error', "There is an error, no entry deleted");
+            case 1:
+                if($entries_total != $entries_deleted){
+                    return redirect('recipes')->with('success', "{$entries_deleted} entry deleted, {$difference} couldn't be deleted"); 
+                }
+                return redirect('recipes')->with('success', "{$entries_deleted} entry deleted !");
+            default:
+                if($entries_total != $entries_deleted){
+                    return redirect('recipes')->with('success', "{$entries_deleted} entries deleted, {$difference} couldn't be deleted"); 
+                } 
+                return redirect('recipes')->with('success', "{$entries_deleted} entries deleted !"); 
+        }
     }
 }
