@@ -56,7 +56,7 @@ class RecipeController extends Controller
 
         $recipe_name = $request->recipe_name;
         $ingredients = $request->ingredient;
-        $process = $request-> process;
+        $process = $request->process;
 
         //Check if all ingredients have same unit
         foreach( $ingredients as $ingredient ){
@@ -148,7 +148,63 @@ class RecipeController extends Controller
      */
     public function update(Request $request)
     {
-        return redirect('recipe')->with('success', 'Recipe updated !');
+        $request->validate([
+            'id' => ['required', 'min:0', 'integer'],
+            'recipe_name' => ['required', 'min:1', 'max:120', 'string'],
+            'ingredient.*.command_id' => [new CommandIdValided],
+            'ingredient.*.quantity' => ['required', 'min:0', 'max:1000000000', 'integer'],
+            'process' => ['required', 'min:1', 'max:1000000', 'string']
+        ]);
+
+        $recipe_id = $request->id;
+        $recipe_name = $request->recipe_name;
+        $ingredients = $request->ingredient;
+        $process = $request->process;
+
+        //Check if all ingredients have same unit
+        foreach( $ingredients as $ingredient ){
+            $command_id = $ingredient['command_id'];
+            $product = Command::find($command_id);
+            $product_unit = $product->unit;
+            if( !isset($first_product_unit) ){
+                $first_product_unit = $product->unit;
+                continue;
+            };
+            if( $product_unit != $first_product_unit ){
+                return redirect('recipe/modify/'.$recipe_id)->with('error', 'All ingredients should have same unit !');
+            };
+        };
+
+        //Count recipe total weight
+        $total_weight = 0;
+        foreach( $ingredients as $ingredient ){
+            $total_weight += $ingredient['quantity'];
+        }
+
+        //Fetch the recipe
+        $recipe = Recipe::find($recipe_id);
+        $recipe->update([
+            'name' => $recipe_name,
+            'process' => $process,
+            'total_weight' => $total_weight,
+        ]);
+
+        $old_ingredients = Quantity::where('recipe_id', $recipe_id)->get();
+
+        if(!empty($old_ingredients)){
+            foreach( $old_ingredients as $old_ingredient ){
+                $old_ingredient->delete();
+            }
+        }
+
+        foreach ( $ingredients as $ingredient){
+            Quantity::create([
+                'command_id' => $ingredient['command_id'],
+                'quantity' => $ingredient['quantity'],
+                'recipe_id' => $recipe_id,
+            ]);
+        }
+        return redirect('recipe/show/'.$recipe_id)->with('success', 'Recipe updated !');
     }
 
     /**

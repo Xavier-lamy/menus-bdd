@@ -55,7 +55,7 @@
                 @csrf
             </form>
             <input type="text" name="recipe_name" aria-label="Recipe quantity" min="1" max="120" form="update_recipe_form" class="text--center input--inset my--2" placeholder="Recipe name" value="{{ $recipe->name }}" required autofocus>
-            <table class="element--center table--striped w--100" id="addRecipeTable">
+            <table class="element--center table--striped w--100" id="modifyRecipeTable">
                 <thead class="w--100 bg--secondary text--light">
                     <th class="w--60">Ingredient</th>
                     <th colspan="2" class="w--40">Quantity</th>
