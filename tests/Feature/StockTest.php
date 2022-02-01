@@ -184,7 +184,7 @@ class StockTest extends TestCase
         
         $this->assertTrue(empty($stock) && empty($stock2));
 
-        //Check if the product related to it in commands has been updated
+        //Check if the product related to it in commands was updated
         $command = Command::where([
             'id' => 1,
             'ingredient' => 'flour',
