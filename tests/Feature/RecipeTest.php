@@ -168,7 +168,7 @@ class RecipeTest extends TestCase
 
         //Test redirection with message
         $response
-        ->assertRedirect('/recipe')
+        ->assertRedirect('/recipe/show/1')
         ->assertSessionHas([
             'success' => 'Recipe updated !',
         ]);
