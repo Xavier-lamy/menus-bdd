@@ -53,7 +53,7 @@ class RecipeSeeder extends Seeder
 
         Quantity::create([
             'quantity'=> 300,
-            'command_id'=> 9,
+            'command_id'=> 5,
             'recipe_id' => 1,
         ]);
     }
