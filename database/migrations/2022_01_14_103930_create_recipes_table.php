@@ -15,7 +15,7 @@ class CreateRecipesTable extends Migration
     {
         Schema::create('recipes', function (Blueprint $table) {
             $table->id('id');
-            $table->string('name', 70);
+            $table->string('name', 120);
             $table->text('process');
             $table->unsignedInteger('total_weight');
         });
