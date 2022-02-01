@@ -223,7 +223,16 @@ class RecipeController extends Controller
     public function confirmDestroy(Request $request)
     {
         $delete_confirmation = 'recipes';
-        //...
+        $delete_ids = $request->except('_token');
+
+        $recipes = Recipe::whereIn('id', $delete_ids)->get();
+
+        if($recipes->count() > 0){
+            return view('confirmation', [
+                'delete_confirmation' => $delete_confirmation,
+                'recipes' => $recipes,
+            ]);            
+        }
 
         return redirect('recipes')->with('message', 'You need to select recipes first !');
     }

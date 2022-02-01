@@ -117,5 +117,56 @@
                 </table>
             </main>
         </div>
+    @elseif($delete_confirmation == 'recipes')
+        <div class="wrapper">
+            <main class="element--center w--60 _mob_w--100">
+                <h1 class="text--center">Confirm deletion of recipes</h1>
+                <p class="alert--message my--2 p--2">Do you really want to delete those recipes ?</p>
+                <div class="dsp--flex justify--between">
+                    <a href="{{ route('recipes') }}" class="button m--3">Cancel (return to recipes)</a>
+                    <button type="submit" form="confirm_recipes_deletion_form" class="button m--3">Confirm deletion</button>
+                </div>
+
+                <!--Alerts-->
+                @if(session('error') !== null)
+                    <div class="alert--warning my--2 p--2">
+                        {{ session('error') }}
+                    </div>
+                @elseif(session('success') !== null)
+                    <div class="alert--success my--2 p--2">
+                        {{ session('success') }}
+                    </div>
+                @elseif(session('message') !== null)
+                    <div class="alert--message my--2 p--2">
+                        {{ session('message') }}
+                    </div>
+                @endif
+                <!--End alerts-->
+
+                <form method="POST" action=" {{ route('recipe.delete') }} " id="confirm_recipes_deletion_form">
+                    @csrf
+                </form>
+
+                <table class="element--center table--striped w--100">
+                    <thead class="w--100 bg--secondary text--light">
+                        <th class="w--100">Recipe Title</th>
+                    </thead>
+                    <tbody>
+                        @forelse($recipes as $recipe)
+                            <tr>
+                                <td class="text--center p--1">
+                                    {{ $recipe->name }}
+                                    <input type="hidden" name="delete_{{ $recipe->id }}" form="confirm_recipes_deletion_form" value="{{ $recipe->id }}" required>
+                                </td>
+                            </tr>
+                        @empty 
+                            <tr>
+                                <td class="text--center">No recipes to delete</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </main>
+        </div>  
     @endif
 @endsection
