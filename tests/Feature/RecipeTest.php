@@ -173,4 +173,80 @@ class RecipeTest extends TestCase
             'success' => 'Recipe updated !',
         ]);
     }
+
+    /**
+     * Test if Recipe method "Destroy" work as intended:
+     *  - Redirect
+     *  - Return a success message
+     *  - Return the correct amount of deleted entries
+     *  - The recipe is correctly delete from recipes
+     *  - No related ingredients are found in quantities table
+     *  
+     * @test
+     */
+    public function destroyRecipe()
+    {
+        $this->withoutExceptionHandling();
+
+        //Create a fake recipe
+        Recipe::create([
+            'id' => 1,
+            'name' => 'Tart',
+            'process' => 'This is the process',
+            'total_weight' => 600,
+        ]);
+
+        //Create ingredient names in database
+        Command::create([
+            'id' => 1,
+            'ingredient' => 'sugar',
+            'quantity' => 0,
+            'unit' => 'grams',
+            'alert_stock' => 150,
+            'must_buy' => 1,
+        ]);
+
+        Command::create([
+            'id' => 2,
+            'ingredient' => 'milk',
+            'quantity' => 0,
+            'unit' => 'grams',
+            'alert_stock' => 200,
+            'must_buy' => 1,
+        ]);
+
+        Quantity::create([
+            'quantity'=> 300,
+            'command_id'=> 1,
+            'recipe_id' => 1,
+        ]);
+
+        Quantity::create([
+            'quantity'=> 300,
+            'command_id'=> 2,
+            'recipe_id' => 1,
+        ]);
+
+        $response = $this->post('/recipes/delete', [
+            'delete_1' => 1,
+        ]);
+
+        //Check if the products we delete are not there anymore
+        $recipe = Recipe::find(1);
+        
+        $this->assertTrue(empty($recipe));
+
+        //Check if ingredients related to this recipe were deleted correctly
+        $quantities = Quantity::where([
+            'recipe_id' => 1,
+        ])->exists();
+
+        $this->assertFalse($quantities);
+
+        $response
+            ->assertRedirect('/recipes')
+            ->assertSessionHas([
+                'success' => '1 entry deleted !',
+            ]);
+    }
 }
