@@ -7,23 +7,39 @@
             <h1 class="text--center">{{ $recipe->name }}</h1>
             <div class="dsp--flex justify--between">
                 <a href=" {{ route('recipes') }} " class="button m--3">Return to recipes</a>
-                <!--Bouton modifier-->
+                <a href=" {{ route('recipe.modify', ['id' => $recipe->id]) }} " class="button m--3">Modify</a>
             </div>
             
             @include("partials.alert")
 
-            <ul>
-                @forelse($recipe->quantities as $ingredient)
-                <li>{{ $ingredient->command->ingredient }} : 
-                    {{ $ingredient->quantity }} {{ $ingredient->command->unit }}
-                </li>
-                
-                @empty
-                    Recipe has no ingredients 
-                @endforelse
-                <li>Total weight : {{ $recipe->total_weight }}</li>
-            </ul>
-            <p> {!! nl2br($recipe->process) !!} </p>
+            <table class="element--center table--striped w--100">
+                <thead class="w--100 bg--secondary text--light">
+                    <th class="w--60">Ingredient</th>
+                    <th class="w--40">Quantity</th>
+                </thead>
+                <tbody>
+                    @forelse($recipe->quantities as $ingredient)
+                    <tr>
+                        <td class="text--center p--1">{{ $ingredient->command->ingredient }}</td>
+                        <td class="text--center p--1">{{ $ingredient->quantity }} {{ $ingredient->command->unit }}</td>
+                    </tr> 
+                    @empty
+                       <tr>
+                           <td colspan="2" class="text--center p--1">Recipe has no ingredients</td>
+                        </tr>  
+                    @endforelse
+                    <tr>
+                        <td class="text--center p--1 fw--bold">Total weight</td>
+                        <td class="text--center p--1 fw--bold">{{ $recipe->total_weight }} {{ $ingredient->command->unit }}</td>
+                    </tr>
+                    <th colspan="2" class="bg--secondary text--light">Method</th>
+                    <tr>
+                        <td colspan="2">
+                            <p class="mx--3 my--1">{!! nl2br($recipe->process) !!}</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>            
         @else
             <h1 class="text--center">Add new recipe</h1>
             <p class="alert--message my--2 p--2">
