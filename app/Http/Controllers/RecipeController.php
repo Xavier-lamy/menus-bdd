@@ -127,8 +127,12 @@ class RecipeController extends Controller
     {
         $recipe = Recipe::find($id);
         $commands_products = Command::orderBy('ingredient')->get();
-
         $is_editing = true;
+
+        if(empty($recipe)){
+            return redirect('recipes')->with('error', "This recipe doesn't exist");
+        }
+
         return view('recipe', [
             'recipe' => $recipe,
             'is_editing' => $is_editing,
