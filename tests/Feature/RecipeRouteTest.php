@@ -79,7 +79,7 @@ class RecipeRouteTest extends TestCase
     {
         $response = $this->get('/recipe/modify/{id}');
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
     }
 
     /**
