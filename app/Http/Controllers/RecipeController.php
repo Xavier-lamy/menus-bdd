@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Recipe;
 use App\Models\Quantity;
 use App\Models\Command;
+use App\Rules\CommandIdValided;
 
 class RecipeController extends Controller
 {
@@ -46,6 +47,55 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'recipe_name' => ['required', 'min:1', 'max:120', 'string'],
+            'ingredient.*.command_id' => [new CommandIdValided],
+            'ingredient.*.quantity' => ['required', 'min:0', 'max:1000000000', 'integer'],
+            'process' => ['required', 'min:1', 'max:1000000', 'string']
+        ]);
+
+        $recipe_name = $request->recipe_name;
+        $ingredients = $request->ingredient;
+        $process = $request-> process;
+
+        //Check if all ingredients have same unit
+        foreach( $ingredients as $ingredient ){
+            $command_id = $ingredient['command_id'];
+            $product = Command::find($command_id);
+            $product_unit = $product->unit;
+            if( !isset($first_product_unit) ){
+                $first_product_unit = $product->unit;
+                continue;
+            };
+            if( $product_unit != $first_product_unit ){
+                return redirect('recipe/create')->with('error', 'All ingredients should have same unit !');
+            };
+        };
+
+        //Count recipe total weight
+        $total_weight = 0;
+        foreach( $ingredients as $ingredient ){
+            $total_weight += $ingredient['quantity'];
+        }
+
+        //Store the new recipe
+        $new_recipe = Recipe::create([
+            'name' => $recipe_name,
+            'process' => $process,
+            'total_weight' => $total_weight,
+        ]);
+
+        //Store the ingredients
+        $recipe_id = $new_recipe->id;
+
+        foreach ( $ingredients as $ingredient){
+            Quantity::create([
+                'command_id' => $ingredient['command_id'],
+                'quantity' => $ingredient['quantity'],
+                'recipe_id' => $recipe_id,
+            ]);
+        }
+        
         return redirect('recipes')->with('success', 'Recipe created !');
     }
 

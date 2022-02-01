@@ -21,10 +21,14 @@
                 @empty
                     Recipe has no ingredients 
                 @endforelse
+                <li>Total weight : {{ $recipe->total_weight }}</li>
             </ul>
             <p> {!! nl2br($recipe->process) !!} </p>
         @else
             <h1 class="text--center">Add new recipe</h1>
+            <p class="alert--message my--2 p--2">
+                In order to count recipe total weight, all ingredients should use same unit.
+            </p>
             <div class="dsp--flex justify--between">
                 <a href=" {{ route('recipes') }} " class="button m--3">Return to recipes</a>
             </div>
@@ -34,7 +38,7 @@
             <form method="POST" action=" {{ route('recipe.add') }} " id="add_recipe_form">
                 @csrf
             </form>
-            <input type="text" name="recipe_name" aria-label="Recipe quantity" form="add_recipe_form" class="text--center input--inset my--2" placeholder="Recipe name" required autofocus>
+            <input type="text" name="recipe_name" aria-label="Recipe quantity" min="1" max="120" form="add_recipe_form" class="text--center input--inset my--2" placeholder="Recipe name" value="{{ old('recipe_name') }}" required autofocus>
             <table class="element--center table--striped w--100" id="addRecipeTable">
                 <thead class="w--100 bg--secondary text--light">
                     <th class="w--60">Ingredient</th>
@@ -69,7 +73,7 @@
                     <th colspan="3" class="bg--secondary text--light">Method</th>
                     <tr>
                         <td colspan="3">
-                            <textarea name="recipe_method" cols="30" rows="10" form="add_recipe_form" class="textarea--inset" placeholder="Enter method here" required></textarea>
+                            <textarea name="process" cols="30" rows="10" form="add_recipe_form" class="textarea--inset" placeholder="Enter method here" required>{{ old('recipe_name') }}</textarea>
                         </td>
                     </tr>
                 </tbody>
