@@ -86,10 +86,10 @@
                             </select>
                         </td>
                         <td class="text--center p--1">
-                            <input type="number" aria-label="Quantity" min="0" name="quantity" form="add_product_form" class="text--center input--inset" placeholder="Quantity" required>
+                            <input type="number" aria-label="Quantity" min="0" name="quantity" value="{{ old('quantity') }}" form="add_product_form" class="text--center input--inset" placeholder="Quantity" required>
                         </td>
                         <td class="text--center p--1">
-                            <input type="date" min="2000-01-01" max="2300-01-01" aria-label="Useby date" name="useby_date" form="add_product_form" class="text--center input--inset" required>
+                            <input type="date" min="2000-01-01" max="2300-01-01" aria-label="Useby date" name="useby_date" value="{{ old('useby_date') }}" form="add_product_form" class="text--center input--inset" required>
                         </td>
                         <td class="text--center p--1">
                             <button type="submit" form="add_product_form" class="button--sm">Add new</button>
