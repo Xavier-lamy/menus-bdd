@@ -95,7 +95,7 @@ class RecipeController extends Controller
                 'recipe_id' => $recipe_id,
             ]);
         }
-        
+
         return redirect('recipes')->with('success', 'Recipe created !');
     }
 
@@ -126,11 +126,13 @@ class RecipeController extends Controller
     public function edit($id)
     {
         $recipe = Recipe::find($id);
+        $commands_products = Command::orderBy('ingredient')->get();
 
         $is_editing = true;
         return view('recipe', [
             'recipe' => $recipe,
             'is_editing' => $is_editing,
+            'commands_products' => $commands_products,
         ]);
     }
 
