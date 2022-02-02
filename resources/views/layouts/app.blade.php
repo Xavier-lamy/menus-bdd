@@ -10,9 +10,11 @@
                     @yield('buttons')
                 </div>
                 @show 
-                
-                @include("partials.alert")
 
+                @section('alert')
+                    @include("partials.alert")
+                @show
+                
                 @yield('forms')
 
                 @section('table')
