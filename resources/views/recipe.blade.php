@@ -62,11 +62,13 @@
                     <th class="w--60">Ingredient</th>
                     <th colspan="2" class="w--40">Quantity</th>
                 </thead>
+                <!--Return all ingredient rows--> 
                 <tbody>
                     @php
                         $i = 1; 
                     @endphp
-                    @forelse ($recipe->quantities as $ingredient)
+                    <!--Use nullish coalescing operator to check if values from previous failed validation exist, if they don't then return current recipe values-->
+                    @forelse ((old('ingredient') ?? $recipe->quantities) as $ingredient)
                         <tr name="ingredientRow">
                             <td class="text--center p--1">
                                 <select name="ingredient[{{ $i }}][command_id]" id="ingredient_id_{{ $i }}" aria-label="Ingredient (unit)" form="update_recipe_form" class="text--center input--inset" title="Ingredient (unit)" required>
@@ -79,7 +81,7 @@
                                                 <option value="{{ $commands_product->id }}" selected>
                                                     {{ $commands_product->ingredient }} ({{ $commands_product->unit }})
                                                 </option>
-                                            @elseif($ingredient->command_id == $commands_product->id )
+                                            @elseif(($ingredient['command_id'] ?? $ingredient->command_id) == $commands_product->id )
                                                 <option value="{{ $commands_product->id }}" {{ old('ingredient.'. $i .'.command_id') == null ? "selected" : "" }}>
                                                     {{ $commands_product->ingredient }} ({{ $commands_product->unit }})
                                                 </option>
@@ -157,9 +159,41 @@
                     <th colspan="2" class="w--40">Quantity</th>
                 </thead>
                 <tbody>
-                    @php
-                        $i = 1; 
-                    @endphp
+                @php
+                    $i = 1; 
+                @endphp
+                <!--Check if values from previous failed validation exist-->
+                @if(old('ingredient') != null)
+                    @foreach (old('ingredient') as $ingredient)
+                        <tr name="ingredientRow">
+                            <td class="text--center p--1">
+                                <select name="ingredient[{{ $i }}][command_id]" id="ingredient_id_{{ $i }}" aria-label="Ingredient (unit)" form="update_recipe_form" class="text--center input--inset" title="Ingredient (unit)" required>
+                                    @if(isset($commands_products) && $commands_products->count() > 0)
+                                        <option value="">
+                                            Choose an ingredient and a unit
+                                        </option>
+                                        @foreach($commands_products as $commands_product)
+                                            <option value="{{ $commands_product->id }}" {{ $ingredient['command_id'] == $commands_product->id ? "selected" : "" }}>
+                                                {{ $commands_product->ingredient }} ({{ $commands_product->unit }})
+                                            </option> 
+                                        @endforeach
+                                    @else
+                                        <option value="" selected>No products available</option>
+                                    @endif
+                                </select>
+                            </td>
+                            <td  class="text--center p--1">
+                                <input type="number" aria-label="Quantity" min="0" name="ingredient[{{ $i }}][quantity]" value="{{ $ingredient['quantity'] }}" form="update_recipe_form" class="text--center input--inset" placeholder="Quantity" required>
+                            </td>
+                            <td class="text--center p--1">
+                                <button type="button" name="deleteRow" id="deleteRow{{ $i }}" class="button--sm">Delete row</button>
+                            </td>
+                        </tr>
+                        @php
+                            $i ++;
+                        @endphp
+                    @endforeach
+                @else
                     <tr name="ingredientRow">
                         <td class="text--center p--1">
                             <select name="ingredient[{{ $i }}][command_id]" id="ingredient_id_{{ $i }}" aria-label="Ingredient (unit)" form="add_recipe_form" class="text--center input--inset" title="Ingredient (unit)" required>
@@ -184,6 +218,10 @@
                             <button type="button" name="deleteRow" id="deleteRow1" class="button--sm">Delete row</button>
                         </td>
                     </tr>
+                    @php
+                        $i ++;
+                    @endphp
+                @endif
                     <tr id="addIngredientRow">
                         <td colspan="3" class="text--center">
                             <select name="selectIngredientOptions" id="selectIngredientOptions" hidden>
