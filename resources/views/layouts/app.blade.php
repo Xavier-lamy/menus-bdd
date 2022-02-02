@@ -1,24 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>À la Carte</title>
-    <link rel="stylesheet" type="text/css" href={{ asset("assets/css/app.css") }}>
-</head>
-<body>
-    <header class="bg--primary text--light">
-        @include("partials.navbar")
-    </header>
-    @section("wrapper")
+@include("layouts.header")
+    @section('wrapper')
+        <div class="wrapper">
+            <main class="element--center w--60 _mob_w--100">
 
-    @show
-    <footer class="bg--primary text--light">
-        <div class="copyright">
-            <small>&copy; Copyright 2021 A La Carte</small>
+                <h1 class="text--center">@yield('title')</h1>
+
+                @section('buttons-container')
+                <div class="dsp--flex justify--between">
+                    @yield('buttons')
+                </div>
+                @show 
+                
+                @include("partials.alert")
+
+                @yield('forms')
+
+                @section('table')
+                <table class="element--center table--striped w--100">
+                    <thead class="w--100 bg--secondary text--light">
+                        @yield('table-head')
+                    </thead>
+                    <tbody>
+                        @yield('table-body')
+                    </tbody>
+                </table>
+                @show
+
+            </main>
         </div>
-    </footer>
-    <script src="https://kit.fontawesome.com/0cb3a70ede.js" crossorigin="anonymous"></script>
-    <script src="{{ asset("assets/js/script.js") }}"></script>
-</body>
-</html>
+    @show
+@include("layouts.footer")
