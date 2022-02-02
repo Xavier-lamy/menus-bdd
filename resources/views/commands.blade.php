@@ -10,29 +10,9 @@
             <button type="submit" form="delete_product_form" class="button m--3">Delete selection</button>
         </div>
 
-        <!--Alerts-->
-        @if(session('error') !== null)
-            <div class="alert--warning my--2 p--2">
-                {{ session('error') }}
-            </div>
-        @elseif(session('success') !== null)
-            <div class="alert--success my--2 p--2">
-                {{ session('success') }}
-            </div>
-        @elseif(session('message') !== null)
-            <div class="alert--message my--2 p--2">
-                {{ session('message') }}
-            </div>
-        @elseif($errors->any())
-            <ul class="alert--warning my--2 p--2 list--unstyled">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        @endif
-        <!--End alerts-->
+        @include("partials.alert")
 
-        <!--Forms-->
+        {{--Forms--}}
         @if(isset($is_creating))
             <form method="POST" action=" {{ route('command.add') }} " id="add_product_type_form">
                 @csrf
@@ -45,9 +25,7 @@
         <form method="POST" action=" {{ route('command-delete-confirmation') }} " id="delete_product_form">
             @csrf
         </form>
-
-
-        <!--End forms-->
+        {{--End forms--}}
 
         <table class="element--center table--striped w--100">
             <thead class="w--100 bg--secondary text--light">
@@ -57,7 +35,9 @@
                 <th class="w--25">Modifications</th>
             </thead>
             <tbody>
+                {{--Check if page is on creation mode:--}}
                 @isset ($is_creating)
+                    {{--Add a row with "add product" form, return old values if user come back from a failed data validation redirection--}}
                     <tr class="bg--secondary-fade">
                         <td class="text--center p--1">
                             <input type="text" aria-label="Ingredient" maxlength="60" minlength="1" name="ingredient"  value="{{ old('ingredient') }}" form="add_product_type_form" class="text--center input--inset" placeholder="Ingredient" required autofocus>
@@ -74,7 +54,10 @@
                         </td>
                     </tr>  
                 @endisset
+
+                {{--Loop for displaying all products in command--}}
                 @forelse($products as $product)
+                    {{--Check if the current product in the loop is being modified, if yes display "modify" form--}}
                     @if(isset($modifying_product_id) && $modifying_product_id == $product->id)
                         <tr class="bg--secondary-fade">
                             <td class="text--center p--1">
@@ -92,6 +75,7 @@
                                 <a href=" {{ route('commands') }} " class="button--sm">Cancel</a>
                             </td>
                         </tr>
+                    {{--If product is not being modified: display standard layout:--}}
                     @else 
                         <tr>
                             <td class="text--center p--1">{{ $product->ingredient }}</td>
@@ -103,6 +87,7 @@
                             </td>
                         </tr>
                     @endif
+                {{--If loop doesn't have product:--}}
                 @empty 
                     <tr>
                         <td colspan="4" class="text--center">Total stocks are empty</td>

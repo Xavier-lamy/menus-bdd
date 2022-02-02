@@ -1,4 +1,4 @@
-<!--Alerts-->
+{{--Alerts--}}
 @if(session('error') !== null)
     <div class="alert--warning my--2 p--2">
         {{ session('error') }}
@@ -18,4 +18,4 @@
         @endforeach
     </ul>
 @endif
-<!--End alerts-->
+{{--End alerts--}}
