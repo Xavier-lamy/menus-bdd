@@ -60,7 +60,9 @@ class RecipeController extends Controller
 
         //Check if all ingredients have same unit
         if( empty($ingredients) ){
-            return redirect('recipe/create')->with('error', 'Recipe should have at least one ingredient');
+            return redirect('recipe/create')
+                ->withInput()
+                ->with('error', 'Recipe should have at least one ingredient');
         }
 
         foreach( $ingredients as $ingredient ){
@@ -72,7 +74,9 @@ class RecipeController extends Controller
                 continue;
             };
             if( $product_unit != $first_product_unit ){
-                return redirect('recipe/create')->with('error', 'All ingredients should have same unit !');
+                return redirect('recipe/create')
+                    ->withInput()
+                    ->with('error', 'All ingredients should have same unit !');
             };
         };
 
@@ -167,7 +171,9 @@ class RecipeController extends Controller
 
         //Check if all ingredients have same unit
         if( empty($ingredients) ){
-            return redirect('recipe/modify/'.$recipe_id)->with('error', 'Recipe should have at least one ingredient');
+            return redirect('recipe/modify/'.$recipe_id)
+                ->withInput()    
+                ->with('error', 'Recipe should have at least one ingredient');
         }
         foreach( $ingredients as $ingredient ){
             $command_id = $ingredient['command_id'];
@@ -178,7 +184,9 @@ class RecipeController extends Controller
                 continue;
             };
             if( $product_unit != $first_product_unit ){
-                return redirect('recipe/modify/'.$recipe_id)->with('error', 'All ingredients should have same unit !');
+                return redirect('recipe/modify/'.$recipe_id)
+                    ->withInput()
+                    ->with('error', 'All ingredients should have same unit !');
             };
         };
 

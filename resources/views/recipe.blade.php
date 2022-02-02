@@ -56,7 +56,7 @@
             <form method="POST" action=" {{ route('recipe.apply') }} " id="update_recipe_form">
                 @csrf
             </form>
-            <input type="text" name="recipe_name" aria-label="Recipe quantity" min="1" max="120" form="update_recipe_form" class="text--center input--inset my--2" placeholder="Recipe name" value="{{ $recipe->name }}" required autofocus>
+            <input type="text" name="recipe_name" aria-label="Recipe quantity" min="1" max="120" form="update_recipe_form" class="text--center input--inset my--2" placeholder="Recipe name" value="{{ old('recipe_name') ?? $recipe->name }}" required autofocus>
             <table class="element--center table--striped w--100" id="modifyRecipeTable">
                 <thead class="w--100 bg--secondary text--light">
                     <th class="w--60">Ingredient</th>
@@ -71,12 +71,22 @@
                             <td class="text--center p--1">
                                 <select name="ingredient[{{ $i }}][command_id]" id="ingredient_id_{{ $i }}" aria-label="Ingredient (unit)" form="update_recipe_form" class="text--center input--inset" title="Ingredient (unit)" required>
                                     @if(isset($commands_products) && $commands_products->count() > 0)
-                                        <option value="">Choose an ingredient and a unit</option>
+                                        <option value="">
+                                            Choose an ingredient and a unit
+                                        </option>
                                         @foreach($commands_products as $commands_product)
-                                            @if($ingredient->command_id == $commands_product->id )
-                                                <option value="{{ $commands_product->id }}" selected>{{ $commands_product->ingredient }} ({{ $commands_product->unit }})</option>
+                                            @if(old('ingredient.'. $i .'.command_id') == $commands_product->id)
+                                                <option value="{{ $commands_product->id }}" selected>
+                                                    {{ $commands_product->ingredient }} ({{ $commands_product->unit }})
+                                                </option>
+                                            @elseif($ingredient->command_id == $commands_product->id )
+                                                <option value="{{ $commands_product->id }}" {{ old('ingredient.'. $i .'.command_id') == null ? "selected" : "" }}>
+                                                    {{ $commands_product->ingredient }} ({{ $commands_product->unit }})
+                                                </option>
                                             @else 
-                                                <option value="{{ $commands_product->id }}">{{ $commands_product->ingredient }} ({{ $commands_product->unit }})</option>
+                                                <option value="{{ $commands_product->id }}">
+                                                    {{ $commands_product->ingredient }} ({{ $commands_product->unit }})
+                                                </option>
                                             @endif
                                         @endforeach
                                     @else
@@ -85,7 +95,7 @@
                                 </select>
                             </td>
                             <td  class="text--center p--1">
-                                <input type="number" aria-label="Quantity" min="0" name="ingredient[{{ $i }}][quantity]" value="{{ $ingredient->quantity }}" form="update_recipe_form" class="text--center input--inset" placeholder="Quantity" required>
+                                <input type="number" aria-label="Quantity" min="0" name="ingredient[{{ $i }}][quantity]" value="{{ old("ingredient.". $i .".quantity") ?? $ingredient->quantity }}" form="update_recipe_form" class="text--center input--inset" placeholder="Quantity" required>
                             </td>
                             <td class="text--center p--1">
                                 <button type="button" name="deleteRow" id="deleteRow{{ $i }}" class="button--sm">Delete row</button>
@@ -117,7 +127,7 @@
                     <th colspan="3" class="bg--secondary text--light">Method</th>
                     <tr>
                         <td colspan="3">
-                            <textarea name="process" cols="30" rows="10" form="update_recipe_form" class="textarea--inset" placeholder="Enter method here" required>{{ $recipe->process }}</textarea>
+                            <textarea name="process" cols="30" rows="10" form="update_recipe_form" class="textarea--inset" placeholder="Enter method here" required>{{ old('process') ?? $recipe->process }}</textarea>
                         </td>
                     </tr>
                 </tbody>
@@ -147,13 +157,20 @@
                     <th colspan="2" class="w--40">Quantity</th>
                 </thead>
                 <tbody>
+                    @php
+                        $i = 1; 
+                    @endphp
                     <tr name="ingredientRow">
                         <td class="text--center p--1">
-                            <select name="ingredient[1][command_id]" id="ingredient_id_1" aria-label="Ingredient (unit)" form="add_recipe_form" class="text--center input--inset" title="Ingredient (unit)" required>
+                            <select name="ingredient[{{ $i }}][command_id]" id="ingredient_id_{{ $i }}" aria-label="Ingredient (unit)" form="add_recipe_form" class="text--center input--inset" title="Ingredient (unit)" required>
                                 @if(isset($commands_products) && $commands_products->count() > 0)
-                                    <option value="" selected>Choose an ingredient and a unit</option>
+                                    <option value="" {{ old('ingredient.'. $i .'.command_id') == '' ? "selected" : "" }}>
+                                        Choose an ingredient and a unit
+                                    </option>
                                     @foreach($commands_products as $commands_product)
-                                        <option value="{{ $commands_product->id }}">{{ $commands_product->ingredient }} ({{ $commands_product->unit }})</option>
+                                        <option value="{{ $commands_product->id }}" {{ old('ingredient.'. $i .'.command_id') == $commands_product->id ? "selected" : "" }}>
+                                            {{ $commands_product->ingredient }} ({{ $commands_product->unit }})
+                                        </option>
                                     @endforeach
                                 @else
                                     <option value="" selected>No products available</option>
@@ -161,7 +178,7 @@
                             </select>
                         </td>
                         <td  class="text--center p--1">
-                            <input type="number" aria-label="Quantity" min="0" name="ingredient[1][quantity]" form="add_recipe_form" class="text--center input--inset" placeholder="Quantity" required>
+                            <input type="number" aria-label="Quantity" min="0" name="ingredient[{{ $i }}][quantity]" value="{{ old("ingredient.". $i .".quantity") }}" form="add_recipe_form" class="text--center input--inset" placeholder="Quantity" required>
                         </td>
                         <td class="text--center p--1">
                             <button type="button" name="deleteRow" id="deleteRow1" class="button--sm">Delete row</button>
@@ -171,9 +188,13 @@
                         <td colspan="3" class="text--center">
                             <select name="selectIngredientOptions" id="selectIngredientOptions" hidden>
                                 @if(isset($commands_products) && $commands_products->count() > 0)
-                                    <option value="" selected>Choose an ingredient and a unit</option>
+                                    <option value="" selected>
+                                        Choose an ingredient and a unit
+                                    </option>
                                     @foreach($commands_products as $commands_product)
-                                        <option value="{{ $commands_product->id }}">{{ $commands_product->ingredient }} ({{ $commands_product->unit }})</option>
+                                        <option value="{{ $commands_product->id }}">
+                                            {{ $commands_product->ingredient }} ({{ $commands_product->unit }})
+                                        </option>
                                     @endforeach
                                 @else
                                     <option value="" selected>No products available</option>
