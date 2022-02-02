@@ -76,9 +76,13 @@
                         <td class="text--center p--1">
                             <select name="command_id"  aria-label="Ingredient (unit)" form="add_product_form" class="text--center input--inset" title="Ingredient (unit)" required autofocus>
                                 @if($commands_products->count() > 0)
-                                    <option value="" selected>Choose an ingredient and a unit</option>
+                                    <option value="" {{ old("command_id") == "" ? "selected" : "" }}>
+                                        Choose an ingredient and a unit
+                                    </option>
                                     @foreach($commands_products as $commands_product)
-                                        <option value="{{ $commands_product->id }}">{{ $commands_product->ingredient }} ({{ $commands_product->unit }})</option>
+                                        <option value="{{ $commands_product->id }}" {{ old("command_id") == $commands_product->id ? "selected" : "" }}>
+                                            {{ $commands_product->ingredient }} ({{ $commands_product->unit }})
+                                        </option>
                                     @endforeach
                                 @else
                                     <option value="" selected>No products available</option>
@@ -86,10 +90,10 @@
                             </select>
                         </td>
                         <td class="text--center p--1">
-                            <input type="number" aria-label="Quantity" min="0" name="quantity" value="{{ old('quantity') }}" form="add_product_form" class="text--center input--inset" placeholder="Quantity" required>
+                            <input type="number" aria-label="Quantity" min="0" name="quantity" value="{{ old("quantity") }}" form="add_product_form" class="text--center input--inset" placeholder="Quantity" required>
                         </td>
                         <td class="text--center p--1">
-                            <input type="date" min="2000-01-01" max="2300-01-01" aria-label="Useby date" name="useby_date" value="{{ old('useby_date') }}" form="add_product_form" class="text--center input--inset" required>
+                            <input type="date" min="2000-01-01" max="2300-01-01" aria-label="Useby date" name="useby_date" value="{{ old("useby_date") }}" form="add_product_form" class="text--center input--inset" required>
                         </td>
                         <td class="text--center p--1">
                             <button type="submit" form="add_product_form" class="button--sm">Add new</button>
