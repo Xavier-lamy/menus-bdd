@@ -57,7 +57,7 @@
         @parent
         <p class="alert--message my--2 p--2">
             Do you really want to delete those products, this will delete all products related to this type.<br>
-            It will also be remove from all the recipes it belongs to<br>
+            Products will also be remove from all the recipes they belong to<br>
             Note: this is recommended to delete related products in stocks instead and keep the types in total stocks, this way you can easily change it back when you buy some again.<br>
             Prefer keeping delete ability for products you will never buy again for sure (like Brussels sprouts) 
         </p>
