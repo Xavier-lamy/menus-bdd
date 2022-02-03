@@ -6,6 +6,7 @@ use App\Http\Controllers\FrontController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\CommandController;
 use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\MenuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,3 +61,17 @@ Route:: post('/recipe/apply', [RecipeController::class, 'update'])->name('recipe
 //Delete
 Route:: post('/recipe-delete-confirmation', [RecipeController::class, 'confirmDestroy'])->name('recipe-delete-confirmation');
 Route:: post('/recipes/delete', [RecipeController::class, 'destroy'])->name('recipe.delete');
+
+/**Menus */
+//Read
+Route:: get('/menus', [MenuController::class, 'index'])->name('menus');
+Route:: get('/menu/show/{id}', [MenuController::class, 'show'])->name('menu.show');
+//Create
+Route:: get('/menu/create', [MenuController::class, 'create'])->name('menu.create');
+Route:: post('/menu/add', [MenuController::class, 'store'])->name('menu.add');
+//Update
+Route:: get('/menu/modify/{id}', [MenuController::class, 'edit'])->name('menu.modify');
+Route:: post('/menu/apply/{id}', [MenuController::class, 'update'])->name('menu.apply');
+//Delete
+Route:: post('/menu-delete-confirmation', [MenuController::class, 'confirmDestroy'])->name('menu-delete-confirmation');
+Route:: post('/menus/delete', [MenuController::class, 'destroy'])->name('menu.delete');
