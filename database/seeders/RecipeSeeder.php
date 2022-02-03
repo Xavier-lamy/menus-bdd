@@ -17,44 +17,48 @@ class RecipeSeeder extends Seeder
      */
     public function run()
     {
-        Recipe::create([
-            'id' => 1,
-            'name' => 'Raspberry Cake',
-            'process' => "Lorem ipsum dolor sit amet. 
-            At alias deleniti et architecto atque non quasi Quis sit molestias eaque. 
-            Et repellendus accusantium rem dolorem veritatis eos impedit voluptas cum ducimus odit quo vitae eius. 
-            Ut ipsam autem vel beatae tempore sit eaque natus aut molestiae voluptates vel dicta possimus.
-            Est officiis provident sed voluptatibus voluptas est inventore error aut optio facilis id velit nobis. 
-            Et consequatur mollitia laboriosam dolore et eius necessitatibus ad voluptas ducimus est voluptatem veritatis. 
-            Hic molestiae quas cum aperiam velit nam facere tenetur in nisi omnis quo aliquam accusamus aut minus nulla eos velit voluptas. 
-            Et nobis facere vel dolorum dolores est vero dolorem eos aliquid sint qui voluptatum quam est tempore officiis! 
-            Et pariatur atque et provident aperiam et quibusdam quaerat ut rerum suscipit et minus quas et similique quia eum illum possimus. 
-            Est dolorem quia a dolores iste qui itaque quis aut fugit magni.",
-            'total_weight' => 2000,
-        ]);
+        $recipe_array = array(
+            ['Tart', 'This is the correct method for a tart'],
+            ['Cake', 'This is a method for a cake'],
+            ['Pastas', 'This is just a method for pastas'],
+            ['Sandwich', 'This is a recipe for a sandwich'],
+            ['Cheese pie', 'This is just a method for a cheese pie'],
+            ['Steer fried rice', 'This is a method for steer fried rice'],
+            ['Omelet', 'This is a recipe for an omelet'],
+        );
 
-        Quantity::create([
-            'quantity'=> 200,
-            'command_id'=> 1,
-            'recipe_id' => 1,
-        ]);
+        $i = 1;
 
-        Quantity::create([
-            'quantity'=> 1200,
-            'command_id'=> 2,
-            'recipe_id' => 1,
-        ]);
+        foreach($recipe_array as $recipe){
+            $random_quantities = array(
+                random_int(0, 50)*10,
+                random_int(0, 50)*10,
+                random_int(0, 50)*10,
+                random_int(0, 50)*10,
+            );
 
-        Quantity::create([
-            'quantity'=> 300,
-            'command_id'=> 4,
-            'recipe_id' => 1,
-        ]);
+            Recipe::create([
+                'id' => $i,
+                'name' => $recipe[0],
+                'process' => $recipe[1],
+                'total_weight' => array_sum($random_quantities)
+            ]);
 
-        Quantity::create([
-            'quantity'=> 300,
-            'command_id'=> 5,
-            'recipe_id' => 1,
-        ]);
+            $random_command_id = array(
+                random_int(1, 12),
+                random_int(1, 12),
+                random_int(1, 12),
+                random_int(1, 12),
+            );
+
+            Quantity::insert([
+                ['quantity'=> $random_quantities[0], 'command_id'=> $random_command_id[0], 'recipe_id' => $i,],
+                ['quantity'=> $random_quantities[1], 'command_id'=> $random_command_id[1], 'recipe_id' => $i,],
+                ['quantity'=> $random_quantities[2], 'command_id'=> $random_command_id[2], 'recipe_id' => $i,],
+                ['quantity'=> $random_quantities[3], 'command_id'=> $random_command_id[3], 'recipe_id' => $i,],
+            ]);
+
+            $i++;
+        };
     }
 }
