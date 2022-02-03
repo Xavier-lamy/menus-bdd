@@ -24,11 +24,11 @@ class MenuSeeder extends Seeder
 
         for($i = 0; $i <= 4; $i++){
             $random_ids = array(
-                random_int(1, 12),
-                random_int(1, 12),
-                random_int(1, 12),
-                random_int(1, 12),
-                random_int(1, 12),
+                random_int(1, 7),
+                random_int(1, 7),
+                random_int(1, 7),
+                random_int(1, 7),
+                random_int(1, 7),
             );
             $random_quantities = array(
                 random_int(1, 20)*100,
