@@ -64,7 +64,7 @@
     @endsection
 
     @section('table')
-        <input type="text" name="recipe_name" aria-label="Recipe quantity" min="1" max="120" form="update_recipe_form" class="text--center input--inset my--2" placeholder="Recipe name" value="{{ old('recipe_name') ?? $recipe->name }}" required autofocus>
+        <input type="text" name="recipe_name" aria-label="Recipe name" min="1" max="120" form="update_recipe_form" class="text--center input--inset my--2" placeholder="Recipe name" value="{{ old('recipe_name') ?? $recipe->name }}" required autofocus>
         <table class="element--center table--striped w--100" id="modifyRecipeTable">
             <thead class="w--100 bg--secondary text--light">
                 <th class="w--60">Ingredient</th>
@@ -169,7 +169,7 @@
     @endsection
 
     @section('table')
-        <input type="text" name="recipe_name" aria-label="Recipe quantity" min="1" max="120" form="add_recipe_form" class="text--center input--inset my--2" placeholder="Recipe name" value="{{ old('recipe_name') }}" required autofocus>
+        <input type="text" name="recipe_name" aria-label="Recipe name" min="1" max="120" form="add_recipe_form" class="text--center input--inset my--2" placeholder="Recipe name" value="{{ old('recipe_name') }}" required autofocus>
         <table class="element--center table--striped w--100" id="addRecipeTable">
             <thead class="w--100 bg--secondary text--light">
                 <th class="w--60">Ingredient</th>

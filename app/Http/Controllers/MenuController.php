@@ -31,9 +31,11 @@ class MenuController extends Controller
     public function create()
     {
         $is_creating = true;
+        $recipes = Recipe::orderBy('name')->get();
 
         return view('menu', [
             'is_creating' => $is_creating,
+            'recipes' => $recipes,
         ]);
     }
 
@@ -59,17 +61,23 @@ class MenuController extends Controller
         $noon = array();
         $evening = array();
 
-        foreach($request->morning as $morning_recipe){
-            $morning += [$morning_recipe['recipe'] => $morning_recipe['quantity']];
-        };
+        if (!empty($request->morning)) {
+            foreach ($request->morning as $morning_recipe) {
+                $morning += [$morning_recipe['recipe'] => $morning_recipe['quantity']];
+            };
+        }
 
-        foreach($request->noon as $noon_recipe){
-            $noon += [$noon_recipe['recipe'] => $noon_recipe['quantity']];
-        };
+        if (!empty($request->noon)) {
+            foreach ($request->noon as $noon_recipe) {
+                $noon += [$noon_recipe['recipe'] => $noon_recipe['quantity']];
+            };
+        }
 
-        foreach($request->evening as $evening_recipe){
-            $evening += [$evening_recipe['recipe'] => $evening_recipe['quantity']];
-        };
+        if (!empty($request->evening)) {
+            foreach ($request->evening as $evening_recipe) {
+                $evening += [$evening_recipe['recipe'] => $evening_recipe['quantity']];
+            };
+        }
 
         $day = $request->day;
 
