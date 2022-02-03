@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Menu;
-use App\Rules\CommandIdValided;
+use App\Models\Recipe;
 use App\Rules\RecipeIdValided;
 
 class MenuController extends Controller
@@ -16,7 +16,11 @@ class MenuController extends Controller
      */
     public function index()
     {
-        return view('menus');
+        $menus = Menu::orderBy('day', 'asc')->get();
+
+        return view('menus', [
+            'menus' => $menus,
+        ]);
     }
 
     /**
@@ -87,8 +91,35 @@ class MenuController extends Controller
      */
     public function show($id)
     {
+        $menu = Menu::find($id);
+
+        if(empty($menu)){
+            return redirect('menus')->with('error', "This menu doesn't exist");
+        }
+
+        //fetch recipes for morning
+        $morning = $menu->morning;
+        $morning_keys = array_keys($morning);
+
+        $morning_recipes = Recipe::whereIn('id', $morning_keys)->get();
+
+        //fetch recipes for noon
+        $noon = $menu->noon;
+        $noon_keys = array_keys($noon);
+
+        $noon_recipes = Recipe::whereIn('id', $noon_keys)->get();
+
+        //fetch recipes for evening
+        $evening = $menu->evening;
+        $evening_keys = array_keys($evening);
+
+        $evening_recipes = Recipe::whereIn('id', $evening_keys)->get();
+
         return view('menu', [
-            //
+            'menu' => $menu,
+            'morning_recipes' => $morning_recipes,
+            'noon_recipes' => $noon_recipes,
+            'evening_recipes' => $evening_recipes,
         ]);
     }
 
@@ -100,6 +131,12 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
+        $menu = Menu::find($id);
+
+        if(empty($menu)){
+            return redirect('menus')->with('error', "This menu doesn't exist");
+        }
+
         $is_editing = true;
 
         return view('menu', [
