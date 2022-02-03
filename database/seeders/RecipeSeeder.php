@@ -31,10 +31,10 @@ class RecipeSeeder extends Seeder
 
         foreach($recipe_array as $recipe){
             $random_quantities = array(
-                random_int(0, 50)*10,
-                random_int(0, 50)*10,
-                random_int(0, 50)*10,
-                random_int(0, 50)*10,
+                random_int(1, 50)*10,
+                random_int(1, 50)*10,
+                random_int(1, 50)*10,
+                random_int(1, 50)*10,
             );
 
             Recipe::create([
