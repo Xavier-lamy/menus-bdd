@@ -46,7 +46,7 @@ class MenuRouteTest extends TestCase
     {
         $response = $this->get('/menu/show/{id}');
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
     }
 
     /**
