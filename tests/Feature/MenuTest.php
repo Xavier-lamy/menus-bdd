@@ -92,8 +92,7 @@ class MenuTest extends TestCase
     /**
      * Test if menu method "Destroy" work as intended:
      *  - Redirect
-     *  - Return a success message
-     *  - Return the correct amount of deleted entries
+     *  - Return a success message with the correct amount of deleted entries
      *  - The menu is correctly delete from menus
      *  
      * @test
@@ -101,6 +100,42 @@ class MenuTest extends TestCase
     public function destroyMenu()
     {
         $this->withoutExceptionHandling();
+
+        //Create two fake menus in bdd
+        Menu::create([
+            'id' => 1,
+            'day' => "2020-02-04",
+            'morning' => [1 => 2, 3 => 1],
+            'noon' => [4 => 6, 1 => 6],
+            'evening' => [5 => 4, 2 => 4],
+        ]);
+
+        Menu::create([
+            'id' => 2,
+            'day' => "2020-02-05",
+            'morning' => [3 => 1],
+            'noon' => [4 => 6, 1 => 2, 5 => 4,],
+            'evening' => [5 => 4, 2 => 4],
+        ]);
+
+
+        $response = $this->post('/menus/delete', [
+            'delete_1' => 1,
+            'delete_2' => 2,
+        ]);
+
+        //Check if the products we delete are not there anymore
+        $menu1 = Menu::find(1);
+        $menu2 = Menu::find(2);
+        
+        $this->assertTrue(empty($menu1));
+        $this->assertTrue(empty($menu2));
+
+        $response
+            ->assertRedirect('/menus')
+            ->assertSessionHas([
+                'success' => '2 entries deleted !',
+            ]);
 
     }
 }
