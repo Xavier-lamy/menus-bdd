@@ -24,8 +24,8 @@
                 <td class="text--center p--1">Breakfast</td>
                 <td class="p--1">
                     <ul>
-                        @foreach ($morning_recipes as $morning_recipe)
-                            <li>{{$morning_recipe->name}}</li>
+                        @foreach ($morning_recipes as $morning_recipe => $morning_portion )
+                            <li>{{ $morning_recipe }} (x {{ $morning_portion }})</li>
                         @endforeach
                     </ul>
                 </td>
@@ -36,8 +36,8 @@
                 <td class="text--center p--1">Lunch</td>
                 <td class="p--1">
                     <ul>
-                        @foreach ($noon_recipes as $noon_recipe)
-                            <li>{{$noon_recipe->name}}</li>
+                        @foreach ($noon_recipes as $noon_recipe => $noon_portion )
+                            <li>{{ $noon_recipe }} (x {{ $noon_portion }})</li>
                         @endforeach
                     </ul>
                 </td>
@@ -48,8 +48,8 @@
                 <td class="text--center p--1">Dinner</td>
                 <td class="p--1">
                     <ul>
-                        @foreach ($evening_recipes as $evening_recipe)
-                            <li>{{$evening_recipe->name}}</li>
+                        @foreach ($evening_recipes as $evening_recipe => $evening_portion )
+                            <li>{{ $evening_recipe }} (x {{ $evening_portion }})</li>
                         @endforeach
                     </ul>
                 </td>
@@ -84,7 +84,7 @@
                 <th colspan="3" class="bg--secondary-fade text--light">Breakfast</th>
                 @php
                     $morning_i = 1;
-                @endphp
+                @endphp 
                 {{--Display old values from failed redirection or values from menu--}}
                 @if(old('morning') != null)
                     @forelse (old('morning') as $morning_recipe)

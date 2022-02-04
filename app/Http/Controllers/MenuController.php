@@ -107,21 +107,39 @@ class MenuController extends Controller
 
         //fetch recipes for morning
         $morning = $menu->morning;
-        $morning_keys = array_keys($morning);
+        $morning_recipes = array();
 
-        $morning_recipes = Recipe::whereIn('id', $morning_keys)->get();
+        foreach($morning as $key => $portion){
+            $recipe = Recipe::find($key);
+            if(!empty($recipe)){
+                $recipe = $recipe->name;
+                $morning_recipes += [$recipe => $portion];
+            }
+        }
 
         //fetch recipes for noon
         $noon = $menu->noon;
-        $noon_keys = array_keys($noon);
+        $noon_recipes = array();
 
-        $noon_recipes = Recipe::whereIn('id', $noon_keys)->get();
+        foreach($noon as $key => $portion){
+            $recipe = Recipe::find($key);
+            if(!empty($recipe)){
+                $recipe = $recipe->name;
+                $noon_recipes += [$recipe => $portion];
+            }
+        }
 
         //fetch recipes for evening
         $evening = $menu->evening;
-        $evening_keys = array_keys($evening);
+        $evening_recipes = array();
 
-        $evening_recipes = Recipe::whereIn('id', $evening_keys)->get();
+        foreach($evening as $key => $portion){
+            $recipe = Recipe::find($key);
+            if(!empty($recipe)){
+                $recipe = $recipe->name;
+                $evening_recipes += [$recipe => $portion];
+            }
+        }
 
         return view('menu', [
             'menu' => $menu,

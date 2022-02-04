@@ -104,7 +104,8 @@
 
     @section('alert')
         @parent
-        <p class="alert--message my--2 p--2">Do you really want to delete those recipes ?</p>
+        <p class="alert--message my--2 p--2">Do you really want to delete those recipes ?<br>
+        All menus using these recipes will have them remove from their list</p>
     @endsection
 
     @section('forms')
