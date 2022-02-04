@@ -108,7 +108,7 @@
                             <input type="number" aria-label="Quantity" min="0" name="ingredient[{{ $i }}][quantity]" value="{{ old("ingredient.". $i .".quantity") ?? $ingredient->quantity }}" form="update_recipe_form" class="text--center input--inset" placeholder="Quantity" required>
                         </td>
                         <td class="text--center p--1">
-                            <button type="button" name="deleteRow" id="deleteRow{{ $i }}" class="button--sm">Delete row</button>
+                            <button type="button" name="delete_row" id="delete_row{{ $i }}" class="button--sm">Delete row</button>
                         </td>
                     </tr>
                     @php
@@ -131,7 +131,7 @@
                                 <option value="" selected>No products available</option>
                             @endif
                         </select>
-                        <button type="button" id="addIngredientButton" class="button m--1">Add ingredient</button>
+                        <button type="button" id="add_ingredient_button" class="button m--1">Add ingredient</button>
                     </td>
                 </tr>
                 <th colspan="3" class="bg--secondary text--light">Method</th>
@@ -203,7 +203,7 @@
                             <input type="number" aria-label="Quantity" min="0" name="ingredient[{{ $i }}][quantity]" value="{{ $ingredient['quantity'] }}" form="update_recipe_form" class="text--center input--inset" placeholder="Quantity" required>
                         </td>
                         <td class="text--center p--1">
-                            <button type="button" name="deleteRow" id="deleteRow{{ $i }}" class="button--sm">Delete row</button>
+                            <button type="button" name="delete_row" id="delete_row{{ $i }}" class="button--sm">Delete row</button>
                         </td>
                     </tr>
                     @php
@@ -232,7 +232,7 @@
                         <input type="number" aria-label="Quantity" min="0" name="ingredient[{{ $i }}][quantity]" value="{{ old("ingredient.". $i .".quantity") }}" form="add_recipe_form" class="text--center input--inset" placeholder="Quantity" required>
                     </td>
                     <td class="text--center p--1">
-                        <button type="button" name="deleteRow" id="deleteRow1" class="button--sm">Delete row</button>
+                        <button type="button" name="delete_row" id="delete_row1" class="button--sm">Delete row</button>
                     </td>
                 </tr>
                 @php
@@ -255,7 +255,7 @@
                                 <option value="" selected>No products available</option>
                             @endif
                         </select>
-                        <button type="button" id="addIngredientButton" class="button m--1">Add ingredient</button>
+                        <button type="button" id="add_ingredient_button" class="button m--1">Add ingredient</button>
                     </td>
                 </tr>
                 <th colspan="3" class="bg--secondary text--light">Method</th>
