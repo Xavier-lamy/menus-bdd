@@ -81,12 +81,66 @@ class MenuTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
+        //Create a fake menu
+        Menu::create([
+            'id' => 1,
+            'day' => "2022-02-04",
+            'morning' => [1 => 2, 3 => 1],
+            'noon' => [4 => 6, 1 => 6],
+            'evening' => [5 => 4, 2 => 4],
+        ]);
+
+        //Send request for updating menu date and evening dishes
+        $response = $this->post('/menu/apply/1', [
+            'day' => '2022-02-10',
+            'morning' => array(
+                array(
+                    'recipe'=> 1,
+                    'portion'=> 2
+                ),
+                array(
+                    'recipe'=> 3,
+                    'portion'=> 1
+                )
+            ),
+            'noon' => array(
+                array(
+                    'recipe'=> 4,
+                    'portion'=> 6
+                ),
+                array(
+                    'recipe'=> 1,
+                    'portion'=> 6
+                )
+            ),
+            'evening' => array(
+                array(
+                    'recipe'=> 4,
+                    'portion'=> 4
+                )
+            ),
+        ]);
+
+        //Check if menu is updated (date has changed):
+        $menu = Menu::where([
+            'id' => 1,
+            'day' => '2022-02-10',
+        ])->first();
+        
+        $this->assertNotEmpty($menu);
+
+        //Check if evening dishes and portions are updated
+        $expected_evening = [4 => 4];
+        $evening = $menu->evening;
+
+        $this->assertEquals($expected_evening, $evening);
+
         //Test redirection with message
-/*         $response
+        $response
         ->assertRedirect('/menu/show/1')
         ->assertSessionHas([
             'success' => 'Menu updated !',
-        ]); */
+        ]);
     }
 
     /**
