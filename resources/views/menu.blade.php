@@ -119,7 +119,7 @@
                                 </select>
                             </td>
                             <td class="text--center p--1">
-                                <input type="number" aria-label="Portions" min="0" name="morning[{{ $morning_i }}][quantity]" value="{{ old("morning.". $morning_i .".quantity") }}" form="add_menu_form" class="text--center input--inset" placeholder="Portions" required>
+                                <input type="number" aria-label="Portions" min="0" name="morning[{{ $morning_i }}][portion]" value="{{ old("morning.". $morning_i .".portion") }}" form="add_menu_form" class="text--center input--inset" placeholder="Portions" required>
                             </td>
                             <td class="text--center p--1">
                                 <button type="button" name="deleteRow" id="deleteRow{{ $morning_i }}" class="button--sm">Delete row</button>
@@ -144,7 +144,7 @@
                             </select>
                         </td>
                         <td class="text--center p--1">
-                            <input type="number" aria-label="Portions" min="0" name="morning[{{ $morning_i }}][quantity]" value="{{ old("morning.". $morning_i .".quantity") }}" form="add_menu_form" class="text--center input--inset" placeholder="Portions" required>
+                            <input type="number" aria-label="Portions" min="0" name="morning[{{ $morning_i }}][portion]" value="{{ old("morning.". $morning_i .".portion") }}" form="add_menu_form" class="text--center input--inset" placeholder="Portions" required>
                         </td>
                         <td class="text--center p--1">
                             <button type="button" name="deleteRow" id="deleteMorningRow{{ $morning_i }}" class="button--sm">Delete row</button>
@@ -193,7 +193,7 @@
                                 </select>
                             </td>
                             <td class="text--center p--1">
-                                <input type="number" aria-label="Portions" min="0" name="noon[{{ $noon_i }}][quantity]" value="{{ old("noon.". $noon_i .".quantity") }}" form="add_menu_form" class="text--center input--inset" placeholder="Portions" required>
+                                <input type="number" aria-label="Portions" min="0" name="noon[{{ $noon_i }}][portion]" value="{{ old("noon.". $noon_i .".portion") }}" form="add_menu_form" class="text--center input--inset" placeholder="Portions" required>
                             </td>
                             <td class="text--center p--1">
                                 <button type="button" name="deleteRow" id="deleteNoonRow{{ $noon_i }}" class="button--sm">Delete row</button>
@@ -218,7 +218,7 @@
                             </select>
                         </td>
                         <td class="text--center p--1">
-                            <input type="number" aria-label="Portions" min="0" name="noon[{{ $noon_i }}][quantity]" value="{{ old("noon.". $noon_i .".quantity") }}" form="add_menu_form" class="text--center input--inset" placeholder="Portions">
+                            <input type="number" aria-label="Portions" min="0" name="noon[{{ $noon_i }}][portion]" value="{{ old("noon.". $noon_i .".portion") }}" form="add_menu_form" class="text--center input--inset" placeholder="Portions">
                         </td>
                         <td class="text--center p--1">
                             <button type="button" name="deleteRow" id="deleteEveningRow{{ $noon_i }}" class="button--sm">Delete row</button>
@@ -256,7 +256,7 @@
                                 </select>
                             </td>
                             <td class="text--center p--1">
-                                <input type="number" aria-label="Portions" min="0" name="evening[{{ $evening_i }}][quantity]" value="{{ old("evening.". $evening_i .".quantity") }}" form="add_menu_form" class="text--center input--inset" placeholder="Portions">
+                                <input type="number" aria-label="Portions" min="0" name="evening[{{ $evening_i }}][portion]" value="{{ old("evening.". $evening_i .".portion") }}" form="add_menu_form" class="text--center input--inset" placeholder="Portions">
                             </td>
                             <td class="text--center p--1">
                                 <button type="button" name="deleteRow" id="deleteRow{{ $evening_i }}" class="button--sm">Delete row</button>
@@ -281,7 +281,7 @@
                             </select>
                         </td>
                         <td class="text--center p--1">
-                            <input type="number" aria-label="Portions" min="0" name="evening[{{ $evening_i }}][quantity]" value="{{ old("evening.". $evening_i .".quantity") }}" form="add_menu_form" class="text--center input--inset" placeholder="Portions">
+                            <input type="number" aria-label="Portions" min="0" name="evening[{{ $evening_i }}][portion]" value="{{ old("evening.". $evening_i .".portion") }}" form="add_menu_form" class="text--center input--inset" placeholder="Portions">
                         </td>
                         <td class="text--center p--1">
                             <button type="button" name="deleteRow" id="deleteRow{{ $evening_i }}" class="button--sm">Delete row</button>

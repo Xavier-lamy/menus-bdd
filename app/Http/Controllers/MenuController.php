@@ -50,11 +50,11 @@ class MenuController extends Controller
         $request->validate([
             'day' => ['required', 'date_format:Y-m-d', 'after:2000-01-01', 'before:2300-01-01'],
             'morning.*.recipe' => [new RecipeIdValided],
-            'morning.*.quantity' => ['min:0', 'max:1000000000', 'integer'],
+            'morning.*.portion' => ['min:0', 'max:1000000000', 'integer'],
             'noon.*.recipe' => [new RecipeIdValided],
-            'noon.*.quantity' => ['min:0', 'max:1000000000', 'integer'],
+            'noon.*.portion' => ['min:0', 'max:1000000000', 'integer'],
             'evening.*.recipe' => [new RecipeIdValided],
-            'evening.*.quantity' => ['min:0', 'max:1000000000', 'integer'],
+            'evening.*.portion' => ['min:0', 'max:1000000000', 'integer'],
         ]);
 
         $morning = array();
@@ -63,19 +63,19 @@ class MenuController extends Controller
 
         if (!empty($request->morning)) {
             foreach ($request->morning as $morning_recipe) {
-                $morning += [$morning_recipe['recipe'] => $morning_recipe['quantity']];
+                $morning += [$morning_recipe['recipe'] => $morning_recipe['portion']];
             };
         }
 
         if (!empty($request->noon)) {
             foreach ($request->noon as $noon_recipe) {
-                $noon += [$noon_recipe['recipe'] => $noon_recipe['quantity']];
+                $noon += [$noon_recipe['recipe'] => $noon_recipe['portion']];
             };
         }
 
         if (!empty($request->evening)) {
             foreach ($request->evening as $evening_recipe) {
-                $evening += [$evening_recipe['recipe'] => $evening_recipe['quantity']];
+                $evening += [$evening_recipe['recipe'] => $evening_recipe['portion']];
             };
         }
 

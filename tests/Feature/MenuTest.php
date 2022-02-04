@@ -28,27 +28,27 @@ class MenuTest extends TestCase
             'morning' => array(
                 array(
                     'recipe'=> 1,
-                    'quantity'=> 360
+                    'portion'=> 2
                 ),
                 array(
                     'recipe'=> 2,
-                    'quantity'=> 120
+                    'portion'=> 2
                 )
             ),
             'noon' => array(
                 array(
                     'recipe'=> 3,
-                    'quantity'=> 200
+                    'portion'=> 3
                 ),
                 array(
                     'recipe'=> 4,
-                    'quantity'=> 400
+                    'portion'=> 3
                 )
             ),
             'evening' => array(
                 array(
                     'recipe'=> 4,
-                    'quantity'=> 650
+                    'portion'=> 4
                 )
             ),
         ]);

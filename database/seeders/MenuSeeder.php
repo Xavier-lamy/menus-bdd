@@ -30,19 +30,19 @@ class MenuSeeder extends Seeder
                 random_int(1, 7),
                 random_int(1, 7),
             );
-            $random_quantities = array(
-                random_int(1, 20)*100,
-                random_int(1, 20)*100,
-                random_int(1, 20)*100,
-                random_int(1, 20)*100,
-                random_int(1, 20)*100,
+            $random_portions = array(
+                random_int(1, 5),
+                random_int(1, 5),
+                random_int(1, 5),
+                random_int(1, 5),
+                random_int(1, 5),
             );
 
             Menu::create([
                 "day" => $date[$i],
-                "morning" => [$random_ids[0] => $random_quantities[1], $random_ids[3] => $random_quantities[0]],
-                "noon" => [$random_ids[2] => $random_quantities[3], $random_ids[1] => $random_quantities[3]],
-                "evening" => [$random_ids[4] => $random_quantities[4], $random_ids[2] => $random_quantities[2]],
+                "morning" => [$random_ids[0] => $random_portions[1], $random_ids[3] => $random_portions[0]],
+                "noon" => [$random_ids[2] => $random_portions[3], $random_ids[1] => $random_portions[3]],
+                "evening" => [$random_ids[4] => $random_portions[4], $random_ids[2] => $random_portions[2]],
             ]);
         }
     }
