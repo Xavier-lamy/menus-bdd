@@ -193,7 +193,7 @@ class RecipeController extends Controller
             };
         };
 
-        $total = '';
+        $total = null;
         if(!$different_units){
             //Count recipe total weight
             $total = 0;
