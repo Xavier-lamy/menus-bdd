@@ -10,7 +10,7 @@ if( modifyRecipeTable || addRecipeTable){
   addIngredientButton.addEventListener('click', function(){
       let buttonRow = document.getElementById('add_ingredient_row');
 
-      let newRow = `<tr>
+      let newRow = `<tr name="ingredient_row">
         <td class="text--center p--1">
           <select name="ingredient[${incrementedId}][command_id]" id="ingredient_id_${incrementedId}" aria-label="Ingredient (unit)" form="add_recipe_form" class="text--center input--inset" title="Ingredient (unit)" required>
             ${ingredientOptions}
@@ -25,7 +25,7 @@ if( modifyRecipeTable || addRecipeTable){
       </tr>`;
 
       if(modifyRecipeTable){
-        newRow = `<tr>
+        newRow = `<tr name="ingredient_row">
           <td class="text--center p--1">
             <select name="ingredient[${incrementedId}][command_id]" id="ingredient_id_${incrementedId}" aria-label="Ingredient (unit)" form="update_recipe_form" class="text--center input--inset" title="Ingredient (unit)" required>
               ${ingredientOptions}
@@ -75,12 +75,12 @@ if( modifyMenuTable || addMenuTable){
 
   //Morning
   let addMorningRecipeButton = document.getElementById('add_morning_recipe_button');
-  let incrementedMorningId = document.getElementsByName('recipe_morning_row').length + 1;
+  let incrementedMorningId = document.getElementsByName('morning_recipe_row').length + 1;
 
   addMorningRecipeButton.addEventListener('click', function(){
       let buttonRow = document.getElementById('add_morning_recipe_row');
 
-      let newRow = `<tr>
+      let newRow = `<tr name="morning_recipe_row">
         <td class="text--center p--1">
           <select name="morning[${incrementedMorningId}][recipe]" id="recipe_morning_${incrementedMorningId}" aria-label="Recipe" form="add_menu_form" class="text--center input--inset" title="Recipe" required>
             ${recipeOptions}
@@ -95,7 +95,7 @@ if( modifyMenuTable || addMenuTable){
       </tr>`;
 
       if(modifyMenuTable){
-        newRow = `<tr>
+        newRow = `<tr name="morning_recipe_row">
           <td class="text--center p--1">
             <select name="morning[${incrementedMorningId}][recipe]" id="recipe_morning_${incrementedMorningId}" aria-label="Recipe" form="update_menu_form" class="text--center input--inset" title="Recipe" required>
               ${recipeOptions}
@@ -117,12 +117,12 @@ if( modifyMenuTable || addMenuTable){
 
   //Noon
   let addNoonRecipeButton = document.getElementById('add_noon_recipe_button');
-  let incrementedNoonId = document.getElementsByName('recipe_noon_row').length + 1;
+  let incrementedNoonId = document.getElementsByName('noon_recipe_row').length + 1;
 
   addNoonRecipeButton.addEventListener('click', function(){
       let buttonRow = document.getElementById('add_noon_recipe_row');
 
-      let newRow = `<tr>
+      let newRow = `<tr name="noon_recipe_row">
         <td class="text--center p--1">
           <select name="noon[${incrementedNoonId}][recipe]" id="recipe_noon_${incrementedNoonId}" aria-label="Recipe" form="add_menu_form" class="text--center input--inset" title="Recipe" required>
             ${recipeOptions}
@@ -137,7 +137,7 @@ if( modifyMenuTable || addMenuTable){
       </tr>`;
 
       if(modifyMenuTable){
-        newRow = `<tr>
+        newRow = `<tr name="noon_recipe_row">
           <td class="text--center p--1">
             <select name="noon[${incrementedNoonId}][recipe]" id="recipe_noon_${incrementedNoonId}" aria-label="Recipe" form="update_menu_form" class="text--center input--inset" title="Recipe" required>
             ${recipeOptions}
@@ -159,12 +159,12 @@ if( modifyMenuTable || addMenuTable){
 
   //Evening
   let addEveningRecipeButton = document.getElementById('add_evening_recipe_button');
-  let incrementedEveningId = document.getElementsByName('recipe_evening_row').length + 1;
+  let incrementedEveningId = document.getElementsByName('evening_recipe_row').length + 1;
 
   addEveningRecipeButton.addEventListener('click', function(){
       let buttonRow = document.getElementById('add_evening_recipe_row');
 
-      let newRow = `<tr>
+      let newRow = `<tr name="evening_recipe_row">
         <td class="text--center p--1">
           <select name="evening[${incrementedEveningId}][recipe]" id="recipe_evening_${incrementedEveningId}" aria-label="Recipe" form="add_menu_form" class="text--center input--inset" title="Recipe" required>
           ${recipeOptions}
@@ -179,7 +179,7 @@ if( modifyMenuTable || addMenuTable){
       </tr>`;
 
       if(modifyMenuTable){
-        newRow = `<tr>
+        newRow = `<tr name="evening_recipe_row">
           <td class="text--center p--1">
             <select name="evening[${incrementedEveningId}][recipe]" id="recipe_evening_${incrementedEveningId}" aria-label="Recipe" form="update_menu_form" class="text--center input--inset" title="Recipe" required>
             ${recipeOptions}

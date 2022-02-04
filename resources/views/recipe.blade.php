@@ -65,7 +65,7 @@
 
     @section('table')
         <input type="text" name="recipe_name" aria-label="Recipe name" min="1" max="120" form="update_recipe_form" class="text--center input--inset my--2" placeholder="Recipe name" value="{{ old('recipe_name') ?? $recipe->name }}" required autofocus>
-        <table class="element--center table--striped w--100" id="modifyRecipeTable">
+        <table class="element--center table--striped w--100" id="modify_recipe_table">
             <thead class="w--100 bg--secondary text--light">
                 <th class="w--60">Ingredient</th>
                 <th colspan="2" class="w--40">Quantity</th>
@@ -77,7 +77,7 @@
                 @endphp
                 {{--Use nullish coalescing operator to check if values from previous failed validation exist, if they don't then return current recipe values--}}
                 @forelse ((old('ingredient') ?? $recipe->quantities) as $ingredient)
-                    <tr name="ingredientRow">
+                    <tr name="ingredient_row">
                         <td class="text--center p--1">
                             <select name="ingredient[{{ $i }}][command_id]" id="ingredient_id_{{ $i }}" aria-label="Ingredient (unit)" form="update_recipe_form" class="text--center input--inset" title="Ingredient (unit)" required>
                                 @if(isset($commands_products) && $commands_products->count() > 0)
@@ -115,13 +115,13 @@
                         $i ++;
                     @endphp
                 @empty
-                    <tr name="ingredientRow">
+                    <tr name="ingredient_row">
                         <td colspan="2" class="text--center p--1">Recipe has no ingredients</td>
                     </tr> 
                 @endforelse
-                <tr id="addIngredientRow">
+                <tr id="add_ingredient_row">
                     <td colspan="3" class="text--center">
-                        <select name="selectIngredientOptions" id="selectIngredientOptions" hidden>
+                        <select name="select_ingredient_options" id="select_ingredient_options" hidden>
                             @if(isset($commands_products) && $commands_products->count() > 0)
                                 <option value="" selected>Choose an ingredient and a unit</option>
                                 @foreach($commands_products as $commands_product)
@@ -170,7 +170,7 @@
 
     @section('table')
         <input type="text" name="recipe_name" aria-label="Recipe name" min="1" max="120" form="add_recipe_form" class="text--center input--inset my--2" placeholder="Recipe name" value="{{ old('recipe_name') }}" required autofocus>
-        <table class="element--center table--striped w--100" id="addRecipeTable">
+        <table class="element--center table--striped w--100" id="add_recipe_table">
             <thead class="w--100 bg--secondary text--light">
                 <th class="w--60">Ingredient</th>
                 <th colspan="2" class="w--40">Quantity</th>
@@ -182,7 +182,7 @@
             {{--Check if values from previous failed validation exist--}}
             @if(old('ingredient') != null)
                 @foreach (old('ingredient') as $ingredient)
-                    <tr name="ingredientRow">
+                    <tr name="ingredient_row">
                         <td class="text--center p--1">
                             <select name="ingredient[{{ $i }}][command_id]" id="ingredient_id_{{ $i }}" aria-label="Ingredient (unit)" form="update_recipe_form" class="text--center input--inset" title="Ingredient (unit)" required>
                                 @if(isset($commands_products) && $commands_products->count() > 0)
@@ -211,7 +211,7 @@
                     @endphp
                 @endforeach
             @else
-                <tr name="ingredientRow">
+                <tr name="ingredient_row">
                     <td class="text--center p--1">
                         <select name="ingredient[{{ $i }}][command_id]" id="ingredient_id_{{ $i }}" aria-label="Ingredient (unit)" form="add_recipe_form" class="text--center input--inset" title="Ingredient (unit)" required>
                             @if(isset($commands_products) && $commands_products->count() > 0)
@@ -232,16 +232,16 @@
                         <input type="number" aria-label="Quantity" min="0" name="ingredient[{{ $i }}][quantity]" value="{{ old("ingredient.". $i .".quantity") }}" form="add_recipe_form" class="text--center input--inset" placeholder="Quantity" required>
                     </td>
                     <td class="text--center p--1">
-                        <button type="button" name="delete_row" id="delete_row1" class="button--sm">Delete row</button>
+                        <button type="button" name="delete_row" id="delete_row{{ $i }}" class="button--sm">Delete row</button>
                     </td>
                 </tr>
                 @php
                     $i ++;
                 @endphp
             @endif
-                <tr id="addIngredientRow">
+                <tr id="add_ingredient_row">
                     <td colspan="3" class="text--center">
-                        <select name="selectIngredientOptions" id="selectIngredientOptions" hidden>
+                        <select name="select_ingredient_options" id="select_ingredient_options" hidden>
                             @if(isset($commands_products) && $commands_products->count() > 0)
                                 <option value="" selected>
                                     Choose an ingredient and a unit
