@@ -140,6 +140,7 @@ class MenuController extends Controller
     public function edit($id)
     {
         $menu = Menu::find($id);
+        $recipes = Recipe::orderBy('name')->get();
 
         if(empty($menu)){
             return redirect('menus')->with('error', "This menu doesn't exist");
@@ -149,6 +150,8 @@ class MenuController extends Controller
 
         return view('menu', [
             'is_editing' => $is_editing,
+            'menu' => $menu,
+            'recipes' => $recipes,
         ]);
     }
 
@@ -161,7 +164,7 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return redirect('recipe/show/'.$id)->with('success', 'Menu updated !');
+        return redirect('menu/show/'.$id)->with('success', 'Menu updated !');
     }
 
     /**
