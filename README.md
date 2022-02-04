@@ -1,4 +1,5 @@
 # Projet Menus
+>La branche Php Vanilla est uniquement présente pour garder une trace de mon entrainement en php vanilla
 
 > note: Le dossier _databases est un dossier temporaire uniquement pour envoyer les tables pour le projet git, à l'avenir elles seront disponibles via des migrations.
 
