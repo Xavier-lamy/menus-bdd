@@ -172,16 +172,17 @@ class MenuController extends Controller
      */
     public function confirmDestroy(Request $request)
     {
-/*         $delete_confirmation = 'menus';
-        $delete_ids = $request->except('_token'); */
+        $delete_confirmation = 'menus';
+        $delete_ids = $request->except('_token');
 
-/*         $recipes = Menu::whereIn('id', $delete_ids)->get(); */
+        $menus = Menu::whereIn('id', $delete_ids)->get();
 
-/*         if($recipes->count() > 0){
+        if($menus->count() > 0){
             return view('confirmation', [
                 'delete_confirmation' => $delete_confirmation,
+                'menus' => $menus,
             ]);            
-        } */
+        }
 
         return redirect('menus')->with('message', 'You need to select menus first !');
     }
@@ -220,6 +221,6 @@ class MenuController extends Controller
                         return redirect('recipes')->with('success', "{$entries_deleted} entries deleted !");
                 } */
 
-        return redirect('recipes')->with('error', "There is an error, no entry deleted");
+        return redirect('menus')->with('error', "There is an error, no entry deleted");
     }
 }

@@ -131,4 +131,43 @@
         @endforelse
     @endsection
 
+@elseif($delete_confirmation == 'menus')
+
+    @section('title')
+        Confirm deletion of menus
+    @endsection
+
+    @section('buttons')
+        <a href="{{ route('menus') }}" class="button m--3">Cancel (return to menus)</a>
+        <button type="submit" form="confirm_menus_deletion_form" class="button m--3">Confirm deletion</button>
+    @endsection
+
+    @section('alert')
+        @parent
+        <p class="alert--message my--2 p--2">Do you really want to delete those menus ?</p>
+    @endsection
+
+    @section('forms')
+        <form method="POST" action=" {{ route('menu.delete') }} " id="confirm_menus_deletion_form">
+            @csrf
+        </form>
+    @endsection
+
+    @section('table-head')
+        <th class="w--100">Menus</th>
+    @endsection
+    @section('table-body')
+        @forelse($menus as $menu)
+            <tr>
+                <td class="text--center p--1">
+                    {{ $menu->day }} menu
+                    <input type="hidden" name="delete_{{ $menu->id }}" form="confirm_menus_deletion_form" value="{{ $menu->id }}" required>
+                </td>
+            </tr>
+        @empty 
+            <tr>
+                <td class="text--center">No menu to delete</td>
+            </tr>
+        @endforelse
+    @endsection
 @endif
