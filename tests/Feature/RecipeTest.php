@@ -65,7 +65,7 @@ class RecipeTest extends TestCase
             'id' => 1,
             'name' => 'Tart',
             'process' => 'Do something nice',
-            'total_weight' => 600
+            'total' => 600
         ])->exists();
 
         $this->assertTrue($recipe);
@@ -103,7 +103,7 @@ class RecipeTest extends TestCase
             'id' => 1,
             'name' => 'Tart',
             'process' => 'This is the process',
-            'total_weight' => 600,
+            'total' => 600,
         ]);
 
         //Create ingredient names in database
@@ -154,7 +154,7 @@ class RecipeTest extends TestCase
             'id' => 1,
             'name' => 'Tart',
             'process' => 'This is the new process',
-            'total_weight' => 200,
+            'total' => 200,
         ])->exists();
 
         $this->assertTrue($recipe);
@@ -193,7 +193,7 @@ class RecipeTest extends TestCase
             'id' => 1,
             'name' => 'Tart',
             'process' => 'This is the process',
-            'total_weight' => 600,
+            'total' => 600,
         ]);
 
         //Create ingredient names in database

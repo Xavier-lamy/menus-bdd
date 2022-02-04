@@ -17,7 +17,7 @@ class CreateRecipesTable extends Migration
             $table->id('id');
             $table->string('name', 120);
             $table->text('process');
-            $table->unsignedInteger('total_weight');
+            $table->unsignedInteger('total')->nullable();
         });
     }
 

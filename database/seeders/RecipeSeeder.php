@@ -41,7 +41,7 @@ class RecipeSeeder extends Seeder
                 'id' => $i,
                 'name' => $recipe[0],
                 'process' => $recipe[1],
-                'total_weight' => array_sum($random_quantities)
+                'total' => array_sum($random_quantities)
             ]);
 
             $random_command_id = array(

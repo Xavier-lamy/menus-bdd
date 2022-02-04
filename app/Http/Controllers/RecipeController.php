@@ -58,39 +58,42 @@ class RecipeController extends Controller
         $ingredients = $request->ingredient;
         $process = $request->process;
 
-        //Check if all ingredients have same unit
+        //Return if ingredients is empty
         if( empty($ingredients) ){
             return redirect('recipe/create')
                 ->withInput()
                 ->with('error', 'Recipe should have at least one ingredient');
         }
 
+        //Update 'total' if all ingredients have same unit else let empty
+        $different_units = false;
         foreach( $ingredients as $ingredient ){
             $command_id = $ingredient['command_id'];
             $product = Command::find($command_id);
             $product_unit = $product->unit;
             if( !isset($first_product_unit) ){
                 $first_product_unit = $product->unit;
-                continue;
             };
             if( $product_unit != $first_product_unit ){
-                return redirect('recipe/create')
-                    ->withInput()
-                    ->with('error', 'All ingredients should have same unit !');
+                $different_units = true;
             };
         };
 
-        //Count recipe total weight
-        $total_weight = 0;
-        foreach( $ingredients as $ingredient ){
-            $total_weight += $ingredient['quantity'];
+        $total = null;
+        if(!$different_units){
+            //Count recipe total weight
+            $total = 0;
+            foreach( $ingredients as $ingredient ){
+                $total += $ingredient['quantity'];
+            }            
         }
+
 
         //Store the new recipe
         $new_recipe = Recipe::create([
             'name' => $recipe_name,
             'process' => $process,
-            'total_weight' => $total_weight,
+            'total' => $total,
         ]);
 
         //Store the ingredients
@@ -169,31 +172,34 @@ class RecipeController extends Controller
         $ingredients = $request->ingredient;
         $process = $request->process;
 
-        //Check if all ingredients have same unit
+        //Return if ingredients is empty
         if( empty($ingredients) ){
             return redirect('recipe/modify/'.$recipe_id)
                 ->withInput()    
                 ->with('error', 'Recipe should have at least one ingredient');
         }
+
+        //Update 'total' if all ingredients have same unit else let empty
+        $different_units = false;
         foreach( $ingredients as $ingredient ){
             $command_id = $ingredient['command_id'];
             $product = Command::find($command_id);
             $product_unit = $product->unit;
             if( !isset($first_product_unit) ){
                 $first_product_unit = $product->unit;
-                continue;
             };
             if( $product_unit != $first_product_unit ){
-                return redirect('recipe/modify/'.$recipe_id)
-                    ->withInput()
-                    ->with('error', 'All ingredients should have same unit !');
+                $different_units = true;
             };
         };
 
-        //Count recipe total weight
-        $total_weight = 0;
-        foreach( $ingredients as $ingredient ){
-            $total_weight += $ingredient['quantity'];
+        $total = '';
+        if(!$different_units){
+            //Count recipe total weight
+            $total = 0;
+            foreach( $ingredients as $ingredient ){
+                $total += $ingredient['quantity'];
+            }            
         }
 
         //Fetch the recipe
@@ -201,7 +207,7 @@ class RecipeController extends Controller
         $recipe->update([
             'name' => $recipe_name,
             'process' => $process,
-            'total_weight' => $total_weight,
+            'total' => $total,
         ]);
 
         $old_ingredients = Quantity::where('recipe_id', $recipe_id)->get();

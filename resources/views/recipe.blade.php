@@ -29,10 +29,10 @@
                 <td colspan="2" class="text--center p--1">Recipe has no ingredients</td>
             </tr>  
         @endforelse
-        @if(isset($ingredient))
+        @if(isset($ingredient) && isset($recipe->total))
             <tr>
-                <td class="text--center p--1 fw--bold">Total weight</td>
-                <td class="text--center p--1 fw--bold">{{ $recipe->total_weight }} {{ $ingredient->command->unit }}</td>
+                <td class="text--center p--1 fw--bold">Total</td>
+                <td class="text--center p--1 fw--bold">{{ $recipe->total }} {{ $ingredient->command->unit }}</td>
             </tr>
         @endif
         <th colspan="2" class="bg--secondary text--light">Method</th>
