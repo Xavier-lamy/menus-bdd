@@ -79,3 +79,13 @@ On commence à ajouter les autres tables et possibilités:
 + Page menu (back)
     - table menus: id unique, date du jour, les moment (clés: "matin", "midi", "soir"), les plats (recettes exemple tarte)
     - A voir au plus efficace: à chaque affichage de shopping le programme recalcule les quantités totales nécessaires (problème=si un utilisateur décide de rafraichir la page à chaque fois on devra faire les calculs à chaque fois/ ou stocker dans la session ?) ou faire une table en plus qui stocke les quantités nécessaires jusqu'à la prochaine semaine (problème= nécessite de la mettre à jour à la moindre modif sur une autre table, alors que dans le premier cas on ne fait le calcul qu'à l'affichage de shopping, donc quand c'est nécessaire
+
+### Update de la table Menu
+La table menus est désormais séparée en une table **menus** et une *sous-table* **dishes**, la table menu ne prend désormais plus que la date du menu et l'ID qui sert de référence, la table meals prend l'ID de la table menus en foreign_key puis une colonne meal_time ou on indique si c'est ``morning``, ``afternoon`` ou ``evening`` (plus tard on pourra rajouter des évènements du genre ne mettre que `production` par exemple pour le cas d'une utilisation professionnelle), puis une colonne qui stock l'id de la recette utilisée dans le menu et une le nombre de portions, la table meals ressemble donc à l'exemple suivant
+| id | menu_id | meal_time | recipe_id | portion |
+|----|---------|-----------|-----------|---------|
+|  1 |     1   |  morning  |      2    |    4    |
+|  2 |     1   | afternoon |      4    |    4    |
+|  3 |     1   |  evening  |      6    |    3    |
+|  4 |     2   |  morning  |      1    |    2    |
+|  5 |     2   | afternoon |      5    |    2    |
