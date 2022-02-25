@@ -9,13 +9,13 @@ class Menu extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['day', 'morning', 'noon', 'evening'];
+    protected $fillable = ['day'];
 
     public $timestamps = false;
 
-    protected $casts = [
-        'morning' => 'array',
-        'noon' => 'array',
-        'evening' => 'array',
-    ];
+    public function dishes()
+    {
+        return $this->hasMany(Dish::class);
+    }
+
 }

@@ -16,9 +16,6 @@ class CreateMenusTable extends Migration
         Schema::create('menus', function (Blueprint $table) {
             $table->id('id');
             $table->date('day');
-            $table->text('morning');
-            $table->text('noon');
-            $table->text('evening');
         });
     }
 
