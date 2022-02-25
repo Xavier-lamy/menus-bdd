@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Menu;
+use App\Models\Dish;
 use Carbon\Carbon;
 
 class MenuSeeder extends Seeder
@@ -23,27 +24,21 @@ class MenuSeeder extends Seeder
         }
 
         for($i = 0; $i <= 4; $i++){
-            $random_ids = array(
-                random_int(1, 7),
-                random_int(1, 7),
-                random_int(1, 7),
-                random_int(1, 7),
-                random_int(1, 7),
-            );
-            $random_portions = array(
-                random_int(1, 5),
-                random_int(1, 5),
-                random_int(1, 5),
-                random_int(1, 5),
-                random_int(1, 5),
-            );
-
             Menu::create([
-                "day" => $date[$i],
-                "morning" => [$random_ids[0] => $random_portions[1], $random_ids[3] => $random_portions[0]],
-                "noon" => [$random_ids[2] => $random_portions[3], $random_ids[1] => $random_portions[3]],
-                "evening" => [$random_ids[4] => $random_portions[4], $random_ids[2] => $random_portions[2]],
+                'day' => $date[$i],
             ]);
+        }
+
+        //Generate three entries per menu in dishes
+        for($i = 1; $i <= 5; $i++){
+            foreach(Dish::MEAL_TIME as $meal_time) {
+                Dish::create([
+                    'menu_id' => $i,
+                    'meal_time' => $meal_time,
+                    'recipe_id' => random_int(1, 7),
+                    'portion' => random_int(1, 6),
+                ]);
+            }
         }
     }
 }
