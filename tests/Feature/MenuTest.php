@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Menu;
 use App\Models\Dish;
-use Database\Seeders\Tests\TestDatabaseSeeder;
+use Database\Seeders\TestDatabaseSeeder;
 
 class MenuTest extends TestCase
 {
