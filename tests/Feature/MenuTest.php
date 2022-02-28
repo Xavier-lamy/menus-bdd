@@ -102,13 +102,15 @@ class MenuTest extends TestCase
             'morning' => array(
                 array(
                     'recipe'=> 1,
-                    'portion'=> 10
+                    'portion'=> 10,
+                    'id'=> 1
                 )
             ),
             'noon' => array(
                 array(
                     'recipe'=> 2,
-                    'portion'=> 10
+                    'portion'=> 10,
+                    'id'=> 1
                 )
             ),
             'evening' => array(
@@ -128,9 +130,13 @@ class MenuTest extends TestCase
         $this->assertNotEmpty($menu);
 
         //Check if dish is updated (evening should have only one with recipe_id = 2, portion = 5)
-        $dish = Dish::where([
+        $dishes = Dish::where([
             'meal_time' => 'evening'
         ])->get();
+
+        $this->assertCount(1, $dishes);
+
+        $dish = $dishes->first();
 
         $expected_recipe = 2;
         $expected_portion = 5;
