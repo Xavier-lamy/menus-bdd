@@ -7,7 +7,7 @@ use App\Models\Menu;
 use App\Models\Recipe;
 use App\Models\Dish;
 use App\Rules\RecipeIdValided;
-use App\Rules\DishIdValided;
+use App\Rules\IdValided;
 
 class MenuController extends Controller
 {
@@ -179,13 +179,13 @@ class MenuController extends Controller
             'day' => ['required', 'date_format:Y-m-d', 'after:2000-01-01', 'before:2300-01-01'],
             'morning.*.recipe' => [new RecipeIdValided],
             'morning.*.portion' => ['min:0', 'max:1000000000', 'integer'],
-            'morning.*.id' => ['sometimes', new DishIdValided],
+            'morning.*.id' => ['sometimes', new IdValided],
             'noon.*.recipe' => [new RecipeIdValided],
             'noon.*.portion' => ['min:0', 'max:1000000000', 'integer'],
-            'noon.*.id' => ['sometimes', new DishIdValided],
+            'noon.*.id' => ['sometimes', new IdValided],
             'evening.*.recipe' => [new RecipeIdValided],
             'evening.*.portion' => ['min:0', 'max:1000000000', 'integer'],
-            'evening.*.id' => ['sometimes', new DishIdValided],
+            'evening.*.id' => ['sometimes', new IdValided],
         ]);
 
         //Update menu

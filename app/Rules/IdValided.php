@@ -4,7 +4,7 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class DishIdValided implements Rule
+class IdValided implements Rule
 {
     /**
      * Create a new rule instance.
@@ -38,6 +38,8 @@ class DishIdValided implements Rule
      */
     public function message()
     {
-        return 'There is a problem with a dish';
+        return [
+            'The :attribute is not valid'
+        ];
     }
 }
