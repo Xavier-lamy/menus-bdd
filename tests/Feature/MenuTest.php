@@ -6,6 +6,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Menu;
+use App\Models\Dish;
+use Database\Seeders\Tests\TestDatabaseSeeder;
 
 class MenuTest extends TestCase
 {
@@ -22,44 +24,54 @@ class MenuTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
+        //Run seeders for menus and recipes
+        $this->seed(TestDatabaseSeeder::class);
+
         //Send request for storing a menu
         $response = $this->post('/menu/add', [
-            'day' => '2022-02-10',
+            'day' => '2021-12-30',
             'morning' => array(
                 array(
                     'recipe'=> 1,
-                    'portion'=> 2
-                ),
-                array(
-                    'recipe'=> 2,
-                    'portion'=> 2
+                    'portion'=> 5
                 )
             ),
             'noon' => array(
                 array(
-                    'recipe'=> 3,
-                    'portion'=> 3
-                ),
-                array(
-                    'recipe'=> 4,
-                    'portion'=> 3
+                    'recipe'=> 2,
+                    'portion'=> 5
                 )
             ),
-            'evening' => array(
-                array(
-                    'recipe'=> 4,
-                    'portion'=> 4
-                )
-            ),
+            'evening' => array(),
         ]);
 
-        //Check if new menu is added in table:
+        //Check if new menu is added in table: there is 1 menu in test database so new id should be 2
         $menu = Menu::where([
-            'id' => 1,
-            'day' => '2022-02-10',
+            'id' => 2,
+            'day' => '2021-12-30',
         ])->exists();
 
         $this->assertTrue($menu);
+
+        //Check if recipes and portions have been added
+        
+        //check one dish
+        $this->assertDatabaseHas('dishes', [
+            'menu_id' => 2,
+            'meal_time' => 'morning',
+            'recipe_id' => 1,
+            'portion' => 5
+        ]);
+
+        //check if number of added dishes is like expected
+        $dishes = Dish::where([
+            'menu_id' => 2,
+        ])->get();
+
+        //Expect to have two entries
+        $expected_count = 2;
+
+        $this->assertCount($expected_count, $dishes);
 
         //Test redirection with message
         $response
@@ -70,7 +82,7 @@ class MenuTest extends TestCase
     }
 
     /**
-     * Test if menu method Update work as intended:
+     * Test if menu method Update work as expected:
      *  - Redirect
      *  - Return a success message
      *  - menu is correctly updated
@@ -81,42 +93,28 @@ class MenuTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        //Create a fake menu
-        Menu::create([
-            'id' => 1,
-            'day' => "2022-02-04",
-            'morning' => [1 => 2, 3 => 1],
-            'noon' => [4 => 6, 1 => 6],
-            'evening' => [5 => 4, 2 => 4],
-        ]);
+        //Run testing seeders
+        $this->seed(TestDatabaseSeeder::class);
 
-        //Send request for updating menu date and evening dishes
+        //Send request for updating menu date and evening dishes for test menu 1
         $response = $this->post('/menu/apply/1', [
-            'day' => '2022-02-10',
+            'day' => '2021-12-30',
             'morning' => array(
                 array(
                     'recipe'=> 1,
-                    'portion'=> 2
-                ),
-                array(
-                    'recipe'=> 3,
-                    'portion'=> 1
+                    'portion'=> 10
                 )
             ),
             'noon' => array(
                 array(
-                    'recipe'=> 4,
-                    'portion'=> 6
-                ),
-                array(
-                    'recipe'=> 1,
-                    'portion'=> 6
+                    'recipe'=> 2,
+                    'portion'=> 10
                 )
             ),
             'evening' => array(
                 array(
-                    'recipe'=> 4,
-                    'portion'=> 4
+                    'recipe'=> 2,
+                    'portion'=> 5
                 )
             ),
         ]);
@@ -124,16 +122,21 @@ class MenuTest extends TestCase
         //Check if menu is updated (date has changed):
         $menu = Menu::where([
             'id' => 1,
-            'day' => '2022-02-10',
+            'day' => '2021-12-30',
         ])->first();
         
         $this->assertNotEmpty($menu);
 
-        //Check if evening dishes and portions are updated
-        $expected_evening = [4 => 4];
-        $evening = $menu->evening;
+        //Check if dish is updated (evening should have only one with recipe_id = 2, portion = 5)
+        $dish = Dish::where([
+            'meal_time' => 'evening'
+        ])->get();
 
-        $this->assertEquals($expected_evening, $evening);
+        $expected_recipe = 2;
+        $expected_portion = 5;
+
+        $this->assertEquals($expected_recipe, $dish->recipe_id);
+        $this->assertEquals($expected_portion, $dish->portion);
 
         //Test redirection with message
         $response
@@ -144,7 +147,7 @@ class MenuTest extends TestCase
     }
 
     /**
-     * Test if menu method "Destroy" work as intended:
+     * Test if menu method "Destroy" work as expected:
      *  - Redirect
      *  - Return a success message with the correct amount of deleted entries
      *  - The menu is correctly delete from menus
@@ -155,40 +158,23 @@ class MenuTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        //Create two fake menus in bdd
-        Menu::create([
-            'id' => 1,
-            'day' => "2020-02-04",
-            'morning' => [1 => 2, 3 => 1],
-            'noon' => [4 => 6, 1 => 6],
-            'evening' => [5 => 4, 2 => 4],
-        ]);
+        //Run seeders for menus and recipes
+        $this->seed(TestDatabaseSeeder::class);
 
-        Menu::create([
-            'id' => 2,
-            'day' => "2020-02-05",
-            'morning' => [3 => 1],
-            'noon' => [4 => 6, 1 => 2, 5 => 4,],
-            'evening' => [5 => 4, 2 => 4],
-        ]);
-
-
+        //Create a fake menu
         $response = $this->post('/menus/delete', [
             'delete_1' => 1,
-            'delete_2' => 2,
         ]);
 
-        //Check if the products we delete are not there anymore
+        //Check if the deleted product is not there anymore
         $menu1 = Menu::find(1);
-        $menu2 = Menu::find(2);
         
         $this->assertTrue(empty($menu1));
-        $this->assertTrue(empty($menu2));
 
         $response
             ->assertRedirect('/menus')
             ->assertSessionHas([
-                'success' => '2 entries deleted !',
+                'success' => '1 entry deleted !',
             ]);
 
     }
