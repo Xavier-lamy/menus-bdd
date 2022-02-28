@@ -11,7 +11,7 @@ class Dish extends Model
 {
     use HasFactory;
 
-    public const MEAL_TIME = ['morning', 'afternoon', 'evening'];
+    public const MEAL_TIME = ['morning', 'noon', 'evening'];
 
     protected $fillable = ['menu_id', 'meal_time', 'recipe_id', 'portion'];
 
