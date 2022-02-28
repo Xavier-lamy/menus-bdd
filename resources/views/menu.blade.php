@@ -19,37 +19,37 @@
         <th class="w--60">Dishes</th>
     @endsection
     @section('table-body')
-        @isset($morning_recipes)
+        @isset($morning_dishes)
             <tr>
                 <td class="text--center p--1">Breakfast</td>
                 <td class="p--1">
                     <ul>
-                        @foreach ($morning_recipes as $morning_recipe => $morning_portion )
-                            <li>{{ $morning_recipe }} (x {{ $morning_portion }})</li>
+                        @foreach ($morning_dishes as $morning_dish)
+                            <li>{{ $morning_dish->recipe->name }} (x {{ $morning_dish->portion }})</li>
                         @endforeach
                     </ul>
                 </td>
             </tr>   
         @endisset
-        @isset($noon_recipes)
+        @isset($noon_dishes)
             <tr>
                 <td class="text--center p--1">Lunch</td>
                 <td class="p--1">
                     <ul>
-                        @foreach ($noon_recipes as $noon_recipe => $noon_portion )
-                            <li>{{ $noon_recipe }} (x {{ $noon_portion }})</li>
+                        @foreach ($noon_dishes as $noon_dish)
+                            <li>{{ $noon_dish->recipe->name }} (x {{ $noon_dish->portion }})</li>
                         @endforeach
                     </ul>
                 </td>
             </tr>   
         @endisset
-        @isset($evening_recipes)
+        @isset($evening_dishes)
             <tr>
                 <td class="text--center p--1">Dinner</td>
                 <td class="p--1">
                     <ul>
-                        @foreach ($evening_recipes as $evening_recipe => $evening_portion )
-                            <li>{{ $evening_recipe }} (x {{ $evening_portion }})</li>
+                        @foreach ($evening_dishes as $evening_dish)
+                            <li>{{ $evening_dish->recipe->name }} (x {{ $evening_dish->portion }})</li>
                         @endforeach
                     </ul>
                 </td>
@@ -87,14 +87,14 @@
                 @endphp 
                 {{--Display old values from failed redirection or values from menu--}}
                 @if(old('morning') != null)
-                    @forelse (old('morning') as $morning_recipe)
+                    @forelse (old('morning') as $morning_dish)
                         <tr name="morning_recipe_row">
                             <td class="text--center p--1">
                                 <select name="morning[{{$morning_i}}][recipe]" id="recipe_morning{{$morning_i}}" aria-label="Recipe" form="update_menu_form" class="text--center input--inset" title="Recipe" required>
                                     @if(isset($recipes) && $recipes->count() > 0)
                                         <option value="">Choose a recipe</option>
                                         @foreach($recipes as $recipe)
-                                            <option value="{{ $recipe->id }}" {{ $morning_recipe['recipe'] == $recipe->id ? "selected" : "" }}>
+                                            <option value="{{ $recipe->id }}" {{ $morning_dish['recipe'] == $recipe->id ? "selected" : "" }}>
                                                 {{ $recipe->name }}
                                             </option>
                                         @endforeach
@@ -105,6 +105,7 @@
                             </td>
                             <td class="text--center p--1">
                                 <input type="number" aria-label="Portions" min="0" name="morning[{{ $morning_i }}][portion]" value="{{ old("morning.". $morning_i .".portion") }}" form="update_menu_form" class="text--center input--inset" placeholder="Portions" required>
+                                <input type="hidden" name="morning[{{ $morning_i }}][id]" value="{{ old("morning.". $morning_i .".id") }}" form="update_menu_form" required>
                             </td>
                             <td class="text--center p--1">
                                 <button type="button" name="delete_row" id="delete_morning_row{{ $morning_i }}" class="button--sm">Delete row</button>
@@ -117,14 +118,14 @@
                         {{--display nothing if empty--}}
                     @endforelse
                 @else
-                    @forelse($menu->morning as $morning_recipe_id => $morning_recipe_portion)
+                    @forelse($morning_dishes as $morning_dish)
                         <tr name="morning_recipe_row">
                             <td class="text--center p--1">
                                 <select name="morning[{{$morning_i}}][recipe]" id="recipe_morning{{$morning_i}}" aria-label="Recipe" form="update_menu_form" class="text--center input--inset" title="Recipe" required>
                                     @if(isset($recipes) && $recipes->count() > 0)
                                         <option value="">Choose a recipe</option>
                                         @foreach($recipes as $recipe)
-                                            <option value="{{ $recipe->id }}" {{ $morning_recipe_id == $recipe->id ? "selected" : "" }}>
+                                            <option value="{{ $recipe->id }}" {{ $morning_dish->recipe->id == $recipe->id ? "selected" : "" }}>
                                                 {{ $recipe->name }}
                                             </option>
                                         @endforeach
@@ -134,7 +135,8 @@
                                 </select>
                             </td>
                             <td class="text--center p--1">
-                                <input type="number" aria-label="Portions" min="0" name="morning[{{ $morning_i }}][portion]" value="{{ $morning_recipe_portion }}" form="update_menu_form" class="text--center input--inset" placeholder="Portions" required>
+                                <input type="number" aria-label="Portions" min="0" name="morning[{{ $morning_i }}][portion]" value="{{ $morning_dish->portion }}" form="update_menu_form" class="text--center input--inset" placeholder="Portions" required>
+                                <input type="hidden" name="morning[{{ $morning_i }}][id]" value="{{ $morning_dish->id }}" form="update_menu_form" required>
                             </td>
                             <td class="text--center p--1">
                                 <button type="button" name="delete_row" id="delete_morning_row{{ $morning_i }}" class="button--sm">Delete row</button>
@@ -169,14 +171,14 @@
                 @endphp
                 {{--Display old values from failed redirection or values from menu--}}
                 @if(old('noon') != null)
-                    @forelse (old('noon') as $noon_recipe)
+                    @forelse (old('noon') as $noon_dish)
                         <tr name="noon_recipe_row">
                             <td class="text--center p--1">
                                 <select name="noon[{{$noon_i}}][recipe]" id="recipe_noon{{$noon_i}}" aria-label="Recipe" form="update_menu_form" class="text--center input--inset" title="Recipe" required>
                                     @if(isset($recipes) && $recipes->count() > 0)
                                         <option value="">Choose a recipe</option>
                                         @foreach($recipes as $recipe)
-                                            <option value="{{ $recipe->id }}" {{ $noon_recipe['recipe'] == $recipe->id ? "selected" : "" }}>
+                                            <option value="{{ $recipe->id }}" {{ $noon_dish['recipe'] == $recipe->id ? "selected" : "" }}>
                                                 {{ $recipe->name }}
                                             </option>
                                         @endforeach
@@ -187,6 +189,7 @@
                             </td>
                             <td class="text--center p--1">
                                 <input type="number" aria-label="Portions" min="0" name="noon[{{ $noon_i }}][portion]" value="{{ old("noon.". $noon_i .".portion") }}" form="update_menu_form" class="text--center input--inset" placeholder="Portions" required>
+                                <input type="hidden" name="noon[{{ $noon_i }}][id]" value="{{ old("noon.". $noon_i .".id") }}" form="update_menu_form" required>
                             </td>
                             <td class="text--center p--1">
                                 <button type="button" name="delete_row" id="delete_noon_row{{ $noon_i }}" class="button--sm">Delete row</button>
@@ -199,14 +202,14 @@
                         {{--display nothing if empty--}}
                     @endforelse
                 @else
-                    @forelse($menu->noon as $noon_recipe_id => $noon_recipe_portion)
+                    @forelse($noon_dishes as $noon_dish)
                         <tr name="noon_recipe_row">
                             <td class="text--center p--1">
                                 <select name="noon[{{$noon_i}}][recipe]" id="recipe_noon{{$noon_i}}" aria-label="Recipe" form="update_menu_form" class="text--center input--inset" title="Recipe" required>
                                     @if(isset($recipes) && $recipes->count() > 0)
                                         <option value="">Choose a recipe</option>
                                         @foreach($recipes as $recipe)
-                                            <option value="{{ $recipe->id }}" {{ $noon_recipe_id == $recipe->id ? "selected" : "" }}>
+                                            <option value="{{ $recipe->id }}" {{ $noon_dish->recipe->id == $recipe->id ? "selected" : "" }}>
                                                 {{ $recipe->name }}
                                             </option>
                                         @endforeach
@@ -216,8 +219,8 @@
                                 </select>
                             </td>
                             <td class="text--center p--1">
-                                <input type="number" aria-label="Portions" min="0" name="noon[{{ $noon_i }}][portion]" value="{{ $noon_recipe_portion }}" form="update_menu_form" class="text--center input--inset" placeholder="Portions" required>
-                            </td>
+                                <input type="number" aria-label="Portions" min="0" name="noon[{{ $noon_i }}][portion]" value="{{ $noon_dish->portion }}" form="update_menu_form" class="text--center input--inset" placeholder="Portions" required>
+                                <input type="hidden" name="noon[{{ $noon_i }}][id]" value="{{ $noon_dish->id }}" form="update_menu_form" required></td>
                             <td class="text--center p--1">
                                 <button type="button" name="delete_row" id="delete_noon_row{{ $noon_i }}" class="button--sm">Delete row</button>
                             </td>
@@ -251,14 +254,14 @@
                 @endphp
                 {{--Display old values from failed redirection or values from menu--}}
                 @if(old('evening') != null)
-                    @forelse (old('evening') as $evening_recipe)
+                    @forelse (old('evening') as $evening_dish)
                         <tr name="evening_recipe_row">
                             <td class="text--center p--1">
                                 <select name="evening[{{$evening_i}}][recipe]" id="recipe_evening{{$evening_i}}" aria-label="Recipe" form="update_menu_form" class="text--center input--inset" title="Recipe" required>
                                     @if(isset($recipes) && $recipes->count() > 0)
                                         <option value="">Choose a recipe</option>
                                         @foreach($recipes as $recipe)
-                                            <option value="{{ $recipe->id }}" {{ $evening_recipe['recipe'] == $recipe->id ? "selected" : "" }}>
+                                            <option value="{{ $recipe->id }}" {{ $evening_dish['recipe'] == $recipe->id ? "selected" : "" }}>
                                                 {{ $recipe->name }}
                                             </option>
                                         @endforeach
@@ -269,6 +272,7 @@
                             </td>
                             <td class="text--center p--1">
                                 <input type="number" aria-label="Portions" min="0" name="evening[{{ $evening_i }}][portion]" value="{{ old("evening.". $evening_i .".portion") }}" form="update_menu_form" class="text--center input--inset" placeholder="Portions" required>
+                                <input type="hidden" name="evening[{{ $evening_i }}][id]" value="{{ old("evening.". $evening_i .".id") }}" form="update_menu_form" required>
                             </td>
                             <td class="text--center p--1">
                                 <button type="button" name="delete_row" id="delete_evening_row{{ $evening_i }}" class="button--sm">Delete row</button>
@@ -281,14 +285,14 @@
                         {{--display nothing if empty--}}
                     @endforelse
                 @else
-                    @forelse($menu->evening as $evening_recipe_id => $evening_recipe_portion)
+                    @forelse($evening_dishes as $evening_dish)
                         <tr name="evening_recipe_row">
                             <td class="text--center p--1">
                                 <select name="evening[{{$evening_i}}][recipe]" id="recipe_evening{{$evening_i}}" aria-label="Recipe" form="update_menu_form" class="text--center input--inset" title="Recipe" required>
                                     @if(isset($recipes) && $recipes->count() > 0)
                                         <option value="">Choose a recipe</option>
                                         @foreach($recipes as $recipe)
-                                            <option value="{{ $recipe->id }}" {{ $evening_recipe_id == $recipe->id ? "selected" : "" }}>
+                                            <option value="{{ $recipe->id }}" {{ $evening_dish->recipe->id == $recipe->id ? "selected" : "" }}>
                                                 {{ $recipe->name }}
                                             </option>
                                         @endforeach
@@ -298,7 +302,8 @@
                                 </select>
                             </td>
                             <td class="text--center p--1">
-                                <input type="number" aria-label="Portions" min="0" name="evening[{{ $evening_i }}][portion]" value="{{ $evening_recipe_portion }}" form="update_menu_form" class="text--center input--inset" placeholder="Portions" required>
+                                <input type="number" aria-label="Portions" min="0" name="evening[{{ $evening_i }}][portion]" value="{{ $evening_dish->portion }}" form="update_menu_form" class="text--center input--inset" placeholder="Portions" required>
+                                <input type="hidden" name="evening[{{ $evening_i }}][id]" value="{{ $evening_dish->id }}" form="update_menu_form" required></td>
                             </td>
                             <td class="text--center p--1">
                                 <button type="button" name="delete_row" id="delete_evening_row{{ $evening_i }}" class="button--sm">Delete row</button>

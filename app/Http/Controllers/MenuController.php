@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Menu;
 use App\Models\Recipe;
+use App\Models\Dish;
 use App\Rules\RecipeIdValided;
+use App\Rules\DishIdValided;
 
 class MenuController extends Controller
 {
@@ -57,36 +59,42 @@ class MenuController extends Controller
             'evening.*.portion' => ['min:0', 'max:1000000000', 'integer'],
         ]);
 
-        $morning = array();
-        $noon = array();
-        $evening = array();
+        //Store menu
+        $day = $request->day;
+
+        $menu = Menu::create([
+            'day' => $day,
+        ]);
 
         if (!empty($request->morning)) {
-            foreach ($request->morning as $morning_recipe) {
-                $morning += [$morning_recipe['recipe'] => $morning_recipe['portion']];
+            foreach ($request->morning as $morning_dish) {
+                $menu->dishes()->create([
+                    'meal_time' => 'morning',
+                    'recipe_id' => $morning_dish['recipe'],
+                    'portion' => $morning_dish['portion'],
+                ]);
             };
         }
 
         if (!empty($request->noon)) {
-            foreach ($request->noon as $noon_recipe) {
-                $noon += [$noon_recipe['recipe'] => $noon_recipe['portion']];
+            foreach ($request->noon as $noon_dish) {
+                $menu->dishes()->create([
+                    'meal_time' => 'noon',
+                    'recipe_id' => $noon_dish['recipe'],
+                    'portion' => $noon_dish['portion'],
+                ]);
             };
         }
 
         if (!empty($request->evening)) {
-            foreach ($request->evening as $evening_recipe) {
-                $evening += [$evening_recipe['recipe'] => $evening_recipe['portion']];
+            foreach ($request->evening as $evening_dish) {
+                $menu->dishes()->create([
+                    'meal_time' => 'evening',
+                    'recipe_id' => $evening_dish['recipe'],
+                    'portion' => $evening_dish['portion'],
+                ]);
             };
         }
-
-        $day = $request->day;
-
-        Menu::create([
-            'day' => $day,
-            'morning' => $morning,
-            'noon' => $noon,
-            'evening' => $evening,
-        ]);
 
         return redirect('menus')->with('success', 'Menu added !');
     }
@@ -105,47 +113,20 @@ class MenuController extends Controller
             return redirect('menus')->with('error', "This menu doesn't exist");
         }
 
-        //fetch recipes for morning
-        $morning = $menu->morning;
-        $morning_recipes = array();
+        //fetch dishes for morning
+        $morning_dishes = $menu->dishes->where('meal_time', 'morning');
 
-        foreach($morning as $key => $portion){
-            $recipe = Recipe::find($key);
-            if(!empty($recipe)){
-                $recipe = $recipe->name;
-                $morning_recipes += [$recipe => $portion];
-            }
-        }
+        //fetch dishes for noon
+        $noon_dishes = $menu->dishes->where('meal_time', 'noon');
 
-        //fetch recipes for noon
-        $noon = $menu->noon;
-        $noon_recipes = array();
-
-        foreach($noon as $key => $portion){
-            $recipe = Recipe::find($key);
-            if(!empty($recipe)){
-                $recipe = $recipe->name;
-                $noon_recipes += [$recipe => $portion];
-            }
-        }
-
-        //fetch recipes for evening
-        $evening = $menu->evening;
-        $evening_recipes = array();
-
-        foreach($evening as $key => $portion){
-            $recipe = Recipe::find($key);
-            if(!empty($recipe)){
-                $recipe = $recipe->name;
-                $evening_recipes += [$recipe => $portion];
-            }
-        }
+        //fetch dishes for evening
+        $evening_dishes = $menu->dishes->where('meal_time', 'evening');
 
         return view('menu', [
             'menu' => $menu,
-            'morning_recipes' => $morning_recipes,
-            'noon_recipes' => $noon_recipes,
-            'evening_recipes' => $evening_recipes,
+            'morning_dishes' => $morning_dishes,
+            'noon_dishes' => $noon_dishes,
+            'evening_dishes' => $evening_dishes,
         ]);
     }
 
@@ -164,11 +145,23 @@ class MenuController extends Controller
             return redirect('menus')->with('error', "This menu doesn't exist");
         }
 
+        //fetch dishes for morning
+        $morning_dishes = $menu->dishes->where('meal_time', 'morning');
+
+        //fetch dishes for noon
+        $noon_dishes = $menu->dishes->where('meal_time', 'noon');
+
+        //fetch dishes for evening
+        $evening_dishes = $menu->dishes->where('meal_time', 'evening');
+
         $is_editing = true;
 
         return view('menu', [
             'is_editing' => $is_editing,
             'menu' => $menu,
+            'morning_dishes' => $morning_dishes,
+            'noon_dishes' => $noon_dishes,
+            'evening_dishes' => $evening_dishes,
             'recipes' => $recipes,
         ]);
     }
@@ -186,44 +179,127 @@ class MenuController extends Controller
             'day' => ['required', 'date_format:Y-m-d', 'after:2000-01-01', 'before:2300-01-01'],
             'morning.*.recipe' => [new RecipeIdValided],
             'morning.*.portion' => ['min:0', 'max:1000000000', 'integer'],
+            'morning.*.id' => ['sometimes', new DishIdValided],
             'noon.*.recipe' => [new RecipeIdValided],
             'noon.*.portion' => ['min:0', 'max:1000000000', 'integer'],
+            'noon.*.id' => ['sometimes', new DishIdValided],
             'evening.*.recipe' => [new RecipeIdValided],
             'evening.*.portion' => ['min:0', 'max:1000000000', 'integer'],
+            'evening.*.id' => ['sometimes', new DishIdValided],
         ]);
 
-        $morning = array();
-        $noon = array();
-        $evening = array();
-
-        if (!empty($request->morning)) {
-            foreach ($request->morning as $morning_recipe) {
-                $morning += [$morning_recipe['recipe'] => $morning_recipe['portion']];
-            };
-        }
-
-        if (!empty($request->noon)) {
-            foreach ($request->noon as $noon_recipe) {
-                $noon += [$noon_recipe['recipe'] => $noon_recipe['portion']];
-            };
-        }
-
-        if (!empty($request->evening)) {
-            foreach ($request->evening as $evening_recipe) {
-                $evening += [$evening_recipe['recipe'] => $evening_recipe['portion']];
-            };
-        }
-
-        $day = $request->day;
-
+        //Update menu
         $menu = Menu::find($id);
-
         $menu->update([
-            'day' => $day,
-            'morning' => $morning,
-            'noon' => $noon,
-            'evening' => $evening,
+            'day' => $request->day,
         ]);
+
+        //return list of current existing ids for this menu in dishes
+        $old_menu_dishes = Dish::where('menu_id', $id)->get();
+
+        /**
+         * For morning
+         */
+        foreach($request->morning as $morning){
+            //Check if dish is in dishes array
+            $morning_dish = '';
+            if(!empty($morning['id'])){
+                $morning_dish = Dish::find($morning['id']);
+            }
+            $morning_recipe_id = $morning['recipe'];
+            $morning_portion = $morning['portion'];
+            
+            if(!empty($morning_dish)){
+                $morning_dish->update([
+                    'recipe_id' => $morning_recipe_id,
+                    'portion' => $morning_portion,
+                ]);
+            }
+            else {
+                Dish::create([
+                    'menu_id' => $id,
+                    'meal_time' => 'morning',
+                    'recipe_id' => $morning_recipe_id,
+                    'portion' => $morning_portion,
+                ]);
+            };
+            //Add dish id to array
+            if (!empty($morning['id'])) {
+                $new_dishes_array[] = $morning['id'];
+            } 
+        };
+
+
+        /**
+         * For noon
+         */
+        foreach($request->noon as $noon){
+            //Check if dish is in dishes array
+            $noon_dish = '';
+            if(!empty($noon['id'])){
+                $noon_dish = Dish::find($noon['id']);
+            }
+            $noon_recipe_id = $noon['recipe'];
+            $noon_portion = $noon['portion'];
+            if(!empty($noon_dish)){
+                $noon_dish->update([
+                    'recipe_id' => $noon_recipe_id,
+                    'portion' => $noon_portion,
+                ]);
+            }
+            else {
+                Dish::create([
+                    'menu_id' => $id,
+                    'meal_time' => 'noon',
+                    'recipe_id' => $noon_recipe_id,
+                    'portion' => $noon_portion,
+                ]);
+            };
+            //Add dish id to array
+            if (!empty($noon['id'])) {
+                $new_dishes_array[] = $noon['id'];
+            } 
+        };
+
+        /**
+         * For evening
+         */
+        foreach($request->evening as $evening){
+            //Check if dish is in dishes array
+            $evening_dish = '';
+            if(!empty($evening['id'])){
+                $evening_dish = Dish::find($evening['id']);
+            }
+            $evening_recipe_id = $evening['recipe'];
+            $evening_portion = $evening['portion'];
+            
+            if(!empty($evening_dish)){
+                $evening_dish->update([
+                    'recipe_id' => $evening_recipe_id,
+                    'portion' => $evening_portion,
+                ]);
+            }
+            else {
+                Dish::create([
+                    'menu_id' => $id,
+                    'meal_time' => 'evening',
+                    'recipe_id' => $evening_recipe_id,
+                    'portion' => $evening_portion,
+                ]);
+            };
+            //Add dish id to array
+            if (!empty($evening['id'])) {
+                $new_dishes_array[] = $evening['id'];
+            }
+        };
+
+        //Delete dishes if they don't exist anymore:
+        foreach($old_menu_dishes as $old_menu_dish){
+            $old_dish_id = $old_menu_dish->id;
+            if(!in_array($old_dish_id, $new_dishes_array)){
+                $old_dish = Dish::find($old_dish_id)->delete();
+            }
+        }
 
         return redirect('menu/show/'.$id)->with('success', 'Menu updated !');
     }
