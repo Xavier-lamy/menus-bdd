@@ -5,8 +5,15 @@ let modifyRecipeTable = document.getElementById('modify_recipe_table');
 let addRecipeTable = document.getElementById('add_recipe_table');
 
 if( modifyRecipeTable || addRecipeTable){
-  let addIngredientButton = document.getElementById('add_ingredient_button');
   const ingredientOptions = document.getElementById('select_ingredient_options').innerHTML;
+
+  //Define form name depending on situation
+  let formName = 'add_recipe_form';
+  if(modifyRecipeTable){
+    formName = 'update_recipe_form';
+  }
+
+  let addIngredientButton = document.getElementById('add_ingredient_button');
   let incrementedId = document.getElementsByName('ingredient_row').length + 1;
 
   addIngredientButton.addEventListener('click', function(){
@@ -14,33 +21,17 @@ if( modifyRecipeTable || addRecipeTable){
 
       let newRow = `<tr name="ingredient_row">
         <td class="text--center p--1">
-          <select name="ingredient[${incrementedId}][command_id]" id="ingredient_id_${incrementedId}" aria-label="Ingredient (unit)" form="add_recipe_form" class="text--center input--inset" title="Ingredient (unit)" required>
+          <select name="ingredient[${incrementedId}][command_id]" id="ingredient_id_${incrementedId}" aria-label="Ingredient (unit)" form="${formName}" class="text--center input--inset" title="Ingredient (unit)" required>
             ${ingredientOptions}
           </select>
         </td>
         <td>
-          <input type="number" aria-label="Quantity" min="0" name="ingredient[${incrementedId}][quantity]" form="add_recipe_form" class="text--center input--inset" placeholder="Quantity" required>
+          <input type="number" aria-label="Quantity" min="0" name="ingredient[${incrementedId}][quantity]" form="${formName}" class="text--center input--inset" placeholder="Quantity" required>
         </td>
         <td class="text--center p--1">
           <button type="button" name="delete_row" id="delete_row${incrementedId}" class="button--sm">Delete row</button>
         </td>
       </tr>`;
-
-      if(modifyRecipeTable){
-        newRow = `<tr name="ingredient_row">
-          <td class="text--center p--1">
-            <select name="ingredient[${incrementedId}][command_id]" id="ingredient_id_${incrementedId}" aria-label="Ingredient (unit)" form="update_recipe_form" class="text--center input--inset" title="Ingredient (unit)" required>
-              ${ingredientOptions}
-            </select>
-          </td>
-          <td>
-            <input type="number" aria-label="Quantity" min="0" name="ingredient[${incrementedId}][quantity]" form="update_recipe_form" class="text--center input--inset" placeholder="Quantity" required>
-          </td>
-          <td class="text--center p--1">
-            <button type="button" name="delete_row" id="delete_row${incrementedId}" class="button--sm">Delete row</button>
-          </td>
-        </tr>`;
-      }
 
       incrementedId ++;
 
@@ -83,82 +74,35 @@ if( modifyMenuTable || addMenuTable){
     formName = 'update_menu_form';
   }
 
-  //Morning
-  let addMorningRecipeButton = document.getElementById('add_morning_recipe_button');
-  let incrementedMorningId = document.getElementsByName('morning_recipe_row').length + 1;
+  //Loop through all buttons with attribute data-moment
+  let addRecipeButtons = document.querySelectorAll('[data-moment]');
 
-  addMorningRecipeButton.addEventListener('click', function(){
-      let buttonRow = document.getElementById('add_morning_recipe_row');
+  addRecipeButtons.forEach(addRecipeButton => {
+      let moment = addRecipeButton.dataset.moment;
+      let incrementId = document.getElementsByName(`${moment}_recipe_row`).length + 1;
 
-      let newRow = `<tr name="morning_recipe_row">
+      addRecipeButton.addEventListener('click', function(){
+        let buttonRow = document.getElementById(`add_${moment}_recipe_row`);
+
+        let newRow = `<tr name="${moment}_recipe_row">
         <td class="text--center p--1">
-          <select name="morning[${incrementedMorningId}][recipe]" id="recipe_morning_${incrementedMorningId}" aria-label="Recipe" form="${formName}" class="text--center input--inset" title="Recipe" required>
+          <select name="${moment}[${incrementId}][recipe]" id="recipe_${moment}_${incrementId}" aria-label="Recipe" form="${formName}" class="text--center input--inset" title="Recipe" required>
             ${recipeOptions}
           </select>
         </td>
         <td>
-          <input type="number" aria-label="Portions" min="0" name="morning[${incrementedMorningId}][portion]" form="${formName}" class="text--center input--inset" placeholder="Portions" required>
+          <input type="number" aria-label="Portions" min="0" name="${moment}[${incrementId}][portion]" form="${formName}" class="text--center input--inset" placeholder="Portions" required>
         </td>
         <td class="text--center p--1">
-          <button type="button" name="delete_row" id="delete_morning_row${incrementedMorningId}" class="button--sm">Delete row</button>
+          <button type="button" name="delete_row" id="delete_${moment}_row${incrementId}" class="button--sm">Delete row</button>
         </td>
       </tr>`;
 
-      incrementedMorningId ++;
+      incrementId ++;
 
       buttonRow.insertAdjacentHTML('beforebegin', newRow);
-  });
 
-  //Noon
-  let addNoonRecipeButton = document.getElementById('add_noon_recipe_button');
-  let incrementedNoonId = document.getElementsByName('noon_recipe_row').length + 1;
-
-  addNoonRecipeButton.addEventListener('click', function(){
-      let buttonRow = document.getElementById('add_noon_recipe_row');
-
-      let newRow = `<tr name="noon_recipe_row">
-        <td class="text--center p--1">
-          <select name="noon[${incrementedNoonId}][recipe]" id="recipe_noon_${incrementedNoonId}" aria-label="Recipe" form="${formName}" class="text--center input--inset" title="Recipe" required>
-            ${recipeOptions}
-          </select>
-        </td>
-        <td>
-          <input type="number" aria-label="Portions" min="0" name="noon[${incrementedNoonId}][portion]" form="${formName}" class="text--center input--inset" placeholder="Portions" required>
-        </td>
-        <td class="text--center p--1">
-          <button type="button" name="delete_row" id="delete_noon_row${incrementedNoonId}" class="button--sm">Delete row</button>
-        </td>
-      </tr>`;
-
-      incrementedNoonId ++;
-
-      buttonRow.insertAdjacentHTML('beforebegin', newRow);
-  });
-
-  //Evening
-  let addEveningRecipeButton = document.getElementById('add_evening_recipe_button');
-  let incrementedEveningId = document.getElementsByName('evening_recipe_row').length + 1;
-
-  addEveningRecipeButton.addEventListener('click', function(){
-      let buttonRow = document.getElementById('add_evening_recipe_row');
-
-      let newRow = `<tr name="evening_recipe_row">
-        <td class="text--center p--1">
-          <select name="evening[${incrementedEveningId}][recipe]" id="recipe_evening_${incrementedEveningId}" aria-label="Recipe" form="${formName}" class="text--center input--inset" title="Recipe" required>
-          ${recipeOptions}
-          </select>
-        </td>
-        <td>
-          <input type="number" aria-label="Portions" min="0" name="evening[${incrementedEveningId}][portion]" form="${formName}" class="text--center input--inset" placeholder="Portions" required>
-        </td>
-        <td class="text--center p--1">
-          <button type="button" name="delete_row" id="delete_evening_row${incrementedEveningId}" class="button--sm">Delete row</button>
-        </td>
-      </tr>`;
-
-      incrementedEveningId ++;
-
-      buttonRow.insertAdjacentHTML('beforebegin', newRow);
+      });
   });
 
   //Delete a recipe row
