@@ -35,6 +35,9 @@ class MenuController extends Controller
         $is_creating = true;
         $recipes = Recipe::orderBy('name')->get();
 
+        //Get user moment option, transform JSON to Array (amodif)
+        $moments = Dish::MOMENTS;
+
         return view('menu', [
             'is_creating' => $is_creating,
             'recipes' => $recipes,
@@ -69,7 +72,7 @@ class MenuController extends Controller
             foreach($moment_dishes as $moment_dish){
                 if(!empty($moment_dish)){
                     $menu->dishes()->create([
-                        'meal_time' => $moment,
+                        'moment' => $moment,
                         'recipe_id' => $moment_dish['recipe'],
                         'portion' => $moment_dish['portion'],
                     ]);
@@ -95,13 +98,13 @@ class MenuController extends Controller
         }
 
         //fetch dishes for morning
-        $morning_dishes = $menu->dishes->where('meal_time', 'morning');
+        $morning_dishes = $menu->dishes->where('moment', 'morning');
 
         //fetch dishes for noon
-        $noon_dishes = $menu->dishes->where('meal_time', 'noon');
+        $noon_dishes = $menu->dishes->where('moment', 'noon');
 
         //fetch dishes for evening
-        $evening_dishes = $menu->dishes->where('meal_time', 'evening');
+        $evening_dishes = $menu->dishes->where('moment', 'evening');
 
         return view('menu', [
             'menu' => $menu,
@@ -127,13 +130,13 @@ class MenuController extends Controller
         }
 
         //fetch dishes for morning
-        $morning_dishes = $menu->dishes->where('meal_time', 'morning');
+        $morning_dishes = $menu->dishes->where('moment', 'morning');
 
         //fetch dishes for noon
-        $noon_dishes = $menu->dishes->where('meal_time', 'noon');
+        $noon_dishes = $menu->dishes->where('moment', 'noon');
 
         //fetch dishes for evening
-        $evening_dishes = $menu->dishes->where('meal_time', 'evening');
+        $evening_dishes = $menu->dishes->where('moment', 'evening');
 
         $is_editing = true;
 
@@ -195,7 +198,7 @@ class MenuController extends Controller
                 else {
                     Dish::create([
                         'menu_id' => $id,
-                        'meal_time' => $moment,
+                        'moment' => $moment,
                         'recipe_id' => $moment_dish_recipe_id,
                         'portion' => $moment_dish_portion,
                     ]);

@@ -11,9 +11,10 @@ class Dish extends Model
 {
     use HasFactory;
 
-    public const MEAL_TIME = ['morning', 'noon', 'evening'];
+    //Default moment option
+    public const MOMENTS = [['morning' => 'Breakfast'], ['noon' => 'Lunch'], ['evening' => 'Dinner']];
 
-    protected $fillable = ['menu_id', 'meal_time', 'recipe_id', 'portion'];
+    protected $fillable = ['menu_id', 'moment', 'recipe_id', 'portion'];
 
     public $timestamps = false;
 

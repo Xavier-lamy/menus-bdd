@@ -58,7 +58,7 @@ class MenuTest extends TestCase
         //check one dish
         $this->assertDatabaseHas('dishes', [
             'menu_id' => 2,
-            'meal_time' => 'morning',
+            'moment' => 'morning',
             'recipe_id' => 1,
             'portion' => 5
         ]);
@@ -131,7 +131,7 @@ class MenuTest extends TestCase
 
         //Check if dish is updated (evening should have only one with recipe_id = 2, portion = 5)
         $dishes = Dish::where([
-            'meal_time' => 'evening'
+            'moment' => 'evening'
         ])->get();
 
         $this->assertCount(1, $dishes);

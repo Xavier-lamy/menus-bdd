@@ -31,10 +31,10 @@ class MenuSeeder extends Seeder
 
         //Generate three entries per menu in dishes
         for($i = 1; $i <= 5; $i++){
-            foreach(Dish::MEAL_TIME as $meal_time) {
+            foreach(Dish::MOMENTS as $moment => $value) {
                 Dish::create([
                     'menu_id' => $i,
-                    'meal_time' => $meal_time,
+                    'moment' => $moment,
                     'recipe_id' => random_int(1, 7),
                     'portion' => random_int(1, 6),
                 ]);

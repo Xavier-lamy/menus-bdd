@@ -29,14 +29,14 @@ class TestMenuSeeder extends Seeder
 
         Dish::create([
             'menu_id' => 1,
-            'meal_time' => 'morning',
+            'moment' => 'morning',
             'recipe_id' => 1,
             'portion' => 10,
         ]);
 
         Dish::create([
             'menu_id' => 1,
-            'meal_time' => 'noon',
+            'moment' => 'noon',
             'recipe_id' => 2,
             'portion' => 10,
         ]);
