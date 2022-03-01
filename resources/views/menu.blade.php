@@ -25,7 +25,10 @@
                 <td class="p--1">
                     <ul>
                         @foreach ($morning_dishes as $morning_dish)
-                            <li>{{ $morning_dish->recipe->name }} (x {{ $morning_dish->portion }})</li>
+                            <li>
+                                <a href="{{ route('recipe.show', ['id' => $morning_dish->recipe]) }}" class="link">{{ $morning_dish->recipe->name }}</a>
+                                 (x {{ $morning_dish->portion }})
+                            </li>
                         @endforeach
                     </ul>
                 </td>
@@ -37,7 +40,10 @@
                 <td class="p--1">
                     <ul>
                         @foreach ($noon_dishes as $noon_dish)
-                            <li>{{ $noon_dish->recipe->name }} (x {{ $noon_dish->portion }})</li>
+                            <li>
+                                <a href="{{ route('recipe.show', ['id' => $noon_dish->recipe]) }}" class="link">{{ $noon_dish->recipe->name }}</a>
+                                (x {{ $noon_dish->portion }})
+                            </li>
                         @endforeach
                     </ul>
                 </td>
@@ -49,7 +55,10 @@
                 <td class="p--1">
                     <ul>
                         @foreach ($evening_dishes as $evening_dish)
-                            <li>{{ $evening_dish->recipe->name }} (x {{ $evening_dish->portion }})</li>
+                            <li>
+                                <a href="{{ route('recipe.show', ['id' => $evening_dish->recipe]) }}" class="link">{{ $evening_dish->recipe->name }}</a>
+                                (x {{ $evening_dish->portion }})
+                            </li>
                         @endforeach
                     </ul>
                 </td>
