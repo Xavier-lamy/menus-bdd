@@ -145,7 +145,7 @@ class CommandTest extends TestCase
         $this->assertTrue(empty($stock) && empty($stock2));
 
         $response
-            ->assertRedirect('/commands')
+            ->assertStatus(200)
             ->assertSessionHas([
                 'success' => '1 entry deleted !',
             ]);

@@ -124,6 +124,6 @@ class MenuRouteTest extends TestCase
     {
         $response = $this->post('/menus/delete');
 
-        $response->assertStatus(302);
+        $response->assertStatus(200);
     }
 }

@@ -103,6 +103,6 @@ class CommandRouteTest extends TestCase
     {
         $response = $this->post('/commands/delete');
 
-        $response->assertStatus(302);
+        $response->assertStatus(200);
     }
 }

@@ -115,6 +115,6 @@ class RecipeRouteTest extends TestCase
     {
         $response = $this->post('/recipes/delete');
 
-        $response->assertStatus(302);
+        $response->assertStatus(200);
     }
 }

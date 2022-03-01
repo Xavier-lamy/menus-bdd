@@ -3,7 +3,6 @@
 namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use App\Http\Controllers\FrontController;
 use Illuminate\Support\Carbon;
 
 class FunctionsTest extends TestCase
@@ -18,7 +17,7 @@ class FunctionsTest extends TestCase
         //Because we have an old date, the function should return warning
         $date = Carbon::now()->add(-10, 'day')->format('Y-m-d');
 
-        $response = FrontController::checkProductExpire($date);
+        $response = checkProductExpire($date);
 
         $this->assertTrue($response == '-warning');
     }
@@ -33,7 +32,7 @@ class FunctionsTest extends TestCase
         //Because we are only 9 days in future from now, the function should return message
         $date = Carbon::now()->add(9, 'day')->format('Y-m-d');
 
-        $response = FrontController::checkProductExpire($date);
+        $response = checkProductExpire($date);
 
         $this->assertTrue($response == '-message');
     }
@@ -48,7 +47,7 @@ class FunctionsTest extends TestCase
         //Because we are more than 10 days in future from now, the function should return message
         $date = Carbon::now()->add(11, 'day')->format('Y-m-d');
 
-        $response = FrontController::checkProductExpire($date);
+        $response = checkProductExpire($date);
 
         $this->assertTrue($response == '-success');
     }

@@ -4,6 +4,7 @@
  * Contains the custom functions for the application
  */
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Route;
 
 if (!function_exists('checkProductExpire')) {
     /**
@@ -28,5 +29,36 @@ if (!function_exists('checkProductExpire')) {
         }
     
         return $class_sufix='-success';
+    }
+}
+
+if (!function_exists('redirectWithDeletionMessage')){
+    /**
+     * Display the deletion message and redirect to the selected route
+     * 
+     * @param int $entries_deleted
+     * @param int $entries_total
+     * @param string $route_name
+     * 
+     * @return redirect to the view
+     * @return string $error | $success
+     */
+    function redirectWithDeletionMessage($entries_deleted, $entries_total, $route_name)
+    {
+        $difference = $entries_total - $entries_deleted;
+        switch($entries_deleted){
+            case 0:
+                return redirect($route_name)->with('error', "There is an error, no entry deleted")->send();
+            case 1:
+                if($entries_total != $entries_deleted){
+                    return redirect($route_name)->with('success', "{$entries_deleted} entry deleted, {$difference} couldn't be deleted")->send(); 
+                }
+                return redirect($route_name)->with('success', "{$entries_deleted} entry deleted !")->send();
+            default:
+                if($entries_total != $entries_deleted){
+                    return redirect($route_name)->with('success', "{$entries_deleted} entries deleted, {$difference} couldn't be deleted")->send(); 
+                } 
+                return redirect($route_name)->with('success', "{$entries_deleted} entries deleted !")->send(); 
+        }
     }
 }

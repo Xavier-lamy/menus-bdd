@@ -350,20 +350,6 @@ class MenuController extends Controller
             }  
         }
 
-        $difference = $entries_total - $entries_deleted;
-        switch($entries_deleted){
-            case 0:
-                return redirect('menus')->with('error', "There is an error, no entry deleted");
-            case 1:
-                if($entries_total != $entries_deleted){
-                    return redirect('menus')->with('success', "{$entries_deleted} entry deleted, {$difference} couldn't be deleted");
-                }
-                return redirect('menus')->with('success', "{$entries_deleted} entry deleted !");
-            default:
-                if($entries_total != $entries_deleted){
-                    return redirect('menus')->with('success', "{$entries_deleted} entries deleted, {$difference} couldn't be deleted");
-                }
-                return redirect('menus')->with('success', "{$entries_deleted} entries deleted !");
-        }
+        redirectWithDeletionMessage($entries_deleted, $entries_total, 'commands');
     }
 }

@@ -197,7 +197,7 @@ class StockTest extends TestCase
         $this->assertTrue($command);
 
         $response
-            ->assertRedirect('/stocks')
+            ->assertStatus(200)
             ->assertSessionHas([
                 'success' => '2 entries deleted !',
             ]);

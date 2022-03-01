@@ -178,7 +178,7 @@ class MenuTest extends TestCase
         $this->assertTrue(empty($menu1));
 
         $response
-            ->assertRedirect('/menus')
+            ->assertStatus(200)
             ->assertSessionHas([
                 'success' => '1 entry deleted !',
             ]);

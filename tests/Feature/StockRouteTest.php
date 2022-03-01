@@ -103,6 +103,6 @@ class StockRouteTest extends TestCase
     {
         $response = $this->post('/stocks/delete');
 
-        $response->assertStatus(302);
+        $response->assertStatus(200);
     }
 }

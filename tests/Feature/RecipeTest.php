@@ -244,7 +244,7 @@ class RecipeTest extends TestCase
         $this->assertFalse($quantities);
 
         $response
-            ->assertRedirect('/recipes')
+            ->assertStatus(200)
             ->assertSessionHas([
                 'success' => '1 entry deleted !',
             ]);
