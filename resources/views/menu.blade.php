@@ -361,7 +361,7 @@
             <tbody>
                 <th colspan="3" class="bg--secondary-fade text--light">Breakfast</th>
                 @php
-                    $morning_i = 1
+                    $morning_i = 1;
                 @endphp
                 {{--Check for old values--}}
                 @if(old('morning') != null)
@@ -435,7 +435,7 @@
 
                 <th colspan="3" class="bg--secondary-fade text--light">Lunch</th>   
                 @php
-                    $noon_i = 1
+                    $noon_i = 1;
                 @endphp
                 {{--Check for old values--}}
                 @if(old('noon') != null)
@@ -498,7 +498,7 @@
                 </tr> 
                 <th colspan="3" class="bg--secondary-fade text--light">Dinner</th> 
                 @php
-                    $evening_i = 1
+                    $evening_i = 1;
                 @endphp
                 {{--Check for old values--}}
                 @if(old('evening') != null)

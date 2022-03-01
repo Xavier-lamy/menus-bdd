@@ -1,6 +1,3 @@
-@php 
-    use \App\Http\Controllers\FrontController; 
-@endphp
 @extends("layouts.app")
     @section('title')
         Stocks
@@ -104,7 +101,7 @@
                 <tr>
                     <td class="text--center p--1">{{ $product->command->ingredient }}</td>
                     <td class="text--center p--1">{{ $product->quantity }} {{ $product->command->unit }}</td>
-                    <td class="text--center p--1 text-{{ FrontController::checkProductExpire($product->useby_date); }}">
+                    <td class="text--center p--1 text-{{ checkProductExpire($product->useby_date); }}">
                         {{ $product->useby_date }}
                     </td>
                     <td class="text--center p--1">
