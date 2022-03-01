@@ -350,6 +350,6 @@ class MenuController extends Controller
             }  
         }
 
-        redirectWithDeletionMessage($entries_deleted, $entries_total, 'commands');
+        redirectWithDeletionMessage($entries_deleted, $entries_total, 'menus');
     }
 }
