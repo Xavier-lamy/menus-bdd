@@ -12,7 +12,7 @@ class Dish extends Model
     use HasFactory;
 
     //Default moment option
-    public const MOMENTS = [['morning' => 'Breakfast'], ['noon' => 'Lunch'], ['evening' => 'Dinner']];
+    public const MOMENTS = ['morning' => 'Breakfast', 'noon' => 'Lunch', 'evening' => 'Dinner'];
 
     protected $fillable = ['menu_id', 'moment', 'recipe_id', 'portion'];
 
