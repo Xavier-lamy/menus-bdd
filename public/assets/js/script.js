@@ -3,7 +3,9 @@ var __webpack_exports__ = {};
 /*!********************************!*\
   !*** ./resources/js/script.js ***!
   \********************************/
-//Add new ingredient row
+/**
+ * Add new ingredient row
+ */
 var modifyRecipeTable = document.getElementById('modify_recipe_table');
 var addRecipeTable = document.getElementById('add_recipe_table');
 
@@ -40,7 +42,10 @@ if (modifyRecipeTable || addRecipeTable) {
   }); //Delete an ingredient row
 
   window.onload = checkClickedButton();
-} //Add recipe row
+}
+/**
+ * Add recipe row in menu
+ */
 
 
 var modifyMenuTable = document.getElementById('modify_menu_table');
@@ -63,18 +68,20 @@ if (modifyMenuTable || addMenuTable) {
     }
   };
 
-  var recipeOptions = document.getElementById('select_recipe_options').innerHTML; //Morning
+  var recipeOptions = document.getElementById('select_recipe_options').innerHTML; //Define form name depending on situation
+
+  var formName = 'add_menu_form';
+
+  if (modifyMenuTable) {
+    formName = 'update_menu_form';
+  } //Morning
+
 
   var addMorningRecipeButton = document.getElementById('add_morning_recipe_button');
   var incrementedMorningId = document.getElementsByName('morning_recipe_row').length + 1;
   addMorningRecipeButton.addEventListener('click', function () {
     var buttonRow = document.getElementById('add_morning_recipe_row');
-    var newRow = "<tr name=\"morning_recipe_row\">\n        <td class=\"text--center p--1\">\n          <select name=\"morning[".concat(incrementedMorningId, "][recipe]\" id=\"recipe_morning_").concat(incrementedMorningId, "\" aria-label=\"Recipe\" form=\"add_menu_form\" class=\"text--center input--inset\" title=\"Recipe\" required>\n            ").concat(recipeOptions, "\n          </select>\n        </td>\n        <td>\n          <input type=\"number\" aria-label=\"Portions\" min=\"0\" name=\"morning[").concat(incrementedMorningId, "][portion]\" form=\"add_menu_form\" class=\"text--center input--inset\" placeholder=\"Portions\" required>\n        </td>\n        <td class=\"text--center p--1\">\n          <button type=\"button\" name=\"delete_row\" id=\"delete_morning_row").concat(incrementedMorningId, "\" class=\"button--sm\">Delete row</button>\n        </td>\n      </tr>");
-
-    if (modifyMenuTable) {
-      newRow = "<tr name=\"morning_recipe_row\">\n          <td class=\"text--center p--1\">\n            <select name=\"morning[".concat(incrementedMorningId, "][recipe]\" id=\"recipe_morning_").concat(incrementedMorningId, "\" aria-label=\"Recipe\" form=\"update_menu_form\" class=\"text--center input--inset\" title=\"Recipe\" required>\n              ").concat(recipeOptions, "\n            </select>\n          </td>\n          <td>\n            <input type=\"number\" aria-label=\"Portions\" min=\"0\" name=\"morning[").concat(incrementedMorningId, "][portion]\" form=\"update_menu_form\" class=\"text--center input--inset\" placeholder=\"Portions\" required>\n          </td>\n          <td class=\"text--center p--1\">\n            <button type=\"button\" name=\"delete_row\" id=\"delete_morning_row").concat(incrementedMorningId, "\" class=\"button--sm\">Delete row</button>\n          </td>\n        </tr>");
-    }
-
+    var newRow = "<tr name=\"morning_recipe_row\">\n        <td class=\"text--center p--1\">\n          <select name=\"morning[".concat(incrementedMorningId, "][recipe]\" id=\"recipe_morning_").concat(incrementedMorningId, "\" aria-label=\"Recipe\" form=\"").concat(formName, "\" class=\"text--center input--inset\" title=\"Recipe\" required>\n            ").concat(recipeOptions, "\n          </select>\n        </td>\n        <td>\n          <input type=\"number\" aria-label=\"Portions\" min=\"0\" name=\"morning[").concat(incrementedMorningId, "][portion]\" form=\"").concat(formName, "\" class=\"text--center input--inset\" placeholder=\"Portions\" required>\n        </td>\n        <td class=\"text--center p--1\">\n          <button type=\"button\" name=\"delete_row\" id=\"delete_morning_row").concat(incrementedMorningId, "\" class=\"button--sm\">Delete row</button>\n        </td>\n      </tr>");
     incrementedMorningId++;
     buttonRow.insertAdjacentHTML('beforebegin', newRow);
   }); //Noon
@@ -83,12 +90,7 @@ if (modifyMenuTable || addMenuTable) {
   var incrementedNoonId = document.getElementsByName('noon_recipe_row').length + 1;
   addNoonRecipeButton.addEventListener('click', function () {
     var buttonRow = document.getElementById('add_noon_recipe_row');
-    var newRow = "<tr name=\"noon_recipe_row\">\n        <td class=\"text--center p--1\">\n          <select name=\"noon[".concat(incrementedNoonId, "][recipe]\" id=\"recipe_noon_").concat(incrementedNoonId, "\" aria-label=\"Recipe\" form=\"add_menu_form\" class=\"text--center input--inset\" title=\"Recipe\" required>\n            ").concat(recipeOptions, "\n          </select>\n        </td>\n        <td>\n          <input type=\"number\" aria-label=\"Portions\" min=\"0\" name=\"noon[").concat(incrementedNoonId, "][portion]\" form=\"add_menu_form\" class=\"text--center input--inset\" placeholder=\"Portions\" required>\n        </td>\n        <td class=\"text--center p--1\">\n          <button type=\"button\" name=\"delete_row\" id=\"delete_noon_row").concat(incrementedNoonId, "\" class=\"button--sm\">Delete row</button>\n        </td>\n      </tr>");
-
-    if (modifyMenuTable) {
-      newRow = "<tr name=\"noon_recipe_row\">\n          <td class=\"text--center p--1\">\n            <select name=\"noon[".concat(incrementedNoonId, "][recipe]\" id=\"recipe_noon_").concat(incrementedNoonId, "\" aria-label=\"Recipe\" form=\"update_menu_form\" class=\"text--center input--inset\" title=\"Recipe\" required>\n            ").concat(recipeOptions, "\n            </select>\n          </td>\n          <td>\n            <input type=\"number\" aria-label=\"Portions\" min=\"0\" name=\"noon[").concat(incrementedNoonId, "][portion]\" form=\"update_menu_form\" class=\"text--center input--inset\" placeholder=\"Portions\" required>\n          </td>\n          <td class=\"text--center p--1\">\n            <button type=\"button\" name=\"delete_row\" id=\"delete_noon_row").concat(incrementedNoonId, "\" class=\"button--sm\">Delete row</button>\n          </td>\n        </tr>");
-    }
-
+    var newRow = "<tr name=\"noon_recipe_row\">\n        <td class=\"text--center p--1\">\n          <select name=\"noon[".concat(incrementedNoonId, "][recipe]\" id=\"recipe_noon_").concat(incrementedNoonId, "\" aria-label=\"Recipe\" form=\"").concat(formName, "\" class=\"text--center input--inset\" title=\"Recipe\" required>\n            ").concat(recipeOptions, "\n          </select>\n        </td>\n        <td>\n          <input type=\"number\" aria-label=\"Portions\" min=\"0\" name=\"noon[").concat(incrementedNoonId, "][portion]\" form=\"").concat(formName, "\" class=\"text--center input--inset\" placeholder=\"Portions\" required>\n        </td>\n        <td class=\"text--center p--1\">\n          <button type=\"button\" name=\"delete_row\" id=\"delete_noon_row").concat(incrementedNoonId, "\" class=\"button--sm\">Delete row</button>\n        </td>\n      </tr>");
     incrementedNoonId++;
     buttonRow.insertAdjacentHTML('beforebegin', newRow);
   }); //Evening
@@ -97,12 +99,7 @@ if (modifyMenuTable || addMenuTable) {
   var incrementedEveningId = document.getElementsByName('evening_recipe_row').length + 1;
   addEveningRecipeButton.addEventListener('click', function () {
     var buttonRow = document.getElementById('add_evening_recipe_row');
-    var newRow = "<tr name=\"evening_recipe_row\">\n        <td class=\"text--center p--1\">\n          <select name=\"evening[".concat(incrementedEveningId, "][recipe]\" id=\"recipe_evening_").concat(incrementedEveningId, "\" aria-label=\"Recipe\" form=\"add_menu_form\" class=\"text--center input--inset\" title=\"Recipe\" required>\n          ").concat(recipeOptions, "\n          </select>\n        </td>\n        <td>\n          <input type=\"number\" aria-label=\"Portions\" min=\"0\" name=\"evening[").concat(incrementedEveningId, "][portion]\" form=\"add_menu_form\" class=\"text--center input--inset\" placeholder=\"Portions\" required>\n        </td>\n        <td class=\"text--center p--1\">\n          <button type=\"button\" name=\"delete_row\" id=\"delete_evening_row").concat(incrementedEveningId, "\" class=\"button--sm\">Delete row</button>\n        </td>\n      </tr>");
-
-    if (modifyMenuTable) {
-      newRow = "<tr name=\"evening_recipe_row\">\n          <td class=\"text--center p--1\">\n            <select name=\"evening[".concat(incrementedEveningId, "][recipe]\" id=\"recipe_evening_").concat(incrementedEveningId, "\" aria-label=\"Recipe\" form=\"update_menu_form\" class=\"text--center input--inset\" title=\"Recipe\" required>\n            ").concat(recipeOptions, "\n            </select>\n          </td>\n          <td>\n            <input type=\"number\" aria-label=\"Portions\" min=\"0\" name=\"evening[").concat(incrementedEveningId, "][portion]\" form=\"update_menu_form\" class=\"text--center input--inset\" placeholder=\"Portions\" required>\n          </td>\n          <td class=\"text--center p--1\">\n            <button type=\"button\" name=\"delete_row\" id=\"delete_evening_row").concat(incrementedEveningId, "\" class=\"button--sm\">Delete row</button>\n          </td>\n        </tr>");
-    }
-
+    var newRow = "<tr name=\"evening_recipe_row\">\n        <td class=\"text--center p--1\">\n          <select name=\"evening[".concat(incrementedEveningId, "][recipe]\" id=\"recipe_evening_").concat(incrementedEveningId, "\" aria-label=\"Recipe\" form=\"").concat(formName, "\" class=\"text--center input--inset\" title=\"Recipe\" required>\n          ").concat(recipeOptions, "\n          </select>\n        </td>\n        <td>\n          <input type=\"number\" aria-label=\"Portions\" min=\"0\" name=\"evening[").concat(incrementedEveningId, "][portion]\" form=\"").concat(formName, "\" class=\"text--center input--inset\" placeholder=\"Portions\" required>\n        </td>\n        <td class=\"text--center p--1\">\n          <button type=\"button\" name=\"delete_row\" id=\"delete_evening_row").concat(incrementedEveningId, "\" class=\"button--sm\">Delete row</button>\n        </td>\n      </tr>");
     incrementedEveningId++;
     buttonRow.insertAdjacentHTML('beforebegin', newRow);
   }); //Delete a recipe row

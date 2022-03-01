@@ -1,4 +1,6 @@
-//Add new ingredient row
+/**
+ * Add new ingredient row
+ */
 let modifyRecipeTable = document.getElementById('modify_recipe_table');
 let addRecipeTable = document.getElementById('add_recipe_table');
 
@@ -66,12 +68,20 @@ if( modifyRecipeTable || addRecipeTable){
   }
 }
 
-//Add recipe row
+/**
+ * Add recipe row in menu
+ */  
 let modifyMenuTable = document.getElementById('modify_menu_table');
 let addMenuTable = document.getElementById('add_menu_table');
 
 if( modifyMenuTable || addMenuTable){
   const recipeOptions = document.getElementById('select_recipe_options').innerHTML;
+
+  //Define form name depending on situation
+  let formName = 'add_menu_form';
+  if(modifyMenuTable){
+    formName = 'update_menu_form';
+  }
 
   //Morning
   let addMorningRecipeButton = document.getElementById('add_morning_recipe_button');
@@ -82,33 +92,17 @@ if( modifyMenuTable || addMenuTable){
 
       let newRow = `<tr name="morning_recipe_row">
         <td class="text--center p--1">
-          <select name="morning[${incrementedMorningId}][recipe]" id="recipe_morning_${incrementedMorningId}" aria-label="Recipe" form="add_menu_form" class="text--center input--inset" title="Recipe" required>
+          <select name="morning[${incrementedMorningId}][recipe]" id="recipe_morning_${incrementedMorningId}" aria-label="Recipe" form="${formName}" class="text--center input--inset" title="Recipe" required>
             ${recipeOptions}
           </select>
         </td>
         <td>
-          <input type="number" aria-label="Portions" min="0" name="morning[${incrementedMorningId}][portion]" form="add_menu_form" class="text--center input--inset" placeholder="Portions" required>
+          <input type="number" aria-label="Portions" min="0" name="morning[${incrementedMorningId}][portion]" form="${formName}" class="text--center input--inset" placeholder="Portions" required>
         </td>
         <td class="text--center p--1">
           <button type="button" name="delete_row" id="delete_morning_row${incrementedMorningId}" class="button--sm">Delete row</button>
         </td>
       </tr>`;
-
-      if(modifyMenuTable){
-        newRow = `<tr name="morning_recipe_row">
-          <td class="text--center p--1">
-            <select name="morning[${incrementedMorningId}][recipe]" id="recipe_morning_${incrementedMorningId}" aria-label="Recipe" form="update_menu_form" class="text--center input--inset" title="Recipe" required>
-              ${recipeOptions}
-            </select>
-          </td>
-          <td>
-            <input type="number" aria-label="Portions" min="0" name="morning[${incrementedMorningId}][portion]" form="update_menu_form" class="text--center input--inset" placeholder="Portions" required>
-          </td>
-          <td class="text--center p--1">
-            <button type="button" name="delete_row" id="delete_morning_row${incrementedMorningId}" class="button--sm">Delete row</button>
-          </td>
-        </tr>`;
-      }
 
       incrementedMorningId ++;
 
@@ -124,33 +118,17 @@ if( modifyMenuTable || addMenuTable){
 
       let newRow = `<tr name="noon_recipe_row">
         <td class="text--center p--1">
-          <select name="noon[${incrementedNoonId}][recipe]" id="recipe_noon_${incrementedNoonId}" aria-label="Recipe" form="add_menu_form" class="text--center input--inset" title="Recipe" required>
+          <select name="noon[${incrementedNoonId}][recipe]" id="recipe_noon_${incrementedNoonId}" aria-label="Recipe" form="${formName}" class="text--center input--inset" title="Recipe" required>
             ${recipeOptions}
           </select>
         </td>
         <td>
-          <input type="number" aria-label="Portions" min="0" name="noon[${incrementedNoonId}][portion]" form="add_menu_form" class="text--center input--inset" placeholder="Portions" required>
+          <input type="number" aria-label="Portions" min="0" name="noon[${incrementedNoonId}][portion]" form="${formName}" class="text--center input--inset" placeholder="Portions" required>
         </td>
         <td class="text--center p--1">
           <button type="button" name="delete_row" id="delete_noon_row${incrementedNoonId}" class="button--sm">Delete row</button>
         </td>
       </tr>`;
-
-      if(modifyMenuTable){
-        newRow = `<tr name="noon_recipe_row">
-          <td class="text--center p--1">
-            <select name="noon[${incrementedNoonId}][recipe]" id="recipe_noon_${incrementedNoonId}" aria-label="Recipe" form="update_menu_form" class="text--center input--inset" title="Recipe" required>
-            ${recipeOptions}
-            </select>
-          </td>
-          <td>
-            <input type="number" aria-label="Portions" min="0" name="noon[${incrementedNoonId}][portion]" form="update_menu_form" class="text--center input--inset" placeholder="Portions" required>
-          </td>
-          <td class="text--center p--1">
-            <button type="button" name="delete_row" id="delete_noon_row${incrementedNoonId}" class="button--sm">Delete row</button>
-          </td>
-        </tr>`;
-      }
 
       incrementedNoonId ++;
 
@@ -166,33 +144,17 @@ if( modifyMenuTable || addMenuTable){
 
       let newRow = `<tr name="evening_recipe_row">
         <td class="text--center p--1">
-          <select name="evening[${incrementedEveningId}][recipe]" id="recipe_evening_${incrementedEveningId}" aria-label="Recipe" form="add_menu_form" class="text--center input--inset" title="Recipe" required>
+          <select name="evening[${incrementedEveningId}][recipe]" id="recipe_evening_${incrementedEveningId}" aria-label="Recipe" form="${formName}" class="text--center input--inset" title="Recipe" required>
           ${recipeOptions}
           </select>
         </td>
         <td>
-          <input type="number" aria-label="Portions" min="0" name="evening[${incrementedEveningId}][portion]" form="add_menu_form" class="text--center input--inset" placeholder="Portions" required>
+          <input type="number" aria-label="Portions" min="0" name="evening[${incrementedEveningId}][portion]" form="${formName}" class="text--center input--inset" placeholder="Portions" required>
         </td>
         <td class="text--center p--1">
           <button type="button" name="delete_row" id="delete_evening_row${incrementedEveningId}" class="button--sm">Delete row</button>
         </td>
       </tr>`;
-
-      if(modifyMenuTable){
-        newRow = `<tr name="evening_recipe_row">
-          <td class="text--center p--1">
-            <select name="evening[${incrementedEveningId}][recipe]" id="recipe_evening_${incrementedEveningId}" aria-label="Recipe" form="update_menu_form" class="text--center input--inset" title="Recipe" required>
-            ${recipeOptions}
-            </select>
-          </td>
-          <td>
-            <input type="number" aria-label="Portions" min="0" name="evening[${incrementedEveningId}][portion]" form="update_menu_form" class="text--center input--inset" placeholder="Portions" required>
-          </td>
-          <td class="text--center p--1">
-            <button type="button" name="delete_row" id="delete_evening_row${incrementedEveningId}" class="button--sm">Delete row</button>
-          </td>
-        </tr>`;
-      }
 
       incrementedEveningId ++;
 

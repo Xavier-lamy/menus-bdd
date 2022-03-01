@@ -51,12 +51,8 @@ class MenuController extends Controller
     {
         $request->validate([
             'day' => ['required', 'date_format:Y-m-d', 'after:2000-01-01', 'before:2300-01-01'],
-            'morning.*.recipe' => [new RecipeIdValided],
-            'morning.*.portion' => ['min:0', 'max:1000000000', 'integer'],
-            'noon.*.recipe' => [new RecipeIdValided],
-            'noon.*.portion' => ['min:0', 'max:1000000000', 'integer'],
-            'evening.*.recipe' => [new RecipeIdValided],
-            'evening.*.portion' => ['min:0', 'max:1000000000', 'integer'],
+            '*.*.recipe' => [new RecipeIdValided],
+            '*.*.portion' => ['min:0', 'max:1000000000', 'integer'],
         ]);
 
         //Store menu
@@ -66,34 +62,19 @@ class MenuController extends Controller
             'day' => $day,
         ]);
 
-        if (!empty($request->morning)) {
-            foreach ($request->morning as $morning_dish) {
-                $menu->dishes()->create([
-                    'meal_time' => 'morning',
-                    'recipe_id' => $morning_dish['recipe'],
-                    'portion' => $morning_dish['portion'],
-                ]);
-            };
-        }
+        //Loop through moments of the day
+        $moments = $request->except('day', '_token');
 
-        if (!empty($request->noon)) {
-            foreach ($request->noon as $noon_dish) {
-                $menu->dishes()->create([
-                    'meal_time' => 'noon',
-                    'recipe_id' => $noon_dish['recipe'],
-                    'portion' => $noon_dish['portion'],
-                ]);
-            };
-        }
-
-        if (!empty($request->evening)) {
-            foreach ($request->evening as $evening_dish) {
-                $menu->dishes()->create([
-                    'meal_time' => 'evening',
-                    'recipe_id' => $evening_dish['recipe'],
-                    'portion' => $evening_dish['portion'],
-                ]);
-            };
+        foreach($moments as $moment => $moment_dishes){
+            foreach($moment_dishes as $moment_dish){
+                if(!empty($moment_dish)){
+                    $menu->dishes()->create([
+                        'meal_time' => $moment,
+                        'recipe_id' => $moment_dish['recipe'],
+                        'portion' => $moment_dish['portion'],
+                    ]);
+                }
+            }
         }
 
         return redirect('menus')->with('success', 'Menu added !');
@@ -177,15 +158,9 @@ class MenuController extends Controller
     {
         $request->validate([
             'day' => ['required', 'date_format:Y-m-d', 'after:2000-01-01', 'before:2300-01-01'],
-            'morning.*.recipe' => [new RecipeIdValided],
-            'morning.*.portion' => ['min:0', 'max:1000000000', 'integer'],
-            'morning.*.id' => ['sometimes', new IdValided],
-            'noon.*.recipe' => [new RecipeIdValided],
-            'noon.*.portion' => ['min:0', 'max:1000000000', 'integer'],
-            'noon.*.id' => ['sometimes', new IdValided],
-            'evening.*.recipe' => [new RecipeIdValided],
-            'evening.*.portion' => ['min:0', 'max:1000000000', 'integer'],
-            'evening.*.id' => ['sometimes', new IdValided],
+            '*.*.recipe' => [new RecipeIdValided],
+            '*.*.portion' => ['min:0', 'max:1000000000', 'integer'],
+            '*.*.id' => ['sometimes', new IdValided],
         ]);
 
         //Update menu
@@ -197,101 +172,40 @@ class MenuController extends Controller
         //return list of current existing ids for this menu in dishes
         $old_menu_dishes = Dish::where('menu_id', $id)->get();
 
-        /**
-         * For morning
-         */
-        foreach($request->morning as $morning){
-            //Check if dish is in dishes array
-            $morning_dish = '';
-            if(!empty($morning['id'])){
-                $morning_dish = Dish::find($morning['id']);
-            }
-            $morning_recipe_id = $morning['recipe'];
-            $morning_portion = $morning['portion'];
-            
-            if(!empty($morning_dish)){
-                $morning_dish->update([
-                    'recipe_id' => $morning_recipe_id,
-                    'portion' => $morning_portion,
-                ]);
-            }
-            else {
-                Dish::create([
-                    'menu_id' => $id,
-                    'meal_time' => 'morning',
-                    'recipe_id' => $morning_recipe_id,
-                    'portion' => $morning_portion,
-                ]);
-            };
-            //Add dish id to array
-            if (!empty($morning['id'])) {
-                $new_dishes_array[] = $morning['id'];
-            } 
-        };
 
-
-        /**
-         * For noon
-         */
-        foreach($request->noon as $noon){
-            //Check if dish is in dishes array
-            $noon_dish = '';
-            if(!empty($noon['id'])){
-                $noon_dish = Dish::find($noon['id']);
+        //Loop through moments of the day
+        $moments = $request->except('day', '_token');
+        foreach($moments as $moment => $moment_dishes){
+            //For each moment loop through dishes
+            foreach($moment_dishes as $moment_dish){
+                //Check if dish is in dishes array
+                $existing_dish = '';
+                if(!empty($moment_dish['id'])){
+                    $existing_dish = Dish::find($moment_dish['id']);
+                }
+                $moment_dish_recipe_id = $moment_dish['recipe'];
+                $moment_dish_portion = $moment_dish['portion'];
+                
+                if(!empty($existing_dish)){
+                    $existing_dish->update([
+                        'recipe_id' => $moment_dish_recipe_id,
+                        'portion' => $moment_dish_portion,
+                    ]);
+                }
+                else {
+                    Dish::create([
+                        'menu_id' => $id,
+                        'meal_time' => $moment,
+                        'recipe_id' => $moment_dish_recipe_id,
+                        'portion' => $moment_dish_portion,
+                    ]);
+                };
+                //Add dish id to array
+                if (!empty($moment_dish['id'])) {
+                    $new_dishes_array[] = $moment_dish['id'];
+                } 
             }
-            $noon_recipe_id = $noon['recipe'];
-            $noon_portion = $noon['portion'];
-            if(!empty($noon_dish)){
-                $noon_dish->update([
-                    'recipe_id' => $noon_recipe_id,
-                    'portion' => $noon_portion,
-                ]);
-            }
-            else {
-                Dish::create([
-                    'menu_id' => $id,
-                    'meal_time' => 'noon',
-                    'recipe_id' => $noon_recipe_id,
-                    'portion' => $noon_portion,
-                ]);
-            };
-            //Add dish id to array
-            if (!empty($noon['id'])) {
-                $new_dishes_array[] = $noon['id'];
-            } 
-        };
-
-        /**
-         * For evening
-         */
-        foreach($request->evening as $evening){
-            //Check if dish is in dishes array
-            $evening_dish = '';
-            if(!empty($evening['id'])){
-                $evening_dish = Dish::find($evening['id']);
-            }
-            $evening_recipe_id = $evening['recipe'];
-            $evening_portion = $evening['portion'];
-            
-            if(!empty($evening_dish)){
-                $evening_dish->update([
-                    'recipe_id' => $evening_recipe_id,
-                    'portion' => $evening_portion,
-                ]);
-            }
-            else {
-                Dish::create([
-                    'menu_id' => $id,
-                    'meal_time' => 'evening',
-                    'recipe_id' => $evening_recipe_id,
-                    'portion' => $evening_portion,
-                ]);
-            };
-            //Add dish id to array
-            if (!empty($evening['id'])) {
-                $new_dishes_array[] = $evening['id'];
-            }
-        };
+        }
 
         //Delete dishes if they don't exist anymore:
         foreach($old_menu_dishes as $old_menu_dish){
