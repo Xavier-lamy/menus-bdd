@@ -22,7 +22,7 @@ class CreateDishesTable extends Migration
             $table->string('meal_time');
             
             $table->unsignedBigInteger('recipe_id');
-            $table->foreign('recipe_id')->references('id')->on('recipes');
+            $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
 
             $table->unsignedInteger('portion');
 
