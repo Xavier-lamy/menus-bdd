@@ -157,12 +157,8 @@ return [
 
     'attributes' => [
         'ingredient.*.quantity' => 'ingredient quantity',
-        'morning.*.portion' => 'breakfast portion',
-        'noon.*.portion' => 'lunch portion',
-        'evening.*.portion' => 'dinner portion',
-        'morning.*.id' => 'breakfast dish id',
-        'noon.*.id' => 'lunch dish id',
-        'evening.*.id' => 'dinner dish Id',
+        '*.*.portion' => 'portion',
+        '*.*.id' => 'dish id',
     ],
 
 ];

@@ -41,6 +41,7 @@ class MenuController extends Controller
         return view('menu', [
             'is_creating' => $is_creating,
             'recipes' => $recipes,
+            'moments' => $moments,
         ]);
     }
 
