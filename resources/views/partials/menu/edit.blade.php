@@ -38,7 +38,7 @@ Modify Menu
             $moment_dishes = $moment_datas[1];
             $moment_i = 1; 
         @endphp
-        <th colspan="3" class="bg--secondary text--light">{{ $displayed_moment }}</th>
+        <th colspan="3" class="bg--secondary-fade text--light">{{ $displayed_moment }}</th>
         {{--Display old values from failed redirection or values from menu--}}
         @if(old($moment) != null)
             @forelse (old($moment) as $moment_dish)
