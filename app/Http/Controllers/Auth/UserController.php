@@ -29,9 +29,9 @@ class UserController extends Controller
     {
         //validate request
         $request->validate([
-            'username' => ['required'],
-            'email' => ['required', 'email'],
-            'password' => ['required'],
+            'username' => ['required', 'string', 'min:2', 'max:80'],
+            'email' => ['required', 'email', 'unique:users'],
+            'password' => ['required', 'min:10', 'max:80'],
         ]);
 
         $user = User::create([
@@ -71,7 +71,7 @@ class UserController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => 'Email or Password is wrong',
         ]);
     }
 
