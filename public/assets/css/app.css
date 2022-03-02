@@ -171,6 +171,9 @@ h6 {
 .my--2 {
   margin: 0.5rem 0rem;
 }
+.my--3 {
+  margin: 1rem 0rem;
+}
 
 /*Animation: underline when hover*/
 .link, header a, footer a {
@@ -263,6 +266,13 @@ h6 {
 .button--sm {
   padding: 0.2rem 0.4rem;
 }
+.button--secondary {
+  background-color: #d6d6d6;
+  color: #272525;
+}
+.button--secondary:hover {
+  background-color: #d6d6d6;
+}
 
 input {
   background: transparent;
@@ -314,6 +324,7 @@ input:active, input:focus {
   border-radius: 0.8rem;
   padding: 0.35rem;
   background-color: #f0f0f0;
+  color: #272525;
 }
 .input--inset:focus {
   border: 0.15rem #294673 solid;
@@ -334,6 +345,7 @@ input.input--inset {
   border-radius: 0.8rem;
   padding: 0.35rem;
   background-color: #f0f0f0;
+  color: #272525;
   width: 100%;
   font-family: "Montserrat";
 }
@@ -466,6 +478,11 @@ select.input--inset:focus {
 
 .h--100 {
   height: 100%;
+}
+
+.size--fullscreen {
+  min-height: 100vh;
+  min-width: 100vw;
 }
 
 /*Icons and pictures*/
