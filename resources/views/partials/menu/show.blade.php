@@ -16,49 +16,30 @@
 <th class="w--60">Dishes</th>
 @endsection
 @section('table-body')
-@isset($morning_dishes)
-    <tr>
-        <td class="text--center p--1">Breakfast</td>
-        <td class="p--1">
-            <ul>
-                @foreach ($morning_dishes as $morning_dish)
-                    <li>
-                        <a href="{{ route('recipe.show', ['id' => $morning_dish->recipe]) }}" class="link">{{ $morning_dish->recipe->name }}</a>
-                         (x {{ $morning_dish->portion }})
-                    </li>
-                @endforeach
-            </ul>
-        </td>
-    </tr>   
-@endisset
-@isset($noon_dishes)
-    <tr>
-        <td class="text--center p--1">Lunch</td>
-        <td class="p--1">
-            <ul>
-                @foreach ($noon_dishes as $noon_dish)
-                    <li>
-                        <a href="{{ route('recipe.show', ['id' => $noon_dish->recipe]) }}" class="link">{{ $noon_dish->recipe->name }}</a>
-                        (x {{ $noon_dish->portion }})
-                    </li>
-                @endforeach
-            </ul>
-        </td>
-    </tr>   
-@endisset
-@isset($evening_dishes)
-    <tr>
-        <td class="text--center p--1">Dinner</td>
-        <td class="p--1">
-            <ul>
-                @foreach ($evening_dishes as $evening_dish)
-                    <li>
-                        <a href="{{ route('recipe.show', ['id' => $evening_dish->recipe]) }}" class="link">{{ $evening_dish->recipe->name }}</a>
-                        (x {{ $evening_dish->portion }})
-                    </li>
-                @endforeach
-            </ul>
-        </td>
-    </tr>   
-@endisset
+    @forelse ($moments as $moment => $moment_datas)
+        @php
+            //Divide back array moments_data into displayable moment and dishes
+            $displayed_moment = $moment_datas[0];
+            $moment_dishes = $moment_datas[1];
+        @endphp
+        <tr>
+            <td class="text--center p--1">{{ $displayed_moment }}</td>
+            <td class="p--1">
+                <ul>
+                    @foreach ($moment_dishes as $moment_dish)
+                        <li>
+                            <a href="{{ route('recipe.show', ['id' => $moment_dish->recipe]) }}" class="link">{{ $moment_dish->recipe->name }}</a>
+                            (x {{ $moment_dish->portion }})
+                        </li>
+                    @endforeach
+                </ul>
+            </td>
+        </tr> 
+    @empty
+        <tr>
+            <td colspan="2" class="text--center p--1">
+                There is no recipes for this menu
+            </td>
+        </tr>
+    @endforelse
 @endsection
