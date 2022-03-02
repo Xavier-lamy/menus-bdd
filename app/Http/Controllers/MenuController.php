@@ -131,23 +131,24 @@ class MenuController extends Controller
             return redirect('menus')->with('error', "This menu doesn't exist");
         }
 
-        //fetch dishes for morning
-        $morning_dishes = $menu->dishes->where('moment', 'morning');
+        //Get user moment option, transform JSON to Array (amodif)
+        $option_moments = Dish::MOMENTS;
 
-        //fetch dishes for noon
-        $noon_dishes = $menu->dishes->where('moment', 'noon');
-
-        //fetch dishes for evening
-        $evening_dishes = $menu->dishes->where('moment', 'evening');
+        foreach($option_moments as $moment => $displayed_moment){
+            $moment_dishes = $menu->dishes->where('moment', $moment);
+            /**
+             * Return the data in an associative array, key is the moment, 
+             * and the values are the displayable value for moment and the dishes
+             * */
+            $moments[$moment] = array($displayed_moment, $moment_dishes);
+        }
 
         $is_editing = true;
 
         return view('menu', [
             'is_editing' => $is_editing,
             'menu' => $menu,
-            'morning_dishes' => $morning_dishes,
-            'noon_dishes' => $noon_dishes,
-            'evening_dishes' => $evening_dishes,
+            'moments' => $moments,
             'recipes' => $recipes,
         ]);
     }
