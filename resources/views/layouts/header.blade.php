@@ -7,6 +7,8 @@
     <link rel="stylesheet" type="text/css" href={{ asset("assets/css/app.css") }}>
 </head>
 <body>
-    <header class="bg--primary text--light">
-        @include("partials.navbar")
-    </header>
+    @section('header')
+        <header class="bg--primary text--light">
+            @include("partials.navbar")
+        </header>
+    @show

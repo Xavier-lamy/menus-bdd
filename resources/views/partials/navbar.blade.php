@@ -6,7 +6,6 @@
         <li><a href=" {{ route('stocks') }} ">Stocks</a></li>
     </ul>
     <ul class="navbar__login list--unstyled dsp--flex justify--between">
-        <li><a href="#" aria-label="Register"><i class="fas fa-user-plus fa-lg"></i>Register</a></li>
-        <li><a href="#" aria-label="Login"><i class="fas fa-sign-in-alt fa-lg"></i>Login</a></li>
+        <li><a href="{{ route('logout') }}" aria-label="Logout"><i class="fas fa-sign-out-alt fa-lg"></i>Logout</a></li>
     </ul>
 </nav>
