@@ -3,6 +3,7 @@
 namespace Database\Seeders\DevSeeders;
 
 use Illuminate\Database\Seeder;
+use Database\Seeders\DatabaseSeeder;
 use App\Models\Menu;
 use App\Models\Dish;
 use Carbon\Carbon;
@@ -26,6 +27,7 @@ class MenuSeeder extends Seeder
         for($i = 0; $i <= 4; $i++){
             Menu::create([
                 'day' => $date[$i],
+                'user_id' => DatabaseSeeder::DEVENV_USER_ID,
             ]);
         }
 
@@ -37,6 +39,7 @@ class MenuSeeder extends Seeder
                     'moment' => $moment,
                     'recipe_id' => random_int(1, 7),
                     'portion' => random_int(1, 6),
+                    'user_id' => DatabaseSeeder::DEVENV_USER_ID,
                 ]);
             }
         }

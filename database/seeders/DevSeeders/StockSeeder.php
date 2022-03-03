@@ -3,6 +3,7 @@
 namespace Database\Seeders\DevSeeders;
 
 use Illuminate\Database\Seeder;
+use Database\Seeders\DatabaseSeeder;
 use App\Models\Command;
 use App\Models\Stock;
 use Carbon\Carbon;
@@ -42,6 +43,7 @@ class StockSeeder extends Seeder
                 'unit' => $product[1],
                 'alert_stock' => $random_alert_stock,
                 'must_buy' => 0,
+                'user_id' => DatabaseSeeder::DEVENV_USER_ID,
             ]);
         }
 
@@ -65,12 +67,14 @@ class StockSeeder extends Seeder
                     'quantity' => $random_quantity,
                     'useby_date' => $random_date,
                     'command_id' => $command['id'],
+                    'user_id' => DatabaseSeeder::DEVENV_USER_ID,
                 ]);
 
                 Stock::create([
                     'quantity' => $random_quantity2,
                     'useby_date' => $random_date2,
                     'command_id' => $command['id'],
+                    'user_id' => DatabaseSeeder::DEVENV_USER_ID,
                 ]);
 
                 $alert_stock = $command->alert_stock;

@@ -7,9 +7,14 @@ use App\Models\Command;
 
 class CommandSeeder extends Seeder
 {
+    public function run()
+    {
+        //
+    }
+
     /**
-     * Create basics ingredients for the app (this seeder is not used by artisan,
-     * and can only be called statically by a function)
+     * Create basics ingredients for the app (this seeder shouldn't be used by artisan,
+     * and should only be called statically by a function)
      *
      * @return void
      */

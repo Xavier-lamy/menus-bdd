@@ -3,6 +3,7 @@
 namespace Database\Seeders\DevSeeders;
 
 use Illuminate\Database\Seeder;
+use Database\Seeders\DatabaseSeeder;
 use App\Models\Recipe;
 use App\Models\Quantity;
 
@@ -39,6 +40,7 @@ class RecipeSeeder extends Seeder
                 'id' => $i,
                 'name' => $recipe[0],
                 'process' => $recipe[1],
+                'user_id' => DatabaseSeeder::DEVENV_USER_ID,
             ]);
 
             $random_command_id = array(
@@ -49,10 +51,10 @@ class RecipeSeeder extends Seeder
             );
 
             Quantity::insert([
-                ['quantity'=> $random_quantities[0], 'command_id'=> $random_command_id[0], 'recipe_id' => $i,],
-                ['quantity'=> $random_quantities[1], 'command_id'=> $random_command_id[1], 'recipe_id' => $i,],
-                ['quantity'=> $random_quantities[2], 'command_id'=> $random_command_id[2], 'recipe_id' => $i,],
-                ['quantity'=> $random_quantities[3], 'command_id'=> $random_command_id[3], 'recipe_id' => $i,],
+                ['quantity'=> $random_quantities[0], 'command_id'=> $random_command_id[0], 'recipe_id' => $i, 'user_id' => DatabaseSeeder::DEVENV_USER_ID,],
+                ['quantity'=> $random_quantities[1], 'command_id'=> $random_command_id[1], 'recipe_id' => $i, 'user_id' => DatabaseSeeder::DEVENV_USER_ID,],
+                ['quantity'=> $random_quantities[2], 'command_id'=> $random_command_id[2], 'recipe_id' => $i, 'user_id' => DatabaseSeeder::DEVENV_USER_ID,],
+                ['quantity'=> $random_quantities[3], 'command_id'=> $random_command_id[3], 'recipe_id' => $i, 'user_id' => DatabaseSeeder::DEVENV_USER_ID,],
             ]);
 
             $i++;
