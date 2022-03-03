@@ -3,38 +3,29 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Database\Seeders\TestSeeders\TestDatabaseSeeder;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 
 class FrontTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * Test front view
-     *
+     * 
+     * @test
      * @return void
      */
-    public function testFrontView()
+    public function FrontRouteReturnFrontViewIfAuth()
     {
-        $user = new User();
+        $this->seed(TestDatabaseSeeder::class);
+
+        $user = User::find(TestDatabaseSeeder::TESTENV_USER_ID);
 
         $response = $this->actingAs($user)->get('/');
 
-        $response->assertViewIs('front');
-    }
-
-    /**
-     * Test front route 
-     *
-     * @return void
-     */
-    public function testFrontRoute()
-    {
-        $user = new User();
-
-        $response = $this->actingAs($user)->get('/');
-
-        $response->assertStatus(200);
+        $response->assertViewIs('front')->assertStatus(200);
     }
 
     /**
@@ -43,7 +34,7 @@ class FrontTest extends TestCase
      * @test
      * @return void
      */
-    public function onlyAuthenticatedUserCanAccessFront()
+    public function FrontRouteRedirectToGuestIfNotAuth()
     {
         $response = $this->get('/');
 
