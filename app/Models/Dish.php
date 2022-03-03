@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Menu;
 use App\Models\Recipe;
+use App\Models\User;
 
 class Dish extends Model
 {
@@ -26,5 +27,10 @@ class Dish extends Model
     public function recipe()
     {
         return $this->belongsTo(Recipe::class, 'recipe_id', 'id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

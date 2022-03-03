@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Recipe;
 use App\Models\Command;
+use App\Models\User;
 
 class Quantity extends Model
 {
@@ -21,5 +22,10 @@ class Quantity extends Model
 
     public function command(){
         return $this->belongsTo(Command::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }
