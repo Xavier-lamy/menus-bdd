@@ -3,40 +3,96 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Database\Seeders\TestSeeders\TestDatabaseSeeder;
+use Tests\TestCase;
 use App\Models\Command;
 use App\Models\Stock;
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
+use App\Models\User;
 
 class CommandTest extends TestCase
 {
     use RefreshDatabase;
     /**
+     * Prepare the database for tests with the test seeders
+     */
+    public function setUp(): void
+    {
+        parent::setUp();
+        
+        $this->seed(TestDatabaseSeeder::class);
+
+        $this->user = User::find(TestDatabaseSeeder::TESTENV_USER_ID);
+
+    }
+
+    /**
+     * Test only authenticated user can access to commands view
+     * 
+     * @test
+     * @return void
+     */
+    public function commandsRouteRedirectToGuestIfNotAuth()
+    {
+        $response = $this->get('/commands');
+
+        $response->assertRedirect('/guest');
+        $response->assertStatus(302);
+    }
+
+    /**
+     * Test commands index method and view
+     * 
+     * @test
+     * @return void
+     */
+    public function commandIndexIfAuth()
+    {
+        $response = $this->actingAs($this->user)->get('/commands');
+
+        $response->assertViewIs('commands')->assertStatus(200);
+    }
+
+    /**
+     * Test command create method and view 
+     *
+     * @test
+     * @return void
+     */
+    public function commandCreateIfAuth()
+    {
+        $response = $this->actingAs($this->user)->get('/commands/create');
+
+        $response
+            ->assertViewIs('commands')
+            ->assertViewHas('is_creating')
+            ->assertStatus(200);
+    }
+
+   /**
      * Test if Commands method "Store" work as intended:
      *  - Redirect
      *  - Return a success message
      *  - The product is correctly added in commands
      *
+     * @test
      * @return void
      */
-    public function testStoreInCommand()
+    public function commandStoreIfAuth()
     {
-        $this->withoutExceptionHandling();
-        //Test a request for adding product
-        $response = $this->post('/commands/create', [
-            'ingredient' => 'flour',
-            'unit' => 'grams',
-            'alert_stock' => 200,
+        $response = $this->actingAs($this->user)->post('/commands/create', [
+            'ingredient' => 'new_ingredient',
+            'unit' => 'new_unit',
+            'alert_stock' => 5,
         ]);
 
-        //Check if the product has been added
+        //Check if the product has been added (should be the third as there is already two other products)
         $command = Command::where([
-            'id' => 1,
-            'ingredient' => 'flour',
+            'id' => 3,
+            'ingredient' => 'new_ingredient',
             'quantity' => 0,
-            'unit' => 'grams',
-            'alert_stock' => 200,
-            'must_buy' => 1,
+            'unit' => 'new_unit',
+            'alert_stock' => 5,
+            'user_id' => $this->user->id,
         ])->exists();
 
         $this->assertTrue($command);
@@ -49,41 +105,44 @@ class CommandTest extends TestCase
     }
 
     /**
+     * Test command edit method and view 
+     *
+     * @test
+     * @return void
+     */
+    public function commandEditIfAuth()
+    {
+        $response = $this->actingAs($this->user)->get('/commands/modify/{id}');
+
+        $response
+            ->assertViewIs('commands')
+            ->assertViewHas('modifying_product_id')
+            ->assertStatus(200);
+    }
+
+    /**
      * Test if Commands method "Update" work as intended:
      *  - Redirect
      *  - Return a success message
      *  - The product is correctly updated in commands
      *
+     * @test
      * @return void
      */
-    public function testUpdateCommand()
+    public function commandUpdateIfAuth()
     {
-        $this->withoutExceptionHandling();
-
-        Command::create([
+        $response = $this->actingAs($this->user)->post('/commands/modify', [
             'id' => 1,
-            'ingredient' => 'flour',
-            'quantity' => 200,
-            'unit' => 'grams',
-            'alert_stock' => 400,
-            'must_buy' => 1,
-        ]);
-
-        $response = $this->post('/commands/modify', [
-            'id' => 1,
-            'ingredient' => 'sugar',
-            'unit' => 'bags',
-            'alert_stock' => 100,
+            'ingredient' => 'new_ingredient',
+            'unit' => 'new_unit',
+            'alert_stock' => 10,
         ]);
 
         //Check if the product has been updated in commands
         $command = Command::where([
             'id' => 1,
-            'ingredient' => 'sugar',
-            'quantity' => 200,
-            'unit' => 'bags',
-            'alert_stock' => 100,
-            'must_buy' => 0,
+            'ingredient' => 'new_ingredient',
+            'unit' => 'new_unit',
         ])->exists();
 
         $this->assertTrue($command);
@@ -96,43 +155,36 @@ class CommandTest extends TestCase
     }
 
     /**
+     * Test command delete-confirmation method and view 
+     *
+     * @test
+     * @return void
+     */
+    public function commandDeleteConfirmIfAuth()
+    {
+        $response = $this->actingAs($this->user)->post('/command-delete-confirmation');
+
+        //Should return an error message and redirect to commands, because no products are selected
+        $response
+            ->assertRedirect('/commands')
+            ->assertSessionHas('message', 'You need to select products first !')
+            ->assertStatus(302);
+    }
+
+    /**
      * Test if Commands method "Destroy" work as intended:
      *  - Redirect
      *  - Return a success message
      *  - Return the correct amount of deleted entries
      *  - The product is correctly delete from both commands and stocks
      *
+     * @test
      * @return void
      */
-    public function testDestroyCommand()
+    public function commandDestroyIfAuth()
     {
-        $this->withoutExceptionHandling();
-
-        Command::create([
-            'id' => 1,
-            'ingredient' => 'flour',
-            'quantity' => 500,
-            'unit' => 'grams',
-            'alert_stock' => 150,
-            'must_buy' => 0,
-        ]);
-
-        //Create 2 products in stocks
-        Stock::create([
-            'id' => 1,
-            'quantity' => 200,
-            'useby_date' => '2002-11-01',
-            'command_id' => 1,
-        ]);
-
-        Stock::create([
-            'id' => 2,
-            'quantity' => 300,
-            'useby_date' => '2002-11-03',
-            'command_id' => 1,
-        ]);
-
-        $response = $this->post('/commands/delete', [
+        //test destroying command product 1 (stocks[1] and stocks[2] should also be removed)
+        $response = $this->actingAs($this->user)->post('/commands/delete', [
             'delete_1' => 1,
         ]);
 
