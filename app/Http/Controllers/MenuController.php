@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Menu;
 use App\Models\Recipe;
 use App\Models\Dish;
@@ -12,13 +13,23 @@ use App\Rules\IdValided;
 class MenuController extends Controller
 {
     /**
+     * Define middlewares in class construct
+     */
+    public function __construct() {
+        //Force use of authentication
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $menus = Menu::orderBy('day', 'asc')->get();
+        $user_id = Auth::user()->id;
+
+        $menus = Menu::where('user_id', $user_id)->orderBy('day', 'asc')->get();
 
         return view('menus', [
             'menus' => $menus,
@@ -32,8 +43,10 @@ class MenuController extends Controller
      */
     public function create()
     {
+        $user_id = Auth::user()->id;
+
         $is_creating = true;
-        $recipes = Recipe::orderBy('name')->get();
+        $recipes = Recipe::where('user_id', $user_id)->orderBy('name')->get();
 
         //Get user moment option, transform JSON to Array (amodif)
         $moments = Dish::MOMENTS;
@@ -53,6 +66,8 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
+        $user_id = Auth::user()->id;
+
         $request->validate([
             'day' => ['required', 'date_format:Y-m-d', 'after:2000-01-01', 'before:2300-01-01'],
             '*.*.recipe' => [new RecipeIdValided],
@@ -64,6 +79,7 @@ class MenuController extends Controller
 
         $menu = Menu::create([
             'day' => $day,
+            'user_id' => $user_id,
         ]);
 
         //Loop through moments of the day
@@ -76,6 +92,7 @@ class MenuController extends Controller
                         'moment' => $moment,
                         'recipe_id' => $moment_dish['recipe'],
                         'portion' => $moment_dish['portion'],
+                        'user_id' => $user_id,
                     ]);
                 }
             }
@@ -92,7 +109,12 @@ class MenuController extends Controller
      */
     public function show($id)
     {
-        $menu = Menu::find($id);
+        $user_id = Auth::user()->id;
+
+        $menu = Menu::where([
+            'id' => $id,
+            'user_id' => $user_id,
+        ])->first();
 
         if(empty($menu)){
             return redirect('menus')->with('error', "This menu doesn't exist");
@@ -124,8 +146,14 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
-        $menu = Menu::find($id);
-        $recipes = Recipe::orderBy('name')->get();
+        $user_id = Auth::user()->id;
+
+        $menu = Menu::where([
+            'id' => $id,
+            'user_id' => $user_id,
+        ])->first();
+
+        $recipes = Recipe::where('user_id', $user_id)->orderBy('name')->get();
 
         if(empty($menu)){
             return redirect('menus')->with('error', "This menu doesn't exist");
@@ -162,6 +190,8 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $user_id = Auth::user()->id;
+
         $request->validate([
             'day' => ['required', 'date_format:Y-m-d', 'after:2000-01-01', 'before:2300-01-01'],
             '*.*.recipe' => [new RecipeIdValided],
@@ -170,13 +200,21 @@ class MenuController extends Controller
         ]);
 
         //Update menu
-        $menu = Menu::find($id);
+        $menu = Menu::where([
+            'id' => $id,
+            'user_id' => $user_id,
+        ])->first();
+
         $menu->update([
             'day' => $request->day,
+            'user_id' => $user_id,
         ]);
 
         //return list of current existing ids for this menu in dishes
-        $old_menu_dishes = Dish::where('menu_id', $id)->get();
+        $old_menu_dishes = Dish::where([
+            'menu_id' => $id,
+            'user_id' => $user_id,
+        ])->get();
 
 
         //Loop through moments of the day
@@ -187,7 +225,10 @@ class MenuController extends Controller
                 //Check if dish is in dishes array
                 $existing_dish = '';
                 if(!empty($moment_dish['id'])){
-                    $existing_dish = Dish::find($moment_dish['id']);
+                    $existing_dish = Dish::where([
+                        'id' => $moment_dish['id'],
+                        'user_id' => $user_id,
+                    ])->first();
                 }
                 $moment_dish_recipe_id = $moment_dish['recipe'];
                 $moment_dish_portion = $moment_dish['portion'];
@@ -204,6 +245,7 @@ class MenuController extends Controller
                         'moment' => $moment,
                         'recipe_id' => $moment_dish_recipe_id,
                         'portion' => $moment_dish_portion,
+                        'user_id' => $user_id,
                     ]);
                 };
                 //Add dish id to array
@@ -217,7 +259,10 @@ class MenuController extends Controller
         foreach($old_menu_dishes as $old_menu_dish){
             $old_dish_id = $old_menu_dish->id;
             if(!in_array($old_dish_id, $new_dishes_array)){
-                $old_dish = Dish::find($old_dish_id)->delete();
+                $old_dish = Dish::where([
+                    'id' => $old_dish_id,
+                    'user_id' => $user_id,
+                ])->delete();
             }
         }
 
@@ -232,10 +277,12 @@ class MenuController extends Controller
      */
     public function confirmDestroy(Request $request)
     {
+        $user_id = Auth::user()->id;
+
         $delete_confirmation = 'menus';
         $delete_ids = $request->except('_token');
 
-        $menus = Menu::whereIn('id', $delete_ids)->get();
+        $menus = Menu::where('user_id', $user_id)->whereIn('id', $delete_ids)->get();
 
         if($menus->count() > 0){
             return view('confirmation', [
@@ -255,13 +302,18 @@ class MenuController extends Controller
      */
     public function destroy(Request $request)
     {
+        $user_id = Auth::user()->id;
+
         $delete_ids = $request->except('_token');
         $entries_deleted = 0;
         $entries_total = count($delete_ids);
 
         foreach($delete_ids as $deleted_id){
 
-            $menu = Menu::find($deleted_id);
+            $menu = Menu::where([
+                'id' => $deleted_id,
+                'user_id' => $user_id,
+            ])->first();
 
             if(!empty($menu)){
                 $menu->delete();
