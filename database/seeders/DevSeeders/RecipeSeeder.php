@@ -1,12 +1,10 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\DevSeeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Command;
 use App\Models\Recipe;
 use App\Models\Quantity;
-use Carbon\Carbon;
 
 class RecipeSeeder extends Seeder
 {
