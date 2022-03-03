@@ -12,7 +12,7 @@ class Quantity extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['quantity', 'command_id', 'recipe_id'];
+    protected $fillable = ['quantity', 'command_id', 'recipe_id', 'user_id'];
 
     public $timestamps = false;
 

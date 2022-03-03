@@ -15,7 +15,7 @@ class Dish extends Model
     //Default moment option
     public const MOMENTS = ['morning' => 'Breakfast', 'noon' => 'Lunch', 'evening' => 'Dinner'];
 
-    protected $fillable = ['menu_id', 'moment', 'recipe_id', 'portion'];
+    protected $fillable = ['menu_id', 'moment', 'recipe_id', 'portion', 'user_id'];
 
     public $timestamps = false;
 

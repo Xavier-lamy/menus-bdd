@@ -11,7 +11,7 @@ class Command extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['ingredient', 'quantity', 'unit', 'alert_stock', 'must_buy'];
+    protected $fillable = ['ingredient', 'quantity', 'unit', 'alert_stock', 'must_buy', 'user_id'];
 
     public $timestamps = false;
 

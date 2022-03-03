@@ -10,7 +10,7 @@ class Menu extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['day'];
+    protected $fillable = ['day', 'user_id'];
 
     public $timestamps = false;
 

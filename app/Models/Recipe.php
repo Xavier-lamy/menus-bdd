@@ -11,7 +11,7 @@ class Recipe extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'process', 'total'];
+    protected $fillable = ['name', 'process', 'total', 'user_id'];
 
     public $timestamps = false;
 

@@ -11,7 +11,7 @@ class Stock extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['quantity', 'useby_date', 'command_id'];
+    protected $fillable = ['quantity', 'useby_date', 'command_id', 'user_id'];
 
     public $timestamps = false;
 
