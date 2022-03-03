@@ -34,8 +34,8 @@ class TestStockSeeder extends Seeder
                 'ingredient' => $product[0],
                 'quantity' => 0,
                 'unit' => $product[1],
-                'alert_stock' => 10,
-                'must_buy' => 0,
+                'alert_stock' => 20,
+                'must_buy' => 1, //2 products at 10 so stocks = alert_stock, must_buy should be true
                 'user_id' => TestDatabaseSeeder::TESTENV_USER_ID,
             ]);
 
