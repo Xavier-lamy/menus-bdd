@@ -123,7 +123,7 @@ class StockTest extends TestCase
      */
     public function stockEditIfAuth()
     {
-        $response = $this->actingAs($this->user)->get('/stocks/modify/{id}');
+        $response = $this->actingAs($this->user)->get('/stocks/modify/1');
 
         $response
             ->assertViewIs('stocks')
@@ -204,9 +204,10 @@ class StockTest extends TestCase
      *  - The product is correctly delete from stocks
      *  - The product is correctly updated in commands
      *
+     * @test
      * @return void
      */
-    public function testDestroyStock()
+    public function stockDestroyIfAuth()
     {
         //Test destroying products 1 and 2 in stocks
         $response = $this->actingAs($this->user)->post('/stocks/delete', [

@@ -113,7 +113,7 @@ class CommandTest extends TestCase
      */
     public function commandEditIfAuth()
     {
-        $response = $this->actingAs($this->user)->get('/commands/modify/{id}');
+        $response = $this->actingAs($this->user)->get('/commands/modify/1');
 
         $response
             ->assertViewIs('commands')
