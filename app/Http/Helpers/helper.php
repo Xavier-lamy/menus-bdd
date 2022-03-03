@@ -5,6 +5,7 @@
  */
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
+use Database\Seeders\AppSeeders\CommandSeeder;
 
 if (!function_exists('checkProductExpire')) {
     /**
@@ -60,5 +61,19 @@ if (!function_exists('redirectWithDeletionMessage')){
                 } 
                 return redirect($route_name)->with('success', "{$entries_deleted} entries deleted !")->send(); 
         }
+    }
+}
+
+if( !function_exists('createBasicIngredients')){
+    /**
+     * Seed the database for a user with some common ingredients
+     * 
+     * @param int $userId
+     * 
+     * @return void
+     */
+    function createBasicIngredients(int $userId): void
+    {
+        CommandSeeder::seedApp($userId);
     }
 }

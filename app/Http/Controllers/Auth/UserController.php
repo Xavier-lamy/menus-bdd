@@ -32,6 +32,7 @@ class UserController extends Controller
             'username' => ['required', 'string', 'min:2', 'max:80'],
             'email' => ['required', 'email', 'unique:users'],
             'password' => ['required', 'min:10', 'max:80'],
+            'create_ingredients' => ['sometimes'],
         ]);
 
         $user = User::create([
@@ -40,7 +41,13 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return view('auth.login');
+        if($request->create_ingredients){
+            createBasicIngredients($user->id);
+        }
+
+        Auth::login($user);
+
+        return redirect()->intended(route('front'));
     }
 
     /**
@@ -59,12 +66,22 @@ class UserController extends Controller
      */
     public function authenticate(Request $request)
     {
+        $request->validate([
+            'remember' => ['sometimes'],
+        ]);
+
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
+        $remember = false;
+
+        if($request->remember){
+            $remember = true;
+        }
+
+        if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
  
             return redirect()->intended(route('front'));
