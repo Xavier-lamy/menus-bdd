@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Database\Seeders\TestSeeders\TestDatabaseSeeder;
 use Tests\TestCase;
-use App\Models\Command;
 use App\Models\Quantity;
 use App\Models\Recipe;
 use App\Models\User;
@@ -221,7 +220,7 @@ class RecipeTest extends TestCase
     {
         $response = $this->actingAs($this->user)->post('/recipe-delete-confirmation');
 
-        //Should return an error message and redirect to recipes, because no products are selected
+        //Should return an error message and redirect to recipes, because no recipe is selected
         $response
             ->assertRedirect('/recipes')
             ->assertSessionHas('message', 'You need to select recipes first !')
@@ -237,6 +236,7 @@ class RecipeTest extends TestCase
      *  - No related ingredients are found in quantities table
      *  
      * @test
+     * @return void
      */
     public function recipeDestroyIfAuth()
     {
