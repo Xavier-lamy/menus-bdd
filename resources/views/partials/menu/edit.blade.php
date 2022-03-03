@@ -10,17 +10,18 @@ Modify Menu
 @section('forms')
 <form method="POST" action=" {{ route('menu.apply', ['id' => $menu->id]) }} " id="update_menu_form">
     @csrf
-    <select name="select_recipe_options" id="select_recipe_options" hidden>
-        @if(isset($recipes) && $recipes->count() > 0)
-            <option value="" selected>Choose a recipe</option>
-            @foreach($recipes as $recipe)
-                <option value="{{ $recipe->id }}">{{ $recipe->name }}</option>
-            @endforeach
-        @else
-            <option value="" selected>No recipe available</option>
-        @endif
-    </select>
 </form>
+{{--Prepare select options for JS:--}}
+<select name="select_recipe_options" id="select_recipe_options" hidden>
+    @if(isset($recipes) && $recipes->count() > 0)
+        <option value="" selected>Choose a recipe</option>
+        @foreach($recipes as $recipe)
+            <option value="{{ $recipe->id }}">{{ $recipe->name }}</option>
+        @endforeach
+    @else
+        <option value="" selected>No recipe available</option>
+    @endif
+</select>
 @endsection
 
 @section('table')
@@ -75,7 +76,7 @@ Modify Menu
             @forelse($moment_dishes as $moment_dish)
                 <tr name="{{ $moment }}_recipe_row">
                     <td class="text--center p--1">
-                        <select name="[recipe]" id="recipe_{{ $moment }}_{{ $moment_i }}" aria-label="Recipe" form="update_menu_form" class="text--center input--inset" title="Recipe" required>
+                        <select name="{{$moment}}[{{$moment_i}}][recipe]" id="recipe_{{ $moment }}_{{ $moment_i }}" aria-label="Recipe" form="update_menu_form" class="text--center input--inset" title="Recipe" required>
                             @if(isset($recipes) && $recipes->count() > 0)
                                 <option value="">Choose a recipe</option>
                                 @foreach($recipes as $recipe)

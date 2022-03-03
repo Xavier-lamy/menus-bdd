@@ -10,17 +10,18 @@ Add menu
 @section('forms')
 <form method="POST" action=" {{ route('menu.add') }} " id="add_menu_form">
     @csrf
-    <select name="select_recipe_options" id="select_recipe_options" hidden>
-        @if(isset($recipes) && $recipes->count() > 0)
-            <option value="" selected>Choose a recipe</option>
-            @foreach($recipes as $recipe)
-                <option value="{{ $recipe->id }}">{{ $recipe->name }}</option>
-            @endforeach
-        @else
-            <option value="" selected>No recipe available</option>
-        @endif
-    </select>
 </form>
+{{--Prepare select options for JS:--}}
+<select name="select_recipe_options" id="select_recipe_options" hidden>
+    @if(isset($recipes) && $recipes->count() > 0)
+        <option value="" selected>Choose a recipe</option>
+        @foreach($recipes as $recipe)
+            <option value="{{ $recipe->id }}">{{ $recipe->name }}</option>
+        @endforeach
+    @else
+        <option value="" selected>No recipe available</option>
+    @endif
+</select>
 @endsection
 
 @section('table')

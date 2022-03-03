@@ -198,7 +198,7 @@ class MenuController extends Controller
             '*.*.portion' => ['min:0', 'max:1000000000', 'integer'],
             '*.*.id' => ['sometimes', new IdValided],
         ]);
-
+        
         //Update menu
         $menu = Menu::where([
             'id' => $id,
@@ -215,7 +215,6 @@ class MenuController extends Controller
             'menu_id' => $id,
             'user_id' => $user_id,
         ])->get();
-
 
         //Loop through moments of the day
         $moments = $request->except('day', '_token');
