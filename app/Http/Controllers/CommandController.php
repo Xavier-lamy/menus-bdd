@@ -4,10 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Command;
-use App\Models\Stock;
+use Illuminate\Support\Facades\Auth;
 
 class CommandController extends Controller
 {
+    /**
+     * Define middlewares in class construct
+     */
+    public function __construct() {
+        //Force use of authentication
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +23,9 @@ class CommandController extends Controller
      */
     public function index()
     {
-        $products = Command::all();
+        $user_id = Auth::user()->id;
+
+        $products = Command::where('user_id', $user_id)->get();
 
         return view('commands', [
             'products' => $products,
@@ -29,8 +39,10 @@ class CommandController extends Controller
      */
     public function create()
     {
+        $user_id = Auth::user()->id;
+
         $is_creating = true;
-        $products = Command::all();
+        $products = Command::where('user_id', $user_id)->get();
 
         return view('commands', [
             'products' => $products,
@@ -46,6 +58,8 @@ class CommandController extends Controller
      */
     public function store(Request $request)
     {
+        $user_id = Auth::user()->id;
+        
         $request->validate([
             'ingredient' => ['required', 'min:1', 'max:40', 'string'],
             'unit' => ['required', 'min:1', 'max:30', 'string'],
@@ -55,7 +69,11 @@ class CommandController extends Controller
         $ingredient = strtolower($request->ingredient);
         $unit = strtolower($request->unit);
         $alert_stock = $request->alert_stock;
-        $product_exist = Command::where('ingredient', $ingredient)->where('unit', $unit)->first();
+        $product_exist = Command::where([
+            'ingredient' => $ingredient,
+            'unit' => $unit,
+            'user_id' => $user_id,
+        ])->first();
 
         if(!empty($product_exist)){
             return redirect('commands')->with('message', "Product: {$ingredient} ({$unit}),already exists !");
@@ -67,18 +85,11 @@ class CommandController extends Controller
             'unit' => $unit,
             'alert_stock' => $alert_stock,
             'must_buy' => 1,
+            'user_id' => $user_id,
         ]);
 
         return redirect('commands')->with('success', 'Product successfully added !');            
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    /* public function show($id) */
 
     /**
      * Show the form for editing the specified resource.
@@ -88,7 +99,9 @@ class CommandController extends Controller
      */
     public function edit($id)
     {
-        $products = Command::all();
+        $user_id = Auth::user()->id;
+
+        $products = Command::where('user_id', $user_id)->get();
 
         return view('commands', [
             'products' => $products,
@@ -104,6 +117,8 @@ class CommandController extends Controller
      */
     public function update(Request $request)
     {
+        $user_id = Auth::user()->id;
+
         $request->validate([
             'id' => ['required', 'min:0', 'integer'],
             'ingredient' => ['required', 'min:1', 'max:40', 'string'],
@@ -113,7 +128,11 @@ class CommandController extends Controller
 
         //Modify commands: ingredient, unit and alert-stock
         $command_id = $request->id;
-        $commands_product = Command::find($command_id);
+        $commands_product = Command::where([
+            'id' => $command_id,
+            'user_id'=> $user_id,
+        ])->first();
+
         $command_ingredient = strtolower($request->ingredient);
         $command_unit = strtolower($request->unit);
         $command_alert_stock = $request->alert_stock;
@@ -125,7 +144,10 @@ class CommandController extends Controller
         ]);
 
         //Check if must_buy
-        $new_commands_product = Command::find($command_id);
+        $new_commands_product = Command::where([
+            'id' => $command_id,
+            'user_id'=> $user_id,
+        ])->first();
         $new_command_quantity = $new_commands_product->quantity;
         $new_alert_stock = $new_commands_product->alert_stock;
         $must_buy = 0;
@@ -150,10 +172,12 @@ class CommandController extends Controller
      */
     public function confirmDestroy(Request $request)
     {
+        $user_id = Auth::user()->id;
+
         $delete_confirmation = 'commands';
         $delete_ids = $request->except('_token');
 
-        $products = Command::whereIn('id', $delete_ids)->get();
+        $products = Command::where('user_id', $user_id)->whereIn('id', $delete_ids)->get();
 
         if($products->count() > 0){
             return view('confirmation', [
@@ -174,13 +198,18 @@ class CommandController extends Controller
      */
     public function destroy(Request $request)
     {
+        $user_id = Auth::user()->id;
+
         $delete_ids = $request->except('_token');
         $entries_deleted = 0;
         $entries_total = count($delete_ids);
         
         foreach($delete_ids as $delete_id){
             
-            $commands_product = Command::find($delete_id);
+            $commands_product = Command::where([
+                'id' => $delete_id,
+                'user_id' => $user_id,
+            ])->first();
 
             if(!empty($commands_product)){
                 //remove entry from total stocks (and stocks cascade delete)
@@ -190,6 +219,5 @@ class CommandController extends Controller
             }
         }
         redirectWithDeletionMessage($entries_deleted, $entries_total, 'commands');
-
     }
 }
