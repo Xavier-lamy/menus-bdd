@@ -19,6 +19,9 @@ class CreateStocksTable extends Migration
             $table->date('useby_date');
             $table->unsignedBigInteger('command_id');
             $table->foreign('command_id')->references('id')->on('commands')->onDelete('cascade');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

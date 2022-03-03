@@ -20,6 +20,9 @@ class CreateCommandsTable extends Migration
             $table->string('unit', 30);
             $table->unsignedInteger('alert_stock');
             $table->boolean('must_buy');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

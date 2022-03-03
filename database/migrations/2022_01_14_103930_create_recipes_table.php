@@ -18,6 +18,9 @@ class CreateRecipesTable extends Migration
             $table->string('name', 120);
             $table->text('process');
             $table->unsignedInteger('total')->nullable();
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

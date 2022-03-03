@@ -16,10 +16,15 @@ class CreateQuantitiesTable extends Migration
         Schema::create('quantities', function (Blueprint $table) {
             $table->id('id');
             $table->unsignedInteger('quantity');
+            
             $table->unsignedBigInteger('command_id');
-            $table->unsignedBigInteger('recipe_id');
             $table->foreign('command_id')->references('id')->on('commands')->onDelete('cascade');
+            
+            $table->unsignedBigInteger('recipe_id');
             $table->foreign('recipe_id')->references('id')->on('recipes');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
