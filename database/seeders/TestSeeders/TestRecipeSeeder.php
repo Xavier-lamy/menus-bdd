@@ -12,6 +12,7 @@ class TestRecipeSeeder extends Seeder
      * Run the recipe seeds.
      * 
      * In order to make tests easier:
+     *  - all texts should have "new" inside so this will be sure there is no occurence of this already in test database
      *  - all number are 10 and should be changed to 5 during tests
      *  - all dates are 2020-01-01 (and 2020-01-02 if another one is needed)
      *    and should be changed to 2021-12-30 and 2021-12-31  during tests
