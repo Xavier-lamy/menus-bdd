@@ -59,7 +59,7 @@ Modify recipe
                     </select>
                 </td>
                 <td  class="text--center p--1">
-                    <input type="number" aria-label="Quantity" min="0" name="ingredient[{{ $i }}][quantity]" value="{{ old("ingredient.". $i .".quantity") ?? $ingredient->quantity }}" form="update_recipe_form" class="text--center input--inset" placeholder="Quantity" required>
+                    <input type="number" aria-label="Quantity" min="0" name="ingredient[{{ $i }}][quantity]" value="{{ $ingredient['quantity'] ?? $ingredient->quantity }}" form="update_recipe_form" class="text--center input--inset" placeholder="Quantity" required>
                 </td>
                 <td class="text--center p--1">
                     <button type="button" name="delete_row" id="delete_row{{ $i }}" class="button--sm">Delete row</button>
