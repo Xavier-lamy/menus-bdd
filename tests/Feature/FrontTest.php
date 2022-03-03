@@ -11,10 +11,13 @@ use App\Models\User;
 class FrontTest extends TestCase
 {
     use RefreshDatabase;
+    /**
+     * Prepare the database for tests with the test seeders
+     */
     public function setUp(): void
     {
         parent::setUp();
-        
+
         $this->seed(TestDatabaseSeeder::class);
 
         $this->user = User::find(TestDatabaseSeeder::TESTENV_USER_ID);
@@ -34,7 +37,9 @@ class FrontTest extends TestCase
 
         $response = $this->actingAs($this->user)->get('/');
 
-        $response->assertViewIs('front')->assertStatus(200);
+        $response
+            ->assertViewIs('front')
+            ->assertStatus(200);
     }
 
     /**
@@ -47,7 +52,8 @@ class FrontTest extends TestCase
     {
         $response = $this->get('/');
 
-        $response->assertRedirect('/guest');
-        $response->assertStatus(302);
+        $response
+            ->assertRedirect('/guest')
+            ->assertStatus(302);
     }
 }
