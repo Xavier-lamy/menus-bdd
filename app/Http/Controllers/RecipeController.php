@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Recipe;
 use App\Models\Quantity;
 use App\Models\Command;
@@ -11,13 +12,23 @@ use App\Rules\CommandIdValided;
 class RecipeController extends Controller
 {
     /**
+     * Define middlewares in class construct
+     */
+    public function __construct() {
+        //Force use of authentication
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $recipes = Recipe::all();
+        $user_id = Auth::user()->id;
+
+        $recipes = Recipe::where('user_id', $user_id)->get();
 
         return view('recipes', [
             'recipes' => $recipes,            
@@ -31,8 +42,11 @@ class RecipeController extends Controller
      */
     public function create()
     {
+        $user_id = Auth::user()->id;
+
         $is_creating = true;
-        $commands_products = Command::orderBy('ingredient')->get();
+        $commands_products = Command::where('user_id', $user_id)->orderBy('ingredient')->get();
+
         return view('recipe', [
             'is_creating' => $is_creating,
             'commands_products' => $commands_products,
@@ -47,6 +61,8 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
+        $user_id = Auth::user()->id;
+
         $request->validate([
             'recipe_name' => ['required', 'min:1', 'max:120', 'string'],
             'ingredient.*.command_id' => [new CommandIdValided],
@@ -69,7 +85,11 @@ class RecipeController extends Controller
         $different_units = false;
         foreach( $ingredients as $ingredient ){
             $command_id = $ingredient['command_id'];
-            $product = Command::find($command_id);
+            $product = Command::where([
+                'id' => $command_id,
+                'user_id' => $user_id,
+            ])->first();
+
             $product_unit = $product->unit;
             if( !isset($first_product_unit) ){
                 $first_product_unit = $product->unit;
@@ -88,12 +108,12 @@ class RecipeController extends Controller
             }            
         }
 
-
         //Store the new recipe
         $new_recipe = Recipe::create([
             'name' => $recipe_name,
             'process' => $process,
             'total' => $total,
+            'user_id' => $user_id,
         ]);
 
         //Store the ingredients
@@ -104,6 +124,7 @@ class RecipeController extends Controller
                 'command_id' => $ingredient['command_id'],
                 'quantity' => $ingredient['quantity'],
                 'recipe_id' => $recipe_id,
+                'user_id' => $user_id,
             ]);
         }
 
@@ -118,9 +139,21 @@ class RecipeController extends Controller
      */
     public function show($id)
     {
-        $recipe = Recipe::find($id);
+        $user_id = Auth::user()->id;
 
-        $quantities = Quantity::where('recipe_id', $id)->get();
+        $recipe = Recipe::where([
+            'id' => $id,
+            'user_id' => $user_id,
+        ])->first();
+
+        if(empty($recipe)){
+            return redirect('recipes')->with('error', "This recipe doesn't exist");
+        }
+
+        $quantities = Quantity::where([
+            'recipe_id' => $id,
+            'user_id' => $user_id,
+        ])->get();
 
         return view('recipe', [
             'recipe' => $recipe,
@@ -136,9 +169,15 @@ class RecipeController extends Controller
      */
     public function edit($id)
     {
-        $recipe = Recipe::find($id);
-        $commands_products = Command::orderBy('ingredient')->get();
+        $user_id = Auth::user()->id;
+
+        $recipe = Recipe::where([
+            'id' => $id,
+            'user_id' => $user_id,
+        ])->first();
+
         $is_editing = true;
+        $commands_products = Command::where('user_id', $user_id)->orderBy('ingredient')->get();
 
         if(empty($recipe)){
             return redirect('recipes')->with('error', "This recipe doesn't exist");
@@ -159,6 +198,8 @@ class RecipeController extends Controller
      */
     public function update(Request $request)
     {
+        $user_id = Auth::user()->id;
+
         $request->validate([
             'id' => ['required', 'min:0', 'integer'],
             'recipe_name' => ['required', 'min:1', 'max:120', 'string'],
@@ -183,7 +224,11 @@ class RecipeController extends Controller
         $different_units = false;
         foreach( $ingredients as $ingredient ){
             $command_id = $ingredient['command_id'];
-            $product = Command::find($command_id);
+            $product = Command::where([
+                'id' => $command_id,
+                'user_id' => $user_id,
+            ])->first();
+
             $product_unit = $product->unit;
             if( !isset($first_product_unit) ){
                 $first_product_unit = $product->unit;
@@ -203,14 +248,21 @@ class RecipeController extends Controller
         }
 
         //Fetch the recipe
-        $recipe = Recipe::find($recipe_id);
+        $recipe = Recipe::where([
+            'id' => $recipe_id,
+            'user_id' => $user_id,
+        ])->first();
+
         $recipe->update([
             'name' => $recipe_name,
             'process' => $process,
             'total' => $total,
         ]);
 
-        $old_ingredients = Quantity::where('recipe_id', $recipe_id)->get();
+        $old_ingredients = Quantity::where([
+            'recipe_id' => $recipe_id,
+            'user_id' => $user_id,
+            ])->get();
 
         if(!empty($old_ingredients)){
             foreach( $old_ingredients as $old_ingredient ){
@@ -223,6 +275,7 @@ class RecipeController extends Controller
                 'command_id' => $ingredient['command_id'],
                 'quantity' => $ingredient['quantity'],
                 'recipe_id' => $recipe_id,
+                'user_id' => $user_id,
             ]);
         }
         return redirect('recipe/show/'.$recipe_id)->with('success', 'Recipe updated !');
@@ -236,10 +289,12 @@ class RecipeController extends Controller
      */
     public function confirmDestroy(Request $request)
     {
+        $user_id = Auth::user()->id;
+
         $delete_confirmation = 'recipes';
         $delete_ids = $request->except('_token');
 
-        $recipes = Recipe::whereIn('id', $delete_ids)->get();
+        $recipes = Recipe::where('user_id', $user_id)->whereIn('id', $delete_ids)->get();
 
         if($recipes->count() > 0){
             return view('confirmation', [
@@ -259,6 +314,8 @@ class RecipeController extends Controller
      */
     public function destroy(Request $request)
     {
+        $user_id = Auth::user()->id;
+
         $delete_ids = $request->except('_token');
         $entries_deleted = 0;
         $entries_total = count($delete_ids);
@@ -266,10 +323,16 @@ class RecipeController extends Controller
         foreach($delete_ids as $deleted_id){
 
             //remove recipe from table
-            $recipe = Recipe::find($deleted_id);
+            $recipe = Recipe::where([
+                'id' => $deleted_id,
+                'user_id' => $user_id,
+            ])->first();
 
             //remove related ingredients
-            $ingredients = Quantity::where('recipe_id', $deleted_id)->get();
+            $ingredients = Quantity::where([
+                'recipe_id' => $deleted_id,
+                'user_id' => $user_id,
+            ])->get();
 
             foreach($ingredients as $ingredient){
                 $ingredient->delete();
