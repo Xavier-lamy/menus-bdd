@@ -3,10 +3,10 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Database\Seeders\TestSeeders\TestDatabaseSeeder;
 use Tests\TestCase;
 use App\Models\Menu;
 use App\Models\Dish;
-use Database\Seeders\TestSeeders\TestDatabaseSeeder;
 
 class MenuTest extends TestCase
 {

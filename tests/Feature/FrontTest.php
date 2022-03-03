@@ -11,19 +11,28 @@ use App\Models\User;
 class FrontTest extends TestCase
 {
     use RefreshDatabase;
+    public function setUp(): void
+    {
+        parent::setUp();
+        
+        $this->seed(TestDatabaseSeeder::class);
+
+        $this->user = User::find(TestDatabaseSeeder::TESTENV_USER_ID);
+    }
+
     /**
      * Test front view
      * 
      * @test
      * @return void
      */
-    public function FrontRouteReturnFrontViewIfAuth()
+    public function frontRouteReturnFrontViewIfAuth()
     {
-        $this->seed(TestDatabaseSeeder::class);
+/*         $this->seed(TestDatabaseSeeder::class);
 
-        $user = User::find(TestDatabaseSeeder::TESTENV_USER_ID);
+        $user = User::find(TestDatabaseSeeder::TESTENV_USER_ID); */
 
-        $response = $this->actingAs($user)->get('/');
+        $response = $this->actingAs($this->user)->get('/');
 
         $response->assertViewIs('front')->assertStatus(200);
     }
@@ -34,7 +43,7 @@ class FrontTest extends TestCase
      * @test
      * @return void
      */
-    public function FrontRouteRedirectToGuestIfNotAuth()
+    public function frontRouteRedirectToGuestIfNotAuth()
     {
         $response = $this->get('/');
 
