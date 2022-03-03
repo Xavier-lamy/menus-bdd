@@ -10,17 +10,16 @@ class TestStockSeeder extends Seeder
 {
     /**
      * Run the stock seeds.
-     *
+     * 
+     * In order to make tests easier:
+     *  - all number are 10 and should be changed to 5 during tests
+     *  - all dates are 2020-01-01 (and 2020-01-02 if another one is needed)
+     *    and should be changed to 2021-12-30 and 2021-12-31  during tests
+     * 
      * @return void
      */
     public function run()
     {
-        /**
-         * In order to make tests easier:
-         *  - all number are 10 and should be changed to 5 during tests
-         *  - all dates are 2020-01-01 (and 2020-01-02 if another one is needed)
-         *      and should be changed to 2021-12-30 and 2021-12-31  during tests
-         */
 
         //Create 2 fake products in commands
         $ingredient_unit_array = array(
@@ -36,6 +35,7 @@ class TestStockSeeder extends Seeder
                 'unit' => $product[1],
                 'alert_stock' => 10,
                 'must_buy' => 0,
+                'user_id' => TestDatabaseSeeder::TESTENV_USER_ID,
             ]);
 
         }
@@ -49,12 +49,14 @@ class TestStockSeeder extends Seeder
                     'quantity' => 10,
                     'useby_date' => '2020-01-01',
                     'command_id' => $command['id'],
+                    'user_id' => TestDatabaseSeeder::TESTENV_USER_ID,
                 ]);
 
                 Stock::create([
                     'quantity' => 10,
                     'useby_date' => '2020-01-02',
                     'command_id' => $command['id'],
+                    'user_id' => TestDatabaseSeeder::TESTENV_USER_ID,
                 ]);
 
                 $alert_stock = $command->alert_stock;
