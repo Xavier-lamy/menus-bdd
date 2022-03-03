@@ -29,8 +29,23 @@ Modify recipe
         @php
             $i = 1; 
         @endphp
-        {{--Use nullish coalescing operator to check if values from previous failed validation exist, if they don't then return current recipe values--}}
-        @forelse ((old('ingredient') ?? $recipe->quantities) as $ingredient)
+        @php 
+            $ingredients = $recipe->quantities;
+            if(old('ingredient')){
+                $ingredients = old('ingredient');
+            }
+        @endphp
+        @forelse ($ingredients as $ingredient)
+            @php
+                if(old('ingredient')){
+                    $ingredient_command_id = $ingredient['command_id'];
+                    $ingredient_quantity = $ingredient['quantity'];
+                }
+                else {
+                    $ingredient_command_id = $ingredient->command_id;
+                    $ingredient_quantity = $ingredient->quantity;
+                }
+            @endphp
             <tr name="ingredient_row">
                 <td class="text--center p--1">
                     <select name="ingredient[{{ $i }}][command_id]" id="ingredient_id_{{ $i }}" aria-label="Ingredient (unit)" form="update_recipe_form" class="text--center input--inset" title="Ingredient (unit)" required>
@@ -39,12 +54,8 @@ Modify recipe
                                 Choose an ingredient and a unit
                             </option>
                             @foreach($commands_products as $commands_product)
-                                @if(old('ingredient.'. $i .'.command_id') == $commands_product->id)
+                                @if($ingredient_command_id == $commands_product->id)
                                     <option value="{{ $commands_product->id }}" selected>
-                                        {{ $commands_product->ingredient }} ({{ $commands_product->unit }})
-                                    </option>
-                                @elseif(($ingredient['command_id'] ?? $ingredient->command_id) == $commands_product->id )
-                                    <option value="{{ $commands_product->id }}" {{ old('ingredient.'. $i .'.command_id') == null ? "selected" : "" }}>
                                         {{ $commands_product->ingredient }} ({{ $commands_product->unit }})
                                     </option>
                                 @else 
@@ -59,7 +70,7 @@ Modify recipe
                     </select>
                 </td>
                 <td  class="text--center p--1">
-                    <input type="number" aria-label="Quantity" min="0" name="ingredient[{{ $i }}][quantity]" value="{{ $ingredient['quantity'] ?? $ingredient->quantity }}" form="update_recipe_form" class="text--center input--inset" placeholder="Quantity" required>
+                    <input type="number" aria-label="Quantity" min="0" name="ingredient[{{ $i }}][quantity]" value="{{ $ingredient_quantity }}" form="update_recipe_form" class="text--center input--inset" placeholder="Quantity" required>
                 </td>
                 <td class="text--center p--1">
                     <button type="button" name="delete_row" id="delete_row{{ $i }}" class="button--sm">Delete row</button>
