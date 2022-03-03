@@ -65,6 +65,7 @@ class CommandTest extends TestCase
         $response
             ->assertViewIs('commands')
             ->assertViewHas('is_creating')
+            ->assertViewHas('products')
             ->assertStatus(200);
     }
 
@@ -116,6 +117,7 @@ class CommandTest extends TestCase
 
         $response
             ->assertViewIs('commands')
+            ->assertViewHas('products')
             ->assertViewHas('modifying_product_id')
             ->assertStatus(200);
     }
@@ -131,11 +133,12 @@ class CommandTest extends TestCase
      */
     public function commandUpdateIfAuth()
     {
+        $this->withoutExceptionHandling();
         $response = $this->actingAs($this->user)->post('/commands/modify', [
             'id' => 1,
             'ingredient' => 'new_ingredient',
             'unit' => 'new_unit',
-            'alert_stock' => 10,
+            'alert_stock' => 5,
         ]);
 
         //Check if the product has been updated in commands
@@ -143,6 +146,8 @@ class CommandTest extends TestCase
             'id' => 1,
             'ingredient' => 'new_ingredient',
             'unit' => 'new_unit',
+            'alert_stock' => 5,
+            'user_id' => $this->user->id,
         ])->exists();
 
         $this->assertTrue($command);

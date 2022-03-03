@@ -148,6 +148,7 @@ class CommandController extends Controller
             'id' => $command_id,
             'user_id'=> $user_id,
         ])->first();
+        
         $new_command_quantity = $new_commands_product->quantity;
         $new_alert_stock = $new_commands_product->alert_stock;
         $must_buy = 0;
