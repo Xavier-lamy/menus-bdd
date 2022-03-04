@@ -95,6 +95,7 @@ if( !function_exists('addStartingOptionsToUser')){
             $user_option = Option::where('id', $starting_option['id'])->first();
             $user_option_id = $user_option->id;
 
+            //Define the first option to be default one for dish_moments
             if($starting_option['id'] == 1){
                 $user->options()->attach($user_option_id, ['active' => true]);
                 continue;
