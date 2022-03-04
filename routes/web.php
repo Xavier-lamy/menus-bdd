@@ -9,6 +9,7 @@ use App\Http\Controllers\StockController;
 use App\Http\Controllers\CommandController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\OptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,11 +31,14 @@ Route:: get('/login', [UserController::class, 'login'])->name('login');
 Route:: post('/login', [UserController::class, 'authenticate'])->name('login.authenticate');
 Route:: get('/logout', [UserController::class, 'logout'])->name('logout');
 
-
-
 Route::middleware('auth')->group(function () {
     /*Front */
     Route:: get('/', [FrontController::class, 'index'])->name('front');
+
+    /*options */
+    Route::name('options.')->group(function() {
+        Route::get('/options', [OptionController::class, 'index'])->name('index');
+    });
 
     /*Stocks */
     //Read
