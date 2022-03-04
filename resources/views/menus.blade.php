@@ -30,7 +30,7 @@
             </tr>
         @empty 
             <tr>
-                <td colspan="2" class="text--center">No menus are available</td>
+                <td colspan="2" class="text--center">No menus available</td>
             </tr>
         @endforelse
     @endsection
