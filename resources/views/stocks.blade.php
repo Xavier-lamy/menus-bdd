@@ -13,7 +13,8 @@
         @parent
         @if(isset($is_creating) && $commands_products->count() < 1)
         <div class="alert--message my--2 p--2">
-            No products are available in total stocks, please create one first, in order to be able to add products in stocks
+            No products are available in total stocks, please create one first, in order to be able to add products in stocks.<br>
+            You can go in options to generate a list of common ingredients.
         </div>
         @endif        
     @endsection
