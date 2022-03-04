@@ -22,6 +22,8 @@ class CreateOptionUserTable extends Migration
 
             $table->unsignedBigInteger('option_id');
             $table->foreign('option_id')->references('id')->on('options');
+
+            $table->boolean('active')->default(false);
         });
     }
 

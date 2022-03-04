@@ -6,6 +6,7 @@
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use Database\Seeders\AppSeeders\CommandSeeder;
+use App\Models\Option;
 
 if (!function_exists('checkProductExpire')) {
     /**
@@ -64,16 +65,57 @@ if (!function_exists('redirectWithDeletionMessage')){
     }
 }
 
-if( !function_exists('createBasicIngredients')){
+if( !function_exists('getCommandsCreatedOptionsId')){
     /**
-     * Seed the database for a user with some common ingredients
+     * Return the id of option command created
      * 
-     * @param int $userId
+     * @param null
+     * 
+     * @return int
+     */
+    function getCommandsCreatedOptionsId()
+    {
+        $commands_created = Option::where('option_type', 'commands_created')->first();
+        return $commands_created->id;
+    }
+}
+
+if( !function_exists('addStartingOptionsToUser')){
+    /**
+     * Add starting options to the user
+     * 
+     * @param object $user
      * 
      * @return void
      */
-    function createBasicIngredients(int $userId): void
+    function addStartingOptionsToUser($user): void
     {
-        CommandSeeder::seedApp($userId);
+        //Fetch the starting options in database and return their id
+        foreach(Option::STARTING_OPTIONS as $starting_option){
+            $user_option = Option::where('id', $starting_option['id'])->first();
+            $user_option_id = $user_option->id;
+
+            if($starting_option['id'] == 1){
+                $user->options()->attach($user_option_id, ['active' => true]);
+                continue;
+            }
+            
+            $user->options()->attach($user_option_id);
+        }
+    }
+}
+
+if( !function_exists('createBasicIngredientsForUser')){
+    /**
+     * Seed the database for a user with some common ingredients
+     * 
+     * @param object $user
+     * 
+     * @return void
+     */
+    function createBasicIngredientsForUser($user): void
+    {
+        CommandSeeder::seedApp($user->id);
+        $user->options()->updateExistingPivot(getCommandsCreatedOptionsId(), ['active' => true]);
     }
 }

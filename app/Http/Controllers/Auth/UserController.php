@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Option;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,8 +42,10 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        addStartingOptionsToUser($user);
+
         if($request->create_ingredients){
-            createBasicIngredients($user->id);
+            createBasicIngredientsForUser($user);
         }
 
         Auth::login($user);
