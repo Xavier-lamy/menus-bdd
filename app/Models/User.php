@@ -74,6 +74,6 @@ class User extends Authenticatable
 
     public function options()
     {
-        return $this->belongsToMany(Option::class);
+        return $this->belongsToMany(Option::class)->withPivot('active');
     }
 }
