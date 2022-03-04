@@ -92,13 +92,12 @@ La table menus est désormais séparée en une table **menus** et une *sous-tabl
 
 ## Options
 Chaque utilisateur à des entrées dans une table option_user (table pivot ?), il y a une table option qui contient les éléments suivant:
-| id | option_type | options (nullable)                                                               | active (nullable) |
-|----|-------------|----------------------------------------------------------------------------------|-------------------|
-| 1  | dish_moments     | JSON/array: {'morning' => 'Breakfast', 'noon' => 'Lunch', 'evening' => 'Dinner'} |      null    |
-| 2  | dish_moments     | JSON/array: {'daily_production' => 'Daily Production'}                           |      null    |
-| 3  | commands_created | null                                                                             |      true    |
-| 4  | commands_created | null                                                                             |      false   |
-| 5  | dish_moments     | JSON/array: {'custom_input' => 'Custom Input'}                                   |      null    |
+| id | option_type | options (nullable)                                                               |
+|----|-------------|----------------------------------------------------------------------------------|
+| 1  | dish_moments     | JSON/array: {'morning' => 'Breakfast', 'noon' => 'Lunch', 'evening' => 'Dinner'} |
+| 2  | dish_moments     | JSON/array: {'daily_production' => 'Daily Production'}                           |
+| 3  | commands_created | JSON/array: {'true', 'Commands products already created}                         |
+| 4  | dish_moments     | JSON/array: {'custom_input' => 'Custom Input'}                                   |
 
 - Table options (en exemple un utilisateur possède l'option dish_moments à daily_production):
 

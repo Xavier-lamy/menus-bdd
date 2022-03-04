@@ -17,7 +17,6 @@ class CreateOptionsTable extends Migration
             $table->id();
             $table->string('option_type');
             $table->text('options')->nullable();
-            $table->boolean('active')->nullable();
         });
     }
 

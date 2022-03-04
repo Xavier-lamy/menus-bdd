@@ -29,34 +29,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         //Seed with basic options in any environment(dev or prod)
-        $options = [
-            [
-                'option_type' => 'dish_moments',
-                'options' => array('morning' => 'Breakfast', 'noon' => 'Lunch', 'evening' => 'Dinner'),
-                'active' => null,
-            ],
-            [
-                'option_type' => 'dish_moments',
-                'options' => array('daily_production' => 'Daily Production'),
-                'active' => null,
-            ],
-            [
-                'option_type' => 'commands_created',
-                'options' => null,
-                'active' => true,
-            ],
-            [
-                'option_type' => 'commands_created',
-                'options' => null,
-                'active' => false,
-            ],
-        ];
-
-        foreach($options as $option){
+        foreach(Option::STARTING_OPTIONS as $option){
             Option::create([
                 'option_type' => $option['option_type'],
                 'options' => $option['options'],
-                'active' => $option['active'],
             ]);
         }
 
