@@ -89,3 +89,22 @@ La table menus est désormais séparée en une table **menus** et une *sous-tabl
 |  3 |     1   |  evening  |      6    |    3    |
 |  4 |     2   |  morning  |      1    |    2    |
 |  5 |     2   | afternoon |      5    |    2    |
+
+## Options
+Chaque utilisateur à des entrées dans une table option_user (table pivot ?), il y a une table option qui contient les éléments suivant:
+| id | option_type | options (nullable)                                                               | active (nullable) |
+|----|-------------|----------------------------------------------------------------------------------|-------------------|
+| 1  | dish_moments     | JSON/array: {'morning' => 'Breakfast', 'noon' => 'Lunch', 'evening' => 'Dinner'} |      null    |
+| 2  | dish_moments     | JSON/array: {'daily_production' => 'Daily Production'}                           |      null    |
+| 3  | commands_created | null                                                                             |      true    |
+| 4  | commands_created | null                                                                             |      false   |
+| 5  | dish_moments     | JSON/array: {'custom_input' => 'Custom Input'}                                   |      null    |
+
+- Table options (en exemple un utilisateur possède l'option dish_moments à daily_production):
+
+| id | user_id | options_id |
+|----|---------|------------|
+| 1  |     1   |     2      |
+| 2  |     1   |     3      |
+
+- On utilise une relation many to many (un user peut avoir plusieurs options et une option est partagée par plusieurs utilisateurs)

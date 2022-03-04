@@ -71,4 +71,9 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough(Quantity::class, Recipe::class);
     }
+
+    public function options()
+    {
+        return $this->belongsToMany(Option::class);
+    }
 }
