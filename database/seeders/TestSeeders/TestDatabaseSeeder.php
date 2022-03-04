@@ -3,6 +3,7 @@
 namespace Database\Seeders\TestSeeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Option;
 
 class TestDatabaseSeeder extends Seeder
 {
@@ -27,6 +28,20 @@ class TestDatabaseSeeder extends Seeder
      */
     public function run()
     {
+        /**
+         * Seed with starting options in test database,
+         * this should always be the first seeder to run (as their id is set manually)
+         * note: due to mass assignment being disabled while running seeders, 
+         * the id doesn't have a need to be added in object protected $fillable
+         */  
+        foreach(Option::STARTING_OPTIONS as $option){
+            Option::create([
+                'id' => $option['id'],
+                'option_type' => $option['option_type'],
+                'options' => $option['options'],
+            ]);
+        }
+
         $this->call([
             TestUserSeeder::class,
             TestStockSeeder::class,

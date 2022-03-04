@@ -21,5 +21,7 @@ class TestUserSeeder extends Seeder
             'email' => TestDatabaseSeeder::TESTENV_EMAIL,
             'password' => Hash::make(TestDatabaseSeeder::TESTENV_PASSWORD),
         ]);
+
+        addStartingOptionsToUser($user);
     }
 }

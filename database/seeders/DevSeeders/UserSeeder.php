@@ -22,5 +22,7 @@ class UserSeeder extends Seeder {
             'email' => DatabaseSeeder::DEVENV_EMAIL,
             'password' => Hash::make(DatabaseSeeder::DEVENV_PASSWORD),
         ]);
+
+        addStartingOptionsToUser($user);
     }
 }
